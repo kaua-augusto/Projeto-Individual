@@ -4,7 +4,7 @@
 
 Edgerunning is an individual project developed in the Systems Analysis and Development course at SPTech (São Paulo Tech School). It applies the semester's content, from front-end and API to database, to a personal interest: the game Cyberpunk 2077 and the cyberpunk aesthetic.
 
-**Status:** in development. See the [roadmap](#roadmap) for what is ready and what comes next.
+**Status:** in development.
 
 ## Table of contents
 
@@ -114,20 +114,6 @@ How the numbers are calculated:
 
 Use `npm run dev` to restart the server automatically when a file changes.
 
-## Roadmap
-
-- [x] Express server serving the static pages
-- [x] Landing page
-- [x] Login and sign-up pages (front-end)
-- [x] Base stylesheet with the theme colors
-- [ ] Final layout and visual identity
-- [ ] Database model and scripts
-- [ ] Account API (sign-up and login)
-- [ ] Achievements
-- [ ] Hours played
-- [ ] Missions
-- [ ] Overview dashboard
-
 ## Links
 
 | Resource | Link |
@@ -138,7 +124,7 @@ Use `npm run dev` to restart the server automatically when a file changes.
 
 ## Author
 
-**Kauã** · [GitHub](https://github.com/kaua-augusto) · LinkedIn: _to be added_
+**Kauã** · [GitHub](https://github.com/kaua-augusto) · LinkedIn: [LinkedIn](https://www.linkedin.com/in/kaua-augusto-05186343a/)
 
 ## Disclaimer
 
