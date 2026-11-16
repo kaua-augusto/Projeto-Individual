@@ -203,4 +203,16 @@
         contarAte(porcentagem_hero, 54, "%");
     }, 400);
     contarAte(num_lendarias, 2);
+
+    if (usuarioLogado()) {
+        nav_login.innerHTML = `<a href="dashboard/dashboard.html">Meu painel</a>`;
+        nav_cadastro.innerHTML = `<a href="#" onclick="limparSessao(); return false;">Sair</a>`;
+        ["cta_principal", "cta_sobre", "cta_final"].forEach(function (id) {
+            var el = document.getElementById(id);
+            el.href = "dashboard/dashboard.html";
+        });
+        cta_principal.innerHTML = "Abrir meu painel";
+        cta_final.innerHTML = "Ver meu progresso";
+        cta_secundario.hidden = true;
+    }
 </script>
