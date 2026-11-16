@@ -1,145 +1,62 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<!doctype html>
+<html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>EDGERUNNING | Login</title>
-
-    <link rel="stylesheet" href="./css/estilo.css">
-
-    <script src="./js/sessao.js"></script>
-    <script src="./js/dados-mock.js"></script>
-    <script src="./js/efeitos.js"></script>
-
-    <script>redirecionarSeLogado();</script>
-
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EDGERUNNING | Login</title>
+  <link rel="stylesheet" href="css/login.css">
+  <script src="js/sessao.js" defer></script>
+  <script src="js/login.js" defer></script>
 </head>
 
 <body>
+  <header class="header">
+    <h1 class="brand"><a href="index.html">EDGERUNNING</a></h1>
+    <nav aria-label="Navegação principal">
+      <a href="index.html">Inicial</a>
+      <span aria-hidden="true">|</span>
+      <a href="#" aria-current="page">Login</a>
+      <a href="cadastro.html">Cadastro</a>
+    </nav>
+  </header>
 
-    <div>
-        <div>
-            <h1><a href="index.html">EDGERUNNING</a></h1>
-            <ul>
-                <li><a href="index.html">Inicial</a></li>
-                <li>|</li>
-                <li><a href="#">Login</a></li>
-                <li><a href="cadastro.html">Cadastro</a></li>
-            </ul>
+  <div class="alert" id="alert" role="status" hidden>
+    <span id="alert-message"></span>
+  </div>
+
+  <main class="login">
+    <section class="login-copy" aria-labelledby="login-title">
+      <p class="section-label">Acesso à rede // NetWatch online</p>
+      <h2 id="login-title">Bem-vindo de volta, <span>merc.</span></h2>
+      <p>Entre para ver quanto falta para os 100% e continuar registrando seu progresso.</p>
+    </section>
+
+    <section class="login-card" aria-labelledby="form-title">
+      <h3 id="form-title">Jack in</h3>
+      <form class="form" id="login-form" novalidate>
+        <div class="field">
+          <label for="email">E-mail:</label>
+          <input id="email" type="email" placeholder="v@nightcity.net" autocomplete="email">
         </div>
-    </div>
-
-    <div>
-        <div>
-            <div id="cardErro" hidden>
-                <span id="mensagem_erro"></span>
-            </div>
+        <div class="field">
+          <label for="password">Senha:</label>
+          <input id="password" type="password" placeholder="******" autocomplete="current-password">
         </div>
+        <button class="button button-solid" id="login-button" type="submit">Entrar</button>
+      </form>
+      <div id="loading" hidden>CONECTANDO À REDE...</div>
+      <div id="form-error" hidden></div>
+      <p>Ainda não tem conta? <a href="cadastro.html">Cadastre-se</a></p>
+      <p id="demo-hint"></p>
+    </section>
+  </main>
 
-        <div>
-            <div>
-                <span>Acesso à rede</span>
-                <h2>Bem-vindo de volta, <span>merc.</span></h2>
-                <p>Entre para ver quanto falta para os 100% e continuar registrando seu progresso.</p>
-            </div>
-
-            <div>
-                <div>
-                    <span>Login</span>
-                    <h3>Jack in</h3>
-                    <div>
-                        <div>
-                            <span>E-mail:</span>
-                            <input id="email_input" type="email" placeholder="v@nightcity.net" autocomplete="email">
-                        </div>
-                        <div>
-                            <span>Senha:</span>
-                            <input id="senha_input" type="password" placeholder="******" autocomplete="current-password">
-                        </div>
-                        <button id="botao_entrar" onclick="entrar()">Entrar</button>
-                    </div>
-
-                    <div id="div_aguardar" hidden>CONECTANDO À REDE...</div>
-                    <div id="div_erros_login" hidden></div>
-
-                    <p>Ainda não tem conta? <a href="cadastro.html">Cadastre-se</a></p>
-                    <p id="dica_demo"></p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div>
-        <div>
-            <p>EDGERUNNING &copy; 2026 — projeto individual SPTech</p>
-            <p>Projeto de fã, sem vínculo com a CD PROJEKT RED.</p>
-        </div>
-    </div>
-
+  <footer class="page-footer">
+    <p>EDGERUNNING &copy; 2026 — projeto individual SPTech</p>
+    <p>Projeto de fã, sem vínculo com a CD PROJEKT RED.</p>
+  </footer>
 </body>
 
 </html>
-
-<script>
-
-    if (MODO_DEMO) {
-        dica_demo.innerHTML = "MODO DEMO — teste com v@nightcity.net / samurai";
-    }
-
-    var motivo = new URLSearchParams(location.search).get("motivo");
-    if (motivo == "sessao") {
-        mostrarMensagem("Faça login para abrir o painel.");
-    } else if (motivo == "saiu") {
-        mostrarMensagem("Você saiu da rede. Até a próxima, choom.", true);
-    }
-
-    [email_input, senha_input].forEach(function (campo) {
-        campo.addEventListener("keydown", function (evento) {
-            if (evento.key == "Enter") entrar();
-        });
-    });
-
-    function entrar() {
-        aguardar();
-        div_erros_login.hidden = true;
-
-        var emailVar = email_input.value.trim();
-        var senhaVar = senha_input.value;
-
-        if (emailVar == "" || senhaVar == "") {
-            mostrarMensagem("Preencha e-mail e senha para entrar.");
-            finalizarAguardar();
-            return false;
-        }
-
-        console.log("FORM LOGIN: ", emailVar);
-        botao_entrar.disabled = true;
-
-        buscarApi("/usuarios/autenticar", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                emailServer: emailVar,
-                senhaServer: senhaVar
-            })
-        })
-            .then(function (json) {
-                console.log(json);
-                mostrarMensagem("Acesso liberado. Carregando seu painel...", true);
-                entrarNaSessao(json);
-            })
-            .catch(function (erro) {
-                console.error(erro);
-                botao_entrar.disabled = false;
-                finalizarAguardar(erro.mensagem || "Houve um erro ao tentar realizar o login!");
-            });
-
-        return false;
-    }
-
-</script>

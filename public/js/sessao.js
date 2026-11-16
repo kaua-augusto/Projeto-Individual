@@ -1,144 +1,143 @@
+const DEMO_MODE = false;
 
-var MODO_DEMO = false;
+const ROOT = location.pathname.indexOf('/dashboard/') != -1 ? '../' : './';
 
-var RAIZ = location.pathname.indexOf("/dashboard/") != -1 ? "../" : "./";
-
-function usuarioLogado() {
-    try {
-        return sessionStorage.ID_USUARIO != null && sessionStorage.NOME_USUARIO != null;
-    } catch (e) {
-        return false;
-    }
+function isLoggedIn() {
+  try {
+    return sessionStorage.ID_USUARIO != null && sessionStorage.NOME_USUARIO != null;
+  } catch (error) {
+    return false;
+  }
 }
 
-function validarSessao() {
-    if (!usuarioLogado()) {
-        try { sessionStorage.DESTINO = location.pathname.split("/").pop(); } catch (e) { }
-        window.location.replace(RAIZ + "login.html?motivo=sessao");
-        return false;
-    }
+function validateSession() {
+  if (!isLoggedIn()) {
+    try { sessionStorage.DESTINO = location.pathname.split('/').pop(); } catch (error) { }
+    window.location.replace(ROOT + 'login.html?motivo=sessao');
+    return false;
+  }
 
-    var nome = sessionStorage.NOME_USUARIO;
-    var b_usuario = document.getElementById("b_usuario");
-    if (b_usuario) b_usuario.innerHTML = nome;
+  const name = sessionStorage.NOME_USUARIO;
+  const userName = document.getElementById('user-name');
+  if (userName) userName.innerHTML = name;
 
-    var b_inicial = document.getElementById("b_inicial");
-    if (b_inicial) b_inicial.innerHTML = nome.charAt(0).toUpperCase();
+  const userInitial = document.getElementById('user-initial');
+  if (userInitial) userInitial.innerHTML = name.charAt(0).toUpperCase();
 
-    return true;
+  return true;
 }
 
-function redirecionarSeLogado() {
-    if (usuarioLogado()) {
-        window.location.replace(RAIZ + "dashboard/dashboard.html");
-    }
+function redirectIfLoggedIn() {
+  if (isLoggedIn()) {
+    window.location.replace(ROOT + 'dashboard/dashboard.html');
+  }
 }
 
-function entrarNaSessao(json) {
-    sessionStorage.ID_USUARIO = json.id;
-    sessionStorage.NOME_USUARIO = json.nome;
-    sessionStorage.EMAIL_USUARIO = json.email;
+function startSession(json) {
+  sessionStorage.ID_USUARIO = json.id;
+  sessionStorage.NOME_USUARIO = json.nome;
+  sessionStorage.EMAIL_USUARIO = json.email;
 
-    var destino = sessionStorage.DESTINO || "dashboard.html";
-    sessionStorage.removeItem("DESTINO");
+  const destination = sessionStorage.DESTINO || 'dashboard.html';
+  sessionStorage.removeItem('DESTINO');
 
-    setTimeout(function () {
-        window.location.replace(RAIZ + "dashboard/" + destino);
-    }, 900);
+  setTimeout(function () {
+    window.location.replace(ROOT + 'dashboard/' + destination);
+  }, 900);
 }
 
-function limparSessao() {
-    sessionStorage.clear();
-    window.location.replace(RAIZ + "login.html?motivo=saiu");
+function clearSession() {
+  sessionStorage.clear();
+  window.location.replace(ROOT + 'login.html?motivo=saiu');
 }
 
-function aguardar() {
-    var divAguardar = document.getElementById("div_aguardar");
-    divAguardar.hidden = false;
+function showLoading() {
+  const loading = document.getElementById('loading');
+  loading.hidden = false;
 }
 
-function finalizarAguardar(texto) {
-    var divAguardar = document.getElementById("div_aguardar");
-    divAguardar.hidden = true;
+function hideLoading(text) {
+  const loading = document.getElementById('loading');
+  loading.hidden = true;
 
-    var divErrosLogin = document.getElementById("div_erros_login");
-    if (texto) {
-        divErrosLogin.hidden = false;
-        divErrosLogin.innerHTML = texto;
-    }
+  const formError = document.getElementById('form-error');
+  if (text) {
+    formError.hidden = false;
+    formError.innerHTML = text;
+  }
 }
 
-function mostrarMensagem(texto, sucesso) {
-    var cardErro = document.getElementById("cardErro");
-    var mensagem_erro = document.getElementById("mensagem_erro");
+function showMessage(text, success) {
+  const alertBox = document.getElementById('alert');
+  const alertMessage = document.getElementById('alert-message');
 
-    mensagem_erro.innerHTML = texto;
-    cardErro.hidden = false;
+  alertMessage.innerHTML = text;
+  alertBox.hidden = false;
 
-    clearTimeout(window.timerMensagem);
-    window.timerMensagem = setTimeout(sumirMensagem, 5000);
+  clearTimeout(window.messageTimer);
+  window.messageTimer = setTimeout(hideMessage, 5000);
 }
 
-function sumirMensagem() {
-    document.getElementById("cardErro").hidden = true;
+function hideMessage() {
+  document.getElementById('alert').hidden = true;
 }
 
-function buscarApi(url, opcoes) {
-    if (MODO_DEMO) {
-        return respostaMock(url, opcoes);
-    }
+function fetchApi(url, options) {
+  if (DEMO_MODE) {
+    return respostaMock(url, options);
+  }
 
-    return fetch(url, opcoes)
-        .catch(function () {
-            throw { status: 0, codigo: "SEM_CONEXAO", mensagem: "Não foi possível conectar ao servidor." };
-        })
-        .then(function (resposta) {
-            if (resposta.ok) {
-                return resposta.json();
-            }
-            return resposta.text().then(function (texto) {
-                var erro;
-                try { erro = JSON.parse(texto); } catch (e) { erro = { mensagem: texto }; }
-                erro.status = resposta.status;
-                throw erro;
-            });
-        });
+  return fetch(url, options)
+    .catch(function () {
+      throw { status: 0, codigo: 'SEM_CONEXAO', mensagem: 'Não foi possível conectar ao servidor.' };
+    })
+    .then(function (response) {
+      if (response.ok) {
+        return response.json();
+      }
+      return response.text().then(function (text) {
+        let error;
+        try { error = JSON.parse(text); } catch (parseError) { error = { mensagem: text }; }
+        error.status = response.status;
+        throw error;
+      });
+    });
 }
 
-function formatarHoras(minutos) {
-    var horas = Math.floor(minutos / 60);
-    return horas.toLocaleString("pt-BR");
+function formatHours(minutes) {
+  const hours = Math.floor(minutes / 60);
+  return hours.toLocaleString('pt-BR');
 }
 
-function formatarData(ms) {
-    return new Date(ms).toLocaleDateString("pt-BR");
+function formatDate(milliseconds) {
+  return new Date(milliseconds).toLocaleDateString('pt-BR');
 }
 
-function tempoRelativo(ms) {
-    var dias = Math.floor((Date.now() - ms) / 86400000);
-    if (dias <= 0) return "hoje";
-    if (dias == 1) return "ontem";
-    if (dias < 30) return "há " + dias + " dias";
-    var meses = Math.floor(dias / 30);
-    if (meses < 12) return "há " + meses + (meses == 1 ? " mês" : " meses");
-    var anos = Math.floor(meses / 12);
-    return "há " + anos + (anos == 1 ? " ano" : " anos");
+function relativeTime(milliseconds) {
+  const days = Math.floor((Date.now() - milliseconds) / 86400000);
+  if (days <= 0) return 'hoje';
+  if (days == 1) return 'ontem';
+  if (days < 30) return 'há ' + days + ' dias';
+  const months = Math.floor(days / 30);
+  if (months < 12) return 'há ' + months + (months == 1 ? ' mês' : ' meses');
+  const years = Math.floor(months / 12);
+  return 'há ' + years + (years == 1 ? ' ano' : ' anos');
 }
 
-function escaparHtml(texto) {
-    var div = document.createElement("div");
-    div.textContent = texto == null ? "" : texto;
-    return div.innerHTML;
+function escapeHtml(text) {
+  const element = document.createElement('div');
+  element.textContent = text == null ? '' : text;
+  return element.innerHTML;
 }
 
-window.addEventListener("pageshow", function (evento) {
-    if (evento.persisted && location.pathname.indexOf("/dashboard/") != -1) {
-        location.reload();
-    }
+window.addEventListener('pageshow', function (event) {
+  if (event.persisted && location.pathname.indexOf('/dashboard/') != -1) {
+    location.reload();
+  }
 });
 
-document.addEventListener("visibilitychange", function () {
-    if (document.visibilityState == "visible" && typeof window.atualizarAoVoltar == "function") {
-        window.atualizarAoVoltar();
-    }
+document.addEventListener('visibilitychange', function () {
+  if (document.visibilityState == 'visible' && typeof window.refreshOnReturn == 'function') {
+    window.refreshOnReturn();
+  }
 });

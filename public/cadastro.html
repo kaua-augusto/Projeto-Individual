@@ -1,156 +1,72 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<!doctype html>
+<html lang="pt-BR">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EDGERUNNING | Cadastro</title>
-
-  <link rel="stylesheet" href="./css/estilo.css" />
-
-  <script src="./js/sessao.js"></script>
-  <script src="./js/dados-mock.js"></script>
-  <script src="./js/efeitos.js"></script>
-
-  <script>redirecionarSeLogado();</script>
-
+  <link rel="stylesheet" href="css/cadastro.css">
+  <script src="js/sessao.js" defer></script>
+  <script src="js/cadastro.js" defer></script>
 </head>
 
 <body>
-  <div>
-    <div>
-      <h1><a href="index.html">EDGERUNNING</a></h1>
-      <ul>
-        <li><a href="index.html">Inicial</a></li>
-        <li>|</li>
-        <li><a href="login.html">Login</a></li>
-        <li><a href="#">Cadastro</a></li>
-      </ul>
-    </div>
+  <header class="header">
+    <h1 class="brand"><a href="index.html">EDGERUNNING</a></h1>
+    <nav aria-label="Navegação principal">
+      <a href="index.html">Inicial</a>
+      <span aria-hidden="true">|</span>
+      <a href="login.html">Login</a>
+      <a href="#" aria-current="page">Cadastro</a>
+    </nav>
+  </header>
+
+  <div class="alert" id="alert" role="status" hidden>
+    <span id="alert-message"></span>
   </div>
 
-  <div>
-    <div>
-      <div id="cardErro" hidden>
-        <span id="mensagem_erro"></span>
-      </div>
-    </div>
+  <main class="signup">
+    <section class="signup-copy" aria-labelledby="signup-title">
+      <p class="section-label">Novo registro // Biochip ativo</p>
+      <h2 id="signup-title">Crie seu <span>perfil</span> na rede.</h2>
+      <p>
+        Depois do cadastro você entra direto no painel. Marque as conquistas que já tem,
+        informe suas horas e registre gigs, tarô e o resto do caminho até os 100%.
+      </p>
+    </section>
 
-    <div>
-      <div>
-        <span>Novo registro</span>
-        <h2>Crie seu <span>perfil</span> na rede.</h2>
-        <p>
-          Depois do cadastro você entra direto no painel. Marque as conquistas que já tem,
-          informe suas horas e registre gigs, tarô e o resto do caminho até os 100%.
-        </p>
-      </div>
-
-      <div>
-        <div>
-          <span>Cadastro</span>
-          <h3>Bem-vindo, choom!</h3>
-          <div>
-            <div>
-              <span>Nome / apelido:</span>
-              <input id="nome_input" type="text" placeholder="V" autocomplete="nickname" />
-            </div>
-            <div>
-              <span>E-mail:</span>
-              <input id="email_input" type="email" placeholder="meuemail@provedor.com" autocomplete="email" />
-            </div>
-            <div>
-              <div>
-                <span>Senha:</span>
-                <input id="senha_input" type="password" placeholder="******" autocomplete="new-password" />
-              </div>
-              <div>
-                <span>Confirmar:</span>
-                <input id="confirmacao_senha_input" type="password" placeholder="******" autocomplete="new-password" />
-              </div>
-            </div>
-            <button id="botao_cadastrar" onclick="cadastrar()">Cadastrar e entrar</button>
-          </div>
-
-          <div id="div_aguardar" hidden>REGISTRANDO NA REDE...</div>
-          <div id="div_erros_login" hidden></div>
-
-          <p>Já tem conta? <a href="login.html">Fazer login</a></p>
+    <section class="signup-card" aria-labelledby="form-title">
+      <h3 id="form-title">Bem-vindo, choom!</h3>
+      <form class="form" id="signup-form" novalidate>
+        <div class="field">
+          <label for="name">Nome / apelido:</label>
+          <input id="name" type="text" placeholder="V" autocomplete="nickname">
         </div>
-      </div>
-    </div>
-  </div>
+        <div class="field">
+          <label for="email">E-mail:</label>
+          <input id="email" type="email" placeholder="meuemail@provedor.com" autocomplete="email">
+        </div>
+        <div class="field">
+          <label for="password">Senha:</label>
+          <input id="password" type="password" placeholder="******" autocomplete="new-password">
+        </div>
+        <div class="field">
+          <label for="password-confirmation">Confirmação da senha:</label>
+          <input id="password-confirmation" type="password" placeholder="******" autocomplete="new-password">
+        </div>
+        <button class="button button-solid" id="signup-button" type="submit">Cadastrar e entrar</button>
+      </form>
+      <div id="loading" hidden>REGISTRANDO NA REDE...</div>
+      <div id="form-error" hidden></div>
+      <p>Já tem conta? <a href="login.html">Fazer login</a></p>
+    </section>
+  </main>
 
-  <div>
-    <div>
-      <p>EDGERUNNING &copy; 2026 - projeto individual SPTech</p>
-      <p>Projeto de fã, sem vínculo com a CD PROJEKT RED.</p>
-    </div>
-  </div>
+  <footer class="page-footer">
+    <p>EDGERUNNING &copy; 2026 — projeto individual SPTech</p>
+    <p>Projeto de fã, sem vínculo com a CD PROJEKT RED.</p>
+  </footer>
 </body>
 
 </html>
-
-<script>
-
-  function cadastrar() {
-    aguardar();
-    div_erros_login.hidden = true;
-
-    var nomeVar = nome_input.value.trim();
-    var emailVar = email_input.value.trim();
-    var senhaVar = senha_input.value;
-    var confirmacaoSenhaVar = confirmacao_senha_input.value;
-
-    if (nomeVar == "" || emailVar == "" || senhaVar == "" || confirmacaoSenhaVar == "") {
-      mostrarMensagem("Preencha todos os campos para criar o perfil.");
-      finalizarAguardar();
-      return false;
-    }
-
-    if (emailVar.indexOf("@") == -1 || emailVar.indexOf(".") == -1) {
-      mostrarMensagem("E-mail inválido. Use o formato nome@provedor.com");
-      finalizarAguardar();
-      return false;
-    }
-
-    if (senhaVar.length < 6) {
-      mostrarMensagem("A senha precisa ter pelo menos 6 caracteres.");
-      finalizarAguardar();
-      return false;
-    }
-
-    if (senhaVar != confirmacaoSenhaVar) {
-      mostrarMensagem("As senhas não batem. Confira e tente de novo.");
-      finalizarAguardar();
-      return false;
-    }
-
-    botao_cadastrar.disabled = true;
-
-    buscarApi("/usuarios/cadastrar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        nomeServer: nomeVar,
-        emailServer: emailVar,
-        senhaServer: senhaVar
-      }),
-    })
-      .then(function (json) {
-        mostrarMensagem("Cadastro feito! Abrindo seu painel...", true);
-        entrarNaSessao(json);
-      })
-      .catch(function (erro) {
-        console.log("#ERRO:", erro);
-        botao_cadastrar.disabled = false;
-        finalizarAguardar(erro.mensagem || "Houve um erro ao tentar realizar o cadastro!");
-      });
-
-    return false;
-  }
-</script>

@@ -125,16 +125,30 @@ Follow Clean Code (Robert C. Martin) for naming and documentation.
 
 * Names reveal intent: functions are verbs that say what they do (`loadAchievements`, `renderTimeline`), variables and constants are nouns that say what they hold (`achievements`, `MIN_PASSWORD_LENGTH`). No abbreviations or one-letter names, except loop indexes.
 * Code explains *what*; comments explain *why*. Do not write comments that repeat the code, and prefer a better name over a comment.
-* Every function shared across files (for example in `shared/`) and every non-obvious function gets a short doc comment above it: one sentence on what it does, plus `@param` and `@returns` when they are not obvious from the names.
+* Every function shared across files (for example in `js/sessao.js`) and every non-obvious function gets a short doc comment above it: one sentence on what it does, plus `@param` and `@returns` when they are not obvious from the names.
 * Use named constants instead of magic numbers and strings.
 * Keep related code together, in reading order: constants first, then functions from the highest level to the lowest, then the code that starts the page.
 
 ---
 
+# Front-End Code Style
+
+Always write the front-end in this style. The version before it was adopted is kept in `web-dat-aviz/edgerunning 2.0/` for reference only.
+
+* HTML: `<!doctype html>`, 2-space indentation, and semantic tags (`header`, `nav`, `main`, `section`, `article`, `footer`) instead of generic wrapper `div`s.
+* Classes and ids are English kebab-case, named after the section or component they belong to (`hero`, `hero-copy`, `step-card`, `rarest-list`, `button button-solid`). Variants are a second class with a suffix (`button-outline`). Section anchors shown in the URL may stay in Portuguese (`#como-funciona`).
+* Mark the current navigation link with `aria-current="page"`, label sections with `aria-labelledby`, and use `<label for>` on every form field.
+* No inline scripts and no `onclick` attributes. Each page loads `js/sessao.js` and its own `js/<page>.js` with `defer`.
+* JavaScript: `const`/`let`, single quotes, 2-space indentation, elements fetched with `document.getElementById` at the top of the file, events bound with `addEventListener`, and English function and variable names (`isLoggedIn`, `showMessage`, `fetchApi`).
+* API request fields (`emailServer`), `sessionStorage` keys (`ID_USUARIO`) and file names (`cadastro.html`, `sessao.js`) keep their Portuguese names.
+
+---
+
 # CSS Rules
 
-* Keep CSS well structured: tokens and base styles in `shared/style.css`, feature styles in the feature's folder. Inside a file, group rules by section in page order, with media queries at the end.
-* Avoid unnecessary repetition: use the `:root` variables for colors and fonts, and reuse shared classes (`.btn`, `.card`, `.section-title`, `.message`…) before creating new ones. Do not redeclare values that are inherited or already set by a shared rule.
+* One stylesheet per page, in `public/css/` and named after the page (`index.css`, `login.css`, `cadastro.css`). Each page links only its own file; there is no general stylesheet. A rule needed by two pages (tokens, header, footer, buttons) is repeated in both files, so a change to it is made in every file.
+* Order inside a file: `*` reset, `:root` tokens, element base styles, components in page order, media queries at the end. Indent with 2 spaces, with no blank lines between rules and no section banner comments.
+* Use the `:root` variables for colors and fonts (`--base`, `--surface`, `--muted`, `--yellow`…), and reuse the page's existing classes (`.button`, `.section-label`, `.form`, `.field`…) before creating new ones. Do not redeclare values that are inherited.
 * Keep it as simple as possible: short, low-specificity selectors, only the declarations that change something, and no `!important`.
 * Lay out with flexbox (`display: flex`), not CSS grid, including multi-column sections.
 
