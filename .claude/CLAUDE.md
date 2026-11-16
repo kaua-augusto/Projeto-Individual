@@ -8,17 +8,11 @@ All progress data is entered by the user. There is no external data API: a forme
 
 Stack: HTML/CSS/JS front-end, Node.js + Express REST API that also serves the static files, and MySQL on a Linux VM, with passwords stored as plain text.
 
-Documentation index, reading order and documentation conventions: `.docs/README.md`.
+The database is modeled and implemented in **MySQL** (8.0 or later).
 
-Full specification (requirements, business rules, plan): `.docs/01-project.md`. Read it before implementing a feature.
+The application lives in the repository root (`app.js`, `src/`, `public/`), built on SPTech's legacy web-data-viz template. Run it with `npm install` and `npm start` in the root. The original template is kept for reference in `web-dat-aviz/web-data-viz-main/`.
 
-The database is modeled and implemented in **MySQL** (8.0 or later). The data model (entities, data dictionary, constraints and DDL) is in `.docs/03-database.md`. Read it before changing any table or query, and update it first when the model changes.
-
-The application lives in `web-data-viz/`, built on SPTech's legacy web-data-viz template. Run it with `npm install` and `npm start` inside that folder. Structure and front-end and back-end conventions are in `.docs/02-web-data-viz.md`.
-
-API contracts (routes, bodies, replies, error messages): `.docs/04-api.md`. Update it first when a route changes.
-
-- Do not change or create APIs (`web-data-viz/src/`, `web-data-viz/app.js`) without asking the user first.
+- Do not change or create APIs (`src/`, `app.js`) without asking the user first.
 - Ask before changing or deleting existing front-end pages and scripts.
 - There are no automated tests or lint setup yet.
 
@@ -45,8 +39,7 @@ API contracts (routes, bodies, replies, error messages): `.docs/04-api.md`. Upda
 
 ## Data and API Conventions
 
-- Tables: `usuario`, `conquista`, `conquistaUsuario` (user × achievement, with unlock date), `categoria`, `progresso` (user × category counter). Details in `.docs/03-database.md`.
-- Primary keys are `idTable`, foreign keys `fkTable`, constraints `fk<ChildTable><Reference>`. No `TINYINT`.
+- Tables: `usuario`, `conquista`, `conquistaUsuario` (user × achievement, with unlock date), `categoria`, `progresso` (user × category counter).- Primary keys are `idTable`, foreign keys `fkTable`, constraints `fk<ChildTable><Reference>`. No `TINYINT`.
 - Seed inserts must stay idempotent (`INSERT IGNORE` + `UNIQUE(nome)`), so running the script again never duplicates rows. `src/database/corrigir-duplicadas.sql` repairs databases created before that.
 - Every query is parameterized with `?` through `database.executar(sql, [values])`. Never concatenate user input into SQL.
 - Request body fields use the `Server` suffix (`emailServer`), as in the web-data-viz template.
@@ -70,7 +63,7 @@ Do not commit on your own. Commit only when the user asks, using the `commit` sk
 
 ## Language convention
 
-- Code, identifiers, comments, commit messages, documentation (including `.docs/`): **English**.
+- Code, identifiers, comments, commit messages, documentation: **English**.
 - UI copy (labels, buttons, messages shown to the user) and mock/fixture
   *content* (achievement names, category names, user names, etc.): **Portuguese**,
   since the product is for Portuguese speakers.
@@ -110,7 +103,7 @@ Create new files only when there is no reasonable alternative.
 * Maintain backward compatibility.
 * Reuse existing DTO patterns.
 * Follow existing validation conventions.
-* When a route changes, update its route, controller, model and `.docs/04-api.md` together.
+* When a route changes, update its route, controller and model together.
 
 ---
 
@@ -159,8 +152,6 @@ When modifying code:
 
 # Documentation Rules
 
-* Do not create documentation files outside `.docs/`.
-* Change the reference documents (`.docs/01-project.md`, `.docs/02-web-data-viz.md` and the other numbered ones) only when strictly necessary: when what they describe actually changes or has become wrong. See `.docs/README.md`, Conventions.
 * Never forget to update the documentation, when necessary.
 * If no relevant documentation exists, create it.
 * Keep documentation synchronized with the current implementation.
