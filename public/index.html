@@ -173,3 +173,34 @@
 </body>
 
 </html>
+
+<script>
+    var MAIS_RARAS = [
+        { nome: "King of Cups", descricao: "", global: 4.2 },
+        { nome: "King of Pentacles", descricao: "", global: 4.8 },
+        { nome: "Daemon In The Shell", descricao: "3 eliminações com um único Detonar Granada.", global: 5.8 },
+        { nome: "King of Swords", descricao: "", global: 6.0 },
+        { nome: "Judgement Day", descricao: "Elimine três chefes de atividade criminosa.", global: 6.2 },
+        { nome: "Rough Landing", descricao: "Aterrissagem de Super-Herói com o Berserk ativo.", global: 6.4 }
+    ];
+
+    var html = "";
+    MAIS_RARAS.forEach(function (c) {
+        html += `
+        <li>
+            ${iconeConquista({ nome: c.nome, desbloqueada: true }, 52)}
+            <div>
+                <strong>${c.nome}</strong>
+                <small>${c.descricao || "Conquista secreta — sem spoilers."}</small>
+            </div>
+            <span><b>${c.global.toLocaleString("pt-BR")}%</b>${raridade(c.global).nome}</span>
+        </li>`;
+    });
+    vitrine_lista.innerHTML = html;
+
+    setTimeout(function () {
+        document.getElementById("barra_hero").value = 54.4;
+        contarAte(porcentagem_hero, 54, "%");
+    }, 400);
+    contarAte(num_lendarias, 2);
+</script>
