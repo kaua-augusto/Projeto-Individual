@@ -27,7 +27,7 @@ Commit only when the user asks for it. When they do, follow the rules below.
 | --- | --- |
 | `feat` | A new feature or behavior |
 | `fix` | A bug fix |
-| `docs` | Documentation only, including `.docs/` |
+| `docs` | Documentation only |
 | `style` | Formatting with no change in behavior |
 | `refactor` | Restructuring with no change in behavior |
 | `perf` | A performance improvement |
