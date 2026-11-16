@@ -132,9 +132,9 @@ Use `npm run dev` to restart the server automatically when a file changes.
 
 | Resource | Link |
 | --- | --- |
-| LinkedIn | _to be added_ |
+| LinkedIn | [LinkedIn](https://www.linkedin.com/in/kaua-augusto-05186343a/) |
 | Trello board | _to be added_ |
-| Documentation | _to be added_ |
+| Documentation | [Documentation](https://bandteccom-my.sharepoint.com/:w:/g/personal/kaua_aguas_sptech_school/cQrIS3I8SY_oQbUd7l5SYRrDEgUBgqj2jMcxSxF-SgTp2J-BMg) |
 
 ## Author
 
@@ -142,4 +142,4 @@ Use `npm run dev` to restart the server automatically when a file changes.
 
 ## Disclaimer
 
-Edgerunning is a fan project made for study purposes. It is not affiliated with or endorsed by CD PROJEKT RED. Cyberpunk 2077 and its related names are trademarks of their owners.
+Edgerunning is a fan project made for study and personal satisfaction purposes. It is not affiliated with or endorsed by CD PROJEKT RED. Cyberpunk 2077 and its related names are trademarks of their owners.
