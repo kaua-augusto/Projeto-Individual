@@ -1,196 +1,156 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<!doctype html>
+<html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>EDGERUNNING | Suas conquistas de Cyberpunk 2077</title>
-
-    <link rel="stylesheet" href="./css/estilo.css">
-
-    <script src="./js/sessao.js"></script>
-    <script src="./js/efeitos.js"></script>
-    <script src="./js/graficos.js"></script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EDGERUNNING | Suas conquistas de Cyberpunk 2077</title>
+  <link rel="stylesheet" href="css/index.css">
+  <script src="js/sessao.js" defer></script>
+  <script src="js/index.js" defer></script>
 </head>
 
 <body>
+  <header class="header">
+    <h1 class="brand">EDGERUNNING</h1>
+    <nav aria-label="Navegação principal">
+      <a href="#" aria-current="page">Inicial</a>
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#conquistas">Conquistas</a>
+      <a href="#sobre">Sobre</a> 
+      <span aria-hidden="true">|</span>
+      <a id="nav-login" href="login.html">Login</a>
+      <a id="nav-signup" href="cadastro.html">Cadastro</a>
+    </nav>
+  </header>
 
-    <div>
-        <div>
-            <h1>EDGERUNNING</h1>
-            <ul>
-                <li><a href="#">Inicial</a></li>
-                <li><a href="#como-funciona">Como funciona</a></li>
-                <li><a href="#conquistas">Conquistas</a></li>
-                <li><a href="#sobre">Sobre</a></li>
-                <li>|</li>
-                <li id="nav_login"><a href="login.html">Login</a></li>
-                <li id="nav_cadastro"><a href="cadastro.html">Cadastro</a></li>
-            </ul>
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <img class="hero-background" src="assets/index/paisagem%20noturna%201.jpg" alt="">
+      <div class="hero-copy">
+        <p class="section-label">Visualizador de progresso de Cyberpunk 2077</p>
+        <h2 id="hero-title">Wake up, <span>choom.</span></h2>
+        <p>
+          Registre suas conquistas, gigs, cartas de tarô e horas de jogo e veja
+          quanto falta para os 100% de Cyberpunk 2077, tudo num painel só.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-solid" id="primary-action" href="cadastro.html">Criar minha conta</a>
+          <a class="button button-outline" id="secondary-action" href="login.html">Já tenho conta</a>
         </div>
-    </div>
-
-    <section>
-
-        <div>
-            <div>
-                <span>Rastreador de progresso // Cyberpunk 2077</span>
-                <h2>
-                    <span>Wake up,</span>
-                    <span>choom.</span>
-                </h2>
-                <p>
-                    Registre suas conquistas, gigs, cartas de tarô e horas de jogo e veja
-                    quanto falta para os 100% de Cyberpunk 2077, tudo num painel só.
-                </p>
-                <div>
-                    <a href="cadastro.html" id="cta_principal">Criar minha conta</a>
-                    <a href="login.html" id="cta_secundario">Já tenho conta</a>
-                </div>
-            </div>
-
-
+      </div>
     </section>
 
-    <section id="como-funciona">
-        <div>
-            <div>
-                <div>
-                    <span>01 // Como funciona</span>
-                    <h3>Tudo aqui em três passos.</h3>
-                </div>
-                <p>
-                    Você marca o que já fez, o painel faz as contas: porcentagem, o que falta,
-                    ritmo e previsão de quando chegam os 100%.
-                </p>
-            </div>
-
-            <div>
-                <div>
-                    <div>
-                        <span>Passo 01</span>
-                        <h4>Crie sua conta</h4>
-                        <p>Nome, e-mail e senha. Depois do cadastro você já cai direto no seu painel.</p>
-                    </div>
-                </div>
-                <div>
-                    <div>
-                        <span>Passo 02</span>
-                        <h4>Registre seu progresso</h4>
-                        <p>Marque as conquistas que você tem, informe suas horas e conte gigs, NCPD e tarô na aba Missões.</p>
-                    </div>
-                </div>
-                <div>
-                    <div>
-                        <span>Passo 03</span>
-                        <h4>Acompanhe o painel</h4>
-                        <p>Porcentagem, horas jogadas, o que falta e a previsão de quando chegam os 100%.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <section class="section steps" id="como-funciona" aria-labelledby="steps-title">
+      <p class="section-label">Como funciona</p>
+      <h3 id="steps-title">Tudo aqui em três passos.</h3>
+      <p>
+        Você marca o que já fez, o painel faz as contas: porcentagem, o que falta,
+        ritmo e previsão de quando chegam os 100%.
+      </p>
+      <div class="step-grid">
+        <article class="step-card">
+          <p class="section-label">Passo 01</p>
+          <h4>Crie sua conta</h4>
+          <p>Nome, e-mail e senha. Depois do cadastro você já cai direto no seu painel.</p>
+        </article>
+        <article class="step-card">
+          <p class="section-label">Passo 02</p>
+          <h4>Registre seu progresso</h4>
+          <p>Marque as conquistas que você tem, informe suas horas e conte gigs, NCPD e tarô na aba Missões.</p>
+        </article>
+        <article class="step-card">
+          <p class="section-label">Passo 03</p>
+          <h4>Acompanhe o painel</h4>
+          <p>Porcentagem, horas jogadas, o que falta e a previsão de quando chegam os 100%.</p>
+        </article>
+      </div>
     </section>
 
-    <section id="conquistas">
-        <div>
-            <div>
-                <span>02 // As mais raras</span>
-                <h3>Só uma fração de Night City chega aqui.</h3>
-                <p>
-                    Cada conquista vem com a porcentagem de jogadores que a têm. No painel, ela ganha
-                    uma raridade — de Comum a Lendária — para você saber o tamanho do desafio.
-                </p>
-            </div>
-
-            <ul id="vitrine_lista"></ul>
-        </div>
+    <section class="section rarest" id="conquistas" aria-labelledby="rarest-title">
+      <p class="section-label"></p>
+      <h3 id="rarest-title">Só uma fração de Night City chega aqui.</h3>
+      <p>
+        Cada conquista vem com a porcentagem de jogadores que a têm. No painel, ela ganha
+        uma raridade — de Comum a Lendária — para você saber o tamanho do desafio.
+      </p>
+      <ul class="rarest-list">
+        <li class="rarest-item">
+          <div class="rarest-info">
+            <strong>King of Cups</strong>
+            <small>Conquista secreta — sem spoilers.</small>
+          </div>
+          <span class="rarest-rate"><b>4,2%</b> Lendária</span>
+        </li>
+        <li class="rarest-item">
+          <div class="rarest-info">
+            <strong>King of Pentacles</strong>
+            <small>Conquista secreta — sem spoilers.</small>
+          </div>
+          <span class="rarest-rate"><b>4,8%</b> Lendária</span>
+        </li>
+        <li class="rarest-item">
+          <div class="rarest-info">
+            <strong>Daemon In The Shell</strong>
+            <small>3 eliminações com um único Detonar Granada.</small>
+          </div>
+          <span class="rarest-rate"><b>5,8%</b> Épica</span>
+        </li>
+        <li class="rarest-item">
+          <div class="rarest-info">
+            <strong>King of Swords</strong>
+            <small>Conquista secreta — sem spoilers.</small>
+          </div>
+          <span class="rarest-rate"><b>6%</b> Épica</span>
+        </li>
+        <li class="rarest-item">
+          <div class="rarest-info">
+            <strong>Judgement Day</strong>
+            <small>Elimine três chefes de atividade criminosa.</small>
+          </div>
+          <span class="rarest-rate"><b>6,2%</b> Épica</span>
+        </li>
+        <li class="rarest-item">
+          <div class="rarest-info">
+            <strong>Rough Landing</strong>
+            <small>Aterrissagem de Super-Herói com o Berserk ativo.</small>
+          </div>
+          <span class="rarest-rate"><b>6,4%</b> Épica</span>
+        </li>
+      </ul>
     </section>
 
-    <section id="sobre">
-        <div>
-            <blockquote>
-                “Night City não é só cenário. É estética, som e um jeito de enxergar o futuro.”
-            </blockquote>
-            <div>
-                <span>03 // Por que este projeto</span>
-                <p>
-                    Este é um projeto individual sobre um interesse pessoal do autor: Cyberpunk 2077 e a estética
-                    cyberpunk como um todo: neon, chuva, megacorporações e o sistema, implantes e muito rock.
-                </p>
-                <p>
-                    A ideia é juntar o que eu gosto com o que estou aprendendo: um site com cadastro, login,
-                    banco de dados, uma API e uma dashboard que mostra o caminho até os 100%.
-                </p>
-            </div>
-        </div>
+    <section class="section about" id="sobre" aria-label="Por que este projeto">
+      <blockquote class="about-quote">
+        “Night City não é só cenário. É estética, som e um jeito de enxergar o futuro.”
+      </blockquote>
+      <div class="about-copy">
+        <p class="section-label">Por que este projeto</p>
+        <p>
+          Este é um projeto individual sobre um interesse pessoal do autor: Cyberpunk 2077 e a estética
+          cyberpunk como um todo: neon, chuva, megacorporações e o sistema, implantes e muito rock.
+        </p>
+        <p>
+          A ideia é juntar o que eu gosto com o que estou aprendendo: um site com cadastro, login,
+          banco de dados, uma API e uma dashboard que mostra o caminho até os 100%.
+        </p>
+      </div>
     </section>
 
-    <section>
-        <div>
-            <div>
-                <div>
-                    <div>
-                        <span>Pronto, mercenário?</span>
-                        <h3>Quanto falta para os seus 100%?</h3>
-                    </div>
-                    <a href="cadastro.html" id="cta_final">Descobrir agora</a>
-                </div>
-            </div>
-        </div>
+    <section class="section call-to-action" aria-labelledby="call-title">
+      <div class="call-copy">
+        <p class="section-label">Pronto, mercenário?</p>
+        <h3 id="call-title">Quanto falta para os seus 100%?</h3>
+      </div>
+      <a class="button button-solid" id="final-action" href="cadastro.html">Descobrir agora</a>
     </section>
+  </main>
 
-    <div>
-        <div>
-            <p>EDGERUNNING &copy; 2026 — projeto individual SPTech</p>
-            <p>Projeto de fã, sem vínculo com a CD PROJEKT RED.</p>
-        </div>
-    </div>
-
+  <footer class="page-footer">
+    <p>EDGERUNNING &copy; 2026 — projeto individual SPTech</p>
+    <p>Projeto de fã, sem vínculo com a CD PROJEKT RED.</p>
+  </footer>
 </body>
 
 </html>
-
-<script>
-    var MAIS_RARAS = [
-        { nome: "King of Cups", descricao: "", global: 4.2 },
-        { nome: "King of Pentacles", descricao: "", global: 4.8 },
-        { nome: "Daemon In The Shell", descricao: "3 eliminações com um único Detonar Granada.", global: 5.8 },
-        { nome: "King of Swords", descricao: "", global: 6.0 },
-        { nome: "Judgement Day", descricao: "Elimine três chefes de atividade criminosa.", global: 6.2 },
-        { nome: "Rough Landing", descricao: "Aterrissagem de Super-Herói com o Berserk ativo.", global: 6.4 }
-    ];
-
-    var html = "";
-    MAIS_RARAS.forEach(function (c) {
-        html += `
-        <li>
-            ${iconeConquista({ nome: c.nome, desbloqueada: true }, 52)}
-            <div>
-                <strong>${c.nome}</strong>
-                <small>${c.descricao || "Conquista secreta — sem spoilers."}</small>
-            </div>
-            <span><b>${c.global.toLocaleString("pt-BR")}%</b> ${raridade(c.global).nome}</span>
-        </li>`;
-    });
-    vitrine_lista.innerHTML = html;
-
-    setTimeout(function () {
-        document.getElementById("barra_hero").value = 54.4;
-        contarAte(porcentagem_hero, 54, "%");
-    }, 400);
-    contarAte(num_lendarias, 2);
-
-    if (usuarioLogado()) {
-        nav_login.innerHTML = `<a href="dashboard/dashboard.html">Meu painel</a>`;
-        nav_cadastro.innerHTML = `<a href="#" onclick="limparSessao(); return false;">Sair</a>`;
-        ["cta_principal", "cta_sobre", "cta_final"].forEach(function (id) {
-            var el = document.getElementById(id);
-            el.href = "dashboard/dashboard.html";
-        });
-        cta_principal.innerHTML = "Abrir meu painel";
-        cta_final.innerHTML = "Ver meu progresso";
-        cta_secundario.hidden = true;
-    }
-</script>
