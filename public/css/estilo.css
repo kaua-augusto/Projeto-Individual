@@ -1,0 +1,114 @@
+
+:root {
+    --fundo: #0a0a12;
+    --fundo-2: #13131f;
+    --borda: #2a2a3d;
+    --texto: #e8e6f0;
+    --texto-2: #a9a6ba;
+    --amarelo: #fcee0a;
+    --ciano: #02d7f2;
+    --magenta: #ff2a6d;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 16px;
+    background: var(--fundo);
+    color: var(--texto);
+    font-family: Consolas, "Courier New", monospace;
+    line-height: 1.5;
+}
+
+h1, h2, h3, h4 {
+    color: var(--amarelo);
+    margin: 0 0 8px;
+    text-transform: uppercase;
+}
+
+p, small {
+    color: var(--texto-2);
+}
+
+a {
+    color: var(--ciano);
+}
+
+a:hover {
+    color: var(--amarelo);
+}
+
+section {
+    border: 1px solid var(--borda);
+    background: var(--fundo-2);
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+blockquote {
+    border-left: 3px solid var(--magenta);
+    margin: 16px 0;
+    padding-left: 12px;
+}
+
+ul {
+    padding-left: 20px;
+}
+
+body > div:first-of-type ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+input {
+    background: var(--fundo);
+    color: var(--texto);
+    border: 1px solid var(--borda);
+    padding: 8px;
+    font: inherit;
+}
+
+input:focus {
+    outline: 1px solid var(--ciano);
+}
+
+button {
+    background: var(--amarelo);
+    color: var(--fundo);
+    border: none;
+    padding: 8px 14px;
+    font: inherit;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: var(--ciano);
+}
+
+progress {
+    width: 100%;
+    height: 10px;
+    accent-color: var(--amarelo);
+}
+
+#cardErro {
+    border: 1px solid var(--magenta);
+    color: var(--magenta);
+    padding: 10px;
+    margin-bottom: 12px;
+}
+
+#div_erros_login {
+    color: var(--magenta);
+}
+
+#div_aguardar {
+    color: var(--ciano);
+}
