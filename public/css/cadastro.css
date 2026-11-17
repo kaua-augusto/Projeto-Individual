@@ -2,14 +2,17 @@
   box-sizing: border-box;
 }
 :root {
-  --base: #0a0a12;
-  --surface: #13131f;
-  --border: #2a2a3d;
+  --base: #0b0816;
+  --surface: #150f26;
+  --border: #3b2b63;
   --text: #e8e6f0;
   --muted: #a9a6ba;
   --yellow: #fcee0a;
   --cyan: #02d7f2;
   --magenta: #ff2a6d;
+  --purple: #a35cff;
+  --purple-deep: #2a1552;
+  --glow: 0 0 18px #a35cff66;
   --font-mono: Consolas, "Courier New", monospace;
   --header-height: 80px;
   --footer-height: 90px;
@@ -47,6 +50,10 @@ a {
 }
 a:hover {
   color: var(--yellow);
+}
+:focus-visible {
+  outline: 2px solid var(--purple);
+  outline-offset: 3px;
 }
 .header {
   display: flex;
@@ -94,6 +101,7 @@ a:hover {
   gap: 48px;
   min-height: calc(100vh - var(--header-height) - var(--footer-height));
   padding: 48px var(--gutter);
+  background: radial-gradient(circle at 75% 50%, var(--purple-deep), transparent 60%);
 }
 .signup-copy {
   display: flex;
@@ -117,6 +125,7 @@ a:hover {
   border: 1px solid var(--border);
   border-radius: 10px;
   background: var(--surface);
+  box-shadow: var(--glow);
 }
 .form {
   display: flex;
@@ -162,6 +171,7 @@ input:focus {
   border-color: var(--cyan);
   color: var(--base);
   background: var(--cyan);
+  box-shadow: var(--glow);
 }
 .form .button {
   align-self: center;
