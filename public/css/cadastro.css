@@ -75,7 +75,14 @@ a:hover {
   text-shadow: 2px 0 var(--magenta), -2px 0 var(--cyan);
 }
 .brand a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   color: inherit;
+}
+.brand-symbol {
+  width: auto;
+  height: 48px;
 }
 .header nav {
   display: flex;
