@@ -662,6 +662,11 @@ th {
   width: calc(100% - var(--sidebar-width));
 }
 
+.dashboard::after {
+  background: linear-gradient(90deg, color-mix(in srgb, var(--cyan) 14%, transparent), transparent 60%);
+  opacity: 1;
+}
+
 .dashboard-header {
   display: flex;
   flex-wrap: wrap;
