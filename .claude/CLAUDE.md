@@ -68,7 +68,7 @@ Do not commit on your own. Commit only when the user asks, using the `commit` sk
 
 ## Language convention
 
-- Code identifiers, ids and code comments (JS, CSS, HTML, SQL): **Portuguese**, as in web-data-viz and Blue Cheese. CSS class names and `:root` tokens keep their existing names.
+- Code identifiers and ids (JS, CSS, HTML, SQL): **Portuguese**, as in web-data-viz and Blue Cheese. CSS class names and `:root` tokens keep their existing names.
 - Commit messages and documentation (`README.md`, this file): **English**.
 - UI copy (labels, buttons, messages shown to the user) and mock/fixture
   *content* (achievement names, category names, user names, etc.): **Portuguese**,
@@ -130,8 +130,7 @@ The user prefers simple code that is easy to understand over clever or compact c
 Follow Clean Code (Robert C. Martin) for naming and documentation.
 
 * Names reveal intent: functions are verbs that say what they do (`listarConquistas`, `atualizarLinhaTempo`), variables and constants are nouns that say what they hold (`conquistas`, `TAMANHO_MINIMO_SENHA`). No abbreviations or one-letter names, except loop indexes.
-* Code explains *what*; comments explain *why*. Do not write comments that repeat the code, and prefer a better name over a comment.
-* Every function shared across files (`js/sessao.js`, `js/painel.js`) and every non-obvious function gets a short `//` comment above it, in Portuguese, saying what it does or why, as in Blue Cheese.
+* No comments in the code: no comment lines and no end-of-line comments in JS, CSS, HTML, SQL or `.env.dev.exemplo`, not even section banners. Names must say what the code does; explanations go in the reply to the user or in `README.md`.
 * Use named constants instead of magic numbers and strings.
 * Keep related code together, in reading order: constants first, then functions from the highest level to the lowest, then the code that starts the page.
 
@@ -142,13 +141,14 @@ Follow Clean Code (Robert C. Martin) for naming and documentation.
 Always write the front-end in the Blue Cheese style.
 
 * Pages sit directly in `public/` (`index.html`, `login.html`, `cadastro.html`, `dashboard.html`, `conquistas.html`, `missoes.html`) and link `./style.css`.
-* HTML: `<!DOCTYPE html>`, 2-space indentation, `<!-- Comentário -->` above each block. Public pages use `header`, `nav`, `main`, `section` and `footer`; dashboard pages use the Blue Cheese shell: `body.dashboard-page` > `div.dashboard-sidebar` (`sidebar-brand`, `sidebar-nav`, `sidebar-account`) + `div.dashboard` (`dashboard-header`, `dashboard-cards` of `dashboard-card`, `dashboard-grid` of `dashboard-panel` with `dashboard-panel-header` and `dashboard-chart-container`).
+* HTML: `<!DOCTYPE html>` and 2-space indentation. Public pages use `header`, `nav`, `main`, `section` and `footer`; dashboard pages use the Blue Cheese shell: `body.dashboard-page` > `div.dashboard-sidebar` (`sidebar-brand`, `sidebar-nav`, `sidebar-account`) + `div.dashboard` (`img.dashboard-background`, a photo fixed to the screen behind the content and beside the sidebar; `dashboard-header`, `dashboard-cards` of `dashboard-card`, `dashboard-grid` of `dashboard-panel` with `dashboard-panel-header` and `dashboard-chart-container`).
 * Ids are Portuguese, with a prefix for the element type (`span_horas`, `input_email`, `btn_entrar`, `div_alerta`, `ul_recentes`, `tbody_linha_tempo`); chart canvases are camelCase (`graficoLinhaTempo`). Scripts use the ids directly as variables (`span_horas.textContent`) and `document.getElementById` only for ids built at runtime (`'input_qtd_' + id`).
 * The current menu link gets `class="active"`. Every form field has a `<label for>`.
 * Events are inline attributes: `onclick="limparSessao()"`, `onsubmit="return entrar()"` (the function returns `false`), `onchange`, `oninput`, `onerror`. `addEventListener` only for `window`/`document` events.
 * Scripts load at the end of `<body>`, without `defer`, in this order: `dados-mock.js`, `sessao.js`, `painel.js` (dashboard pages), the page's own `js/<page>.js`. Chart.js comes from the CDN in `<head>`.
-* JavaScript: `var` and `function`, single quotes, 2-space indentation, Portuguese names (`validarSessao`, `chamarApi`, `mostrarMensagem`), `// ===== Seção =====` comments in long files, and a `// Primeira carga da tela` block at the end that calls the page's loader.
+* JavaScript: `var` and `function`, single quotes, 2-space indentation, Portuguese names (`validarSessao`, `chamarApi`, `mostrarMensagem`), and a block at the end of the file that calls the page's loader.
 * Charts are created once with `new Chart(canvas, {...})`; when the data changes the script replaces `chart.data` and calls `chart.update()`.
+* Message text lives in the HTML, so a sentence can be changed without touching the JS: each value inside a sentence is a `<span id>` that the JS fills (`Média das <span id="span_qtd_categorias"></span> categorias: <span id="span_media_missoes"></span>%`), and each alternative message (empty state, singular/plural ending, "ainda não informado") is its own element that the JS shows or hides with `hidden`. Only text repeated per item of a list (cards, rows, chart tooltips) stays in the JS template.
 * API request fields (`emailServer`), `sessionStorage` keys (`ID_USUARIO`) and file names (`cadastro.html`, `sessao.js`) keep their names.
 
 ---
@@ -156,7 +156,7 @@ Always write the front-end in the Blue Cheese style.
 # CSS Rules
 
 * One stylesheet for the whole site, `public/style.css`, as in Blue Cheese. A rule shared by several pages is written once; never duplicate a rule, and delete rules that no page uses any more.
-* Order: `:root` tokens, `*` reset, element base styles, then one `/* ===== Seção ===== */` block per component or page (public header, buttons, background photos, landing page, login and sign-up, footer, dashboard sidebar, dashboard cards and charts, achievements, missions), and the single media query (`max-width: 800px`) at the end. 2-space indentation and a blank line between rules.
+* Order: `:root` tokens, `*` reset, element base styles, then the rules grouped by component or page, with no banner comments (public header, buttons, background photos, landing page, login and sign-up, footer, dashboard sidebar, dashboard cards and charts, achievements, missions), and the single media query (`max-width: 800px`) at the end. 2-space indentation and a blank line between rules.
 * Use the `:root` variables for colors and fonts (`--base`, `--surface`, `--muted`, `--yellow`, `--cut-corners`…), and reuse existing classes (`.button`, `.section-label`, `.field`, plain `<p>` for muted text…) before creating new ones. Do not redeclare values that are inherited.
 * Keep it as simple as possible: short, low-specificity selectors, only the declarations that change something, and no `!important`.
 * Lay out pages and multi-column sections with CSS Grid; use flexbox inside components. Under 800px every grid becomes one column.

@@ -1,18 +1,13 @@
-// Respostas falsas da API para o modo demonstração (MODO_DEMO no sessao.js).
-// Os dados ficam no sessionStorage: duram até fechar a aba ou sair da conta.
-
-var ATRASO_MOCK = 300; // milissegundos, para parecer uma chamada de rede
+var ATRASO_MOCK = 300;
 var PADRAO_DATA_MOCK = /^\d{4}-\d{2}-\d{2}$/;
 var CHAVE_USUARIOS_MOCK = 'DEMO_USUARIOS';
 
-// Conta de exemplo com progresso: v@nightcity.net / samurai
 var ID_EXEMPLO_MOCK = '99';
 var DESBLOQUEADAS_EXEMPLO_MOCK = 31;
 var HORAS_EXEMPLO_MOCK = 187;
 var PRIMEIRO_DESBLOQUEIO_MOCK = new Date(2024, 1, 10).getTime();
 var USUARIO_EXEMPLO_MOCK = { id: 99, nome: 'V', email: 'v@nightcity.net', senha: 'samurai' };
 
-// [nome, % global de referência, descrição (vazia = secreta), arquivo do ícone] - igual ao script-tabelas.sql
 var CONQUISTAS_MOCK = [
   ['The Fool', 88.4, '', 'the-fool.jpg'],
   ['The Lovers', 67.2, '', 'the-lovers.jpg'],
@@ -84,7 +79,6 @@ var CATEGORIAS_MOCK = [
   { idCategoria: 8, nome: 'Armas icônicas', descricao: 'arsenal', total: 70, concluidas: 26 }
 ];
 
-// Chamada pelo chamarApi (sessao.js) quando MODO_DEMO está ligado; devolve o mesmo formato da rota de verdade
 function respostaMock(url, opcoes) {
   var corpo = opcoes && opcoes.body ? JSON.parse(opcoes.body) : {};
 
@@ -186,7 +180,6 @@ function atualizarCategoriaMock(corpo) {
   return { idCategoria: corpo.idCategoriaServer, concluidas: concluidas };
 }
 
-// Mesma regra do servidor: data vazia, inválida ou no futuro vira hoje
 function dataDesbloqueioMock(data) {
   var hoje = formatarData(Date.now());
   if (PADRAO_DATA_MOCK.test(data || '') && data <= hoje) {
@@ -219,8 +212,6 @@ function conquistasIniciais() {
   return conquistas;
 }
 
-// Espalha os desbloqueios da conta de exemplo mais ou menos um por mês, com alguns meses vazios e outros com dois,
-// para a linha do tempo ter forma
 function dataExemploMock(posicao) {
   return PRIMEIRO_DESBLOQUEIO_MOCK + (posicao * 31 + (posicao % 4) * 3) * MILISSEGUNDOS_POR_DIA;
 }
@@ -241,7 +232,6 @@ function ehContaExemplo() {
   return sessionStorage.ID_USUARIO == ID_EXEMPLO_MOCK;
 }
 
-// Cada usuário do modo demo tem os próprios dados guardados
 function chaveMock(nome) {
   return 'DEMO_' + nome + '_' + (sessionStorage.ID_USUARIO || '0');
 }

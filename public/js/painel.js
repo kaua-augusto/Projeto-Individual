@@ -1,10 +1,7 @@
-// Funções usadas por mais de uma página do painel (visão geral, conquistas e missões)
-
 var CODIGO_SEM_CONEXAO = 'SEM_CONEXAO';
 var PASTA_ICONES = './assets/img/conquistas/';
 var TAMANHO_SIGLA = 2;
 
-// Raridade pela % de jogadores que têm a conquista: o primeiro máximo que a % não alcança define o nível
 var NIVEIS_RARIDADE = [
   { maximo: 5, nome: 'Lendária', classe: 'rarity-legendary' },
   { maximo: 10, nome: 'Épica', classe: 'rarity-epic' },
@@ -14,9 +11,6 @@ var NIVEIS_RARIDADE = [
 ];
 var RARIDADE_DESCONHECIDA = { nome: '—', classe: 'rarity-common' };
 
-// ===== Regras de negócio =====
-
-// Conquistas marcadas ÷ total × 100, com uma casa decimal
 function porcentagemConclusao(quantidadeDesbloqueadas, total) {
   if (total == 0) {
     return 0;
@@ -42,7 +36,6 @@ function porcentagemCategoria(categoria) {
   return Math.round((categoria.concluidas / categoria.total) * 100);
 }
 
-// Média das porcentagens das categorias: cada categoria pesa o mesmo, tenha 17 ou 160 itens
 function porcentagemMissoes(categorias) {
   if (categorias.length == 0) {
     return 0;
@@ -54,10 +47,6 @@ function porcentagemMissoes(categorias) {
   return Math.round(soma / categorias.length);
 }
 
-// ===== Ícone da conquista =====
-
-// Ícone oficial da conquista, em cinza enquanto está bloqueada.
-// Secreta e ainda bloqueada mostra "?" no lugar do ícone, para não dar spoiler da história.
 function iconeConquista(conquista) {
   var sigla = siglaConquista(conquista.nome);
   var classe = conquista.desbloqueada ? 'achievement-icon' : 'achievement-icon achievement-icon-locked';
@@ -71,12 +60,10 @@ function iconeConquista(conquista) {
   return `<img class="${classe}" src="${PASTA_ICONES + conquista.imagem}" alt="${escaparHtml(conquista.nome)}" data-sigla="${sigla}" onerror="trocarIconePorSigla(this)">`;
 }
 
-// Imagem que não carregou (arquivo apagado, nome errado): volta a mostrar a sigla na mesma caixa
 function trocarIconePorSigla(imagem) {
   imagem.outerHTML = `<span class="${imagem.className}" aria-hidden="true">${imagem.dataset.sigla}</span>`;
 }
 
-// Iniciais das palavras com letra maiúscula: "The Wandering Fool" -> "TW"
 function siglaConquista(nome) {
   var palavras = nome.replace(/[^A-Za-zÀ-ú0-9 ]/g, '').split(' ');
   var sigla = '';
@@ -89,8 +76,6 @@ function siglaConquista(nome) {
   return sigla || nome[0];
 }
 
-// ===== Carregando, conteúdo e erro =====
-
 function mostrarCarregando() {
   p_carregando.hidden = false;
   div_conteudo.hidden = true;
@@ -102,7 +87,6 @@ function mostrarConteudo() {
   div_conteudo.hidden = false;
 }
 
-// Troca o conteúdo da página por uma explicação do erro e do que conferir
 function mostrarErroCarregamento(erro) {
   var servidorDesligado = erro && erro.codigo == CODIGO_SEM_CONEXAO;
   var codigo = erro && erro.codigo ? erro.codigo : 'ERRO';

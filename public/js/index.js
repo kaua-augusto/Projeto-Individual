@@ -1,4 +1,3 @@
-// Visitante já logado: os botões levam ao painel e o link de cadastro vira "Sair"
 function ajustarLinksDaSessao() {
   if (!estaLogado()) {
     return;

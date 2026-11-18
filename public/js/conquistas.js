@@ -2,7 +2,6 @@ var CHAVE_FILTRO = 'EDGERUNNING_FILTRO';
 var CHAVE_ORDEM = 'EDGERUNNING_ORDEM';
 var FILTRO_PADRAO = 'todas';
 var ORDEM_PADRAO = 'faceis';
-// Uma data sozinha é lida como meia-noite UTC, que no Brasil ainda é o dia anterior; meio-dia mantém o mesmo dia
 var MEIO_DIA = 'T12:00:00';
 
 var idUsuario = sessionStorage.ID_USUARIO;
@@ -30,7 +29,6 @@ function listarConquistas(silencioso) {
     });
 }
 
-// Chamada pelo sessao.js quando o usuário volta para a aba
 function atualizarAoVoltar() {
   if (conquistas.length > 0) {
     listarConquistas(true);
@@ -47,14 +45,14 @@ function atualizarContadores() {
   var faltando = conquistas.length - feitas;
   var porcentagem = porcentagemConclusao(feitas, conquistas.length);
 
-  b_contador.textContent = feitas + ' / ' + conquistas.length;
-  span_contador_info.textContent = `${porcentagem.toLocaleString('pt-BR')}% concluído · faltam ${faltando}`;
+  span_contador_feitas.textContent = feitas;
+  span_contador_total.textContent = conquistas.length;
+  span_contador_porcentagem.textContent = porcentagem.toLocaleString('pt-BR');
+  span_contador_faltando.textContent = faltando;
   span_qtd_todas.textContent = conquistas.length;
   span_qtd_feitas.textContent = feitas;
   span_qtd_faltando.textContent = faltando;
 }
-
-// ===== Filtro, busca e ordem =====
 
 function mudarFiltro(filtro) {
   filtroAtual = filtro;
@@ -79,11 +77,7 @@ function mostrarConquistas() {
     }
   }
   ordenarConquistas(visiveis, ordem);
-
-  if (visiveis.length == 0) {
-    div_conquistas.innerHTML = '<p>Nenhuma conquista com esse filtro.</p>';
-    return;
-  }
+  p_sem_resultado.hidden = visiveis.length > 0;
 
   var cards = '';
   for (var j = 0; j < visiveis.length; j++) {
@@ -106,8 +100,6 @@ function ordenarConquistas(lista, ordem) {
     return a.nome.localeCompare(b.nome);
   });
 }
-
-// ===== Cards =====
 
 function montarCard(conquista) {
   var raridade = buscarRaridade(conquista.global);
@@ -132,7 +124,6 @@ function montarCard(conquista) {
     </div>`;
 }
 
-// Bloqueada: botão para marcar. Desbloqueada: a data em que pegou (dá para trocar) e o botão para desmarcar.
 function montarAcoes(conquista, nome) {
   var id = conquista.idConquista;
   if (!conquista.desbloqueada) {
@@ -146,7 +137,6 @@ function montarAcoes(conquista, nome) {
     <button class="button button-outline" type="button" onclick="marcarConquista(${id}, false)" aria-label="Desmarcar ${nome}">Desmarcar</button>`;
 }
 
-// Marca, desmarca ou troca a data; sem data o servidor salva hoje
 function marcarConquista(idConquista, desbloqueada, data) {
   var conquista = conquistas.find(function (item) {
     return item.idConquista == idConquista;
@@ -176,8 +166,6 @@ function marcarConquista(idConquista, desbloqueada, data) {
     });
 }
 
-// ===== Filtro e ordem lembrados entre visitas =====
-
 function lerEscolha(chave) {
   try {
     return localStorage.getItem(chave);
@@ -194,12 +182,10 @@ function salvarEscolha(chave, valor) {
   }
 }
 
-// Os links "ver todas" da visão geral chegam com ?filtro= e ?ordem=; sem eles vale a última escolha
 var parametrosUrl = new URLSearchParams(location.search);
 filtroAtual = parametrosUrl.get('filtro') || lerEscolha(CHAVE_FILTRO) || FILTRO_PADRAO;
 select_ordem.value = parametrosUrl.get('ordem') || lerEscolha(CHAVE_ORDEM) || ORDEM_PADRAO;
 
-// Primeira carga da tela
 if (validarSessao()) {
   listarConquistas();
 }

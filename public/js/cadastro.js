@@ -2,7 +2,6 @@ var TAMANHO_MINIMO_SENHA = 6;
 
 redirecionarSeLogado();
 
-// Chamada no onsubmit do formulário: o return false evita que a página recarregue
 function cadastrar() {
   aguardar();
   div_erros_login.hidden = true;

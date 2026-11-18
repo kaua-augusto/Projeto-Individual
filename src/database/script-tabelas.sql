@@ -1,8 +1,3 @@
--- Banco do Edgerunning: tabelas, cargas iniciais e views usadas pela API.
--- Pode ser executado de novo a qualquer momento: nada é duplicado e o progresso dos usuários fica como está.
-
--- O arquivo está em UTF-8: sem isto, o cliente mysql do Windows envia os acentos em outra codificação
--- e grava "Missões" quebrado, como uma categoria nova.
 set names utf8mb4;
 
 create database if not exists edgerunning;
@@ -28,8 +23,6 @@ raridadeGlobal decimal(4,1),
 imagem varchar(80)
 );
 
--- Bancos criados antes da coluna imagem: o alter só roda se a coluna ainda não existir,
--- assim o script pode ser executado de novo sem dar erro de coluna duplicada.
 set @temColunaImagem = (
 	select count(*) from information_schema.columns
 		where table_schema = database() and table_name = 'conquista' and column_name = 'imagem'
@@ -48,7 +41,6 @@ dtDesbloqueio date not null,
 primary key (fkUsuario, fkConquista)
 );
 
--- O unique(nome) impede linhas duplicadas; numa conquista que já existe, só a imagem é atualizada.
 insert into conquista (nome, descricao, raridadeGlobal, imagem) values
 ('The Fool', '', 88.4, 'the-fool.jpg'),
 ('The Lovers', '', 67.2, 'the-lovers.jpg'),
@@ -125,7 +117,6 @@ concluidas int default 0,
 primary key (fkUsuario, fkCategoria)
 );
 
--- Totais de exemplo, a conferir no jogo
 insert ignore into categoria (nome, descricao, total) values
 ('Missões principais', 'história e finais', 26),
 ('Trabalhos secundários', 'side jobs', 60),
@@ -136,10 +127,6 @@ insert ignore into categoria (nome, descricao, total) values
 ('Veículos', 'garagem', 90),
 ('Armas icônicas', 'arsenal', 70);
 
--- Views usadas pela API
-
--- Página de conquistas e visão geral: as 57 conquistas para cada usuário, com a data em que ele desbloqueou
--- (null = ainda não tem). A data sai como texto aaaa-mm-dd para o fuso não trocar o dia no JavaScript.
 create or replace view vwConquistaUsuario as
 select u.idUsuario,
 	c.idConquista,
@@ -153,7 +140,6 @@ from usuario as u
 	left join conquistaUsuario as cu
 		on cu.fkUsuario = u.idUsuario and cu.fkConquista = c.idConquista;
 
--- Página de missões e visão geral: as 8 categorias para cada usuário, com 0 onde ele ainda não registrou nada
 create or replace view vwProgressoUsuario as
 select u.idUsuario,
 	c.idCategoria,
@@ -165,8 +151,6 @@ from usuario as u
 	cross join categoria as c
 	left join progresso as p
 		on p.fkCategoria = c.idCategoria and p.fkUsuario = u.idUsuario;
-
--- Conferência
 
 select * from usuario;
 select * from conquista;

@@ -4,7 +4,6 @@ if (MODO_DEMO) {
   p_dica_demo.textContent = 'MODO DEMO — teste com v@nightcity.net / samurai';
 }
 
-// Explica por que o usuário caiu no login: tentou abrir o painel sem sessão ou acabou de sair
 var motivo = new URLSearchParams(location.search).get('motivo');
 if (motivo == 'sessao') {
   mostrarMensagem('Faça login para abrir o painel.');
@@ -12,7 +11,6 @@ if (motivo == 'sessao') {
   mostrarMensagem('Você saiu da rede. Até a próxima, choom.');
 }
 
-// Chamada no onsubmit do formulário: o return false evita que a página recarregue
 function entrar() {
   aguardar();
   div_erros_login.hidden = true;
