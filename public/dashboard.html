@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visão geral | EDGERUNNING</title>
+  <link rel="icon" href="./assets/Logo/favicon.ico" sizes="any">
+  <link rel="icon" href="./assets/Logo/edgerunning-cruz-simples.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./assets/Logo/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&display=swap">
+  <link rel="stylesheet" href="./style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body class="dashboard-page">
+
+  <!-- Menu lateral -->
+  <div class="dashboard-sidebar">
+    <a class="sidebar-brand" href="./index.html">
+      <img src="./assets/Logo/edgerunning-cruz.svg" alt="">EDGERUNNING
+    </a>
+    <div class="sidebar-nav">
+      <a href="./dashboard.html" class="active">Visão geral</a>
+      <a href="./conquistas.html">Conquistas</a>
+      <a href="./missoes.html">Missões</a>
+    </div>
+    <div class="sidebar-account">
+      <div class="sidebar-user">
+        <span class="sidebar-avatar" id="avatar_usuario"></span>
+        <span id="nome_usuario"></span>
+      </div>
+      <a href="./login.html?motivo=saiu" onclick="limparSessao()">Sair</a>
+    </div>
+  </div>
+
+  <!-- Aviso que aparece no canto e some sozinho -->
+  <div class="alert" id="div_alerta" role="status" hidden>
+    <span id="span_mensagem"></span>
+  </div>
+
+  <div class="dashboard">
+
+    <div class="dashboard-header">
+      <div class="dashboard-title">
+        <span class="section-label">Painel // Rumo aos 100%</span>
+        <h1>Visão <span>geral</span></h1>
+        <p>Quanto você já fez e quanto falta para os 100%, a partir do que você registrou.</p>
+      </div>
+      <div class="dashboard-controls">
+        <a class="button button-solid" href="./conquistas.html?filtro=faltando">Marcar conquistas</a>
+      </div>
+    </div>
+
+    <p class="status" id="p_carregando" hidden>Carregando seus registros...</p>
+    <div class="load-error" id="div_erro_carregamento" hidden></div>
+
+    <div id="div_conteudo" hidden>
+      <p class="notice" id="p_comecar" hidden>
+        Comece marcando as conquistas que você já tem em <a href="./conquistas.html">Conquistas</a>
+        e informe suas horas de jogo no card Tempo de jogo.
+      </p>
+
+      <!-- Cards: o principal (% concluída) fica no canto superior esquerdo, onde a leitura começa -->
+      <div class="dashboard-cards">
+        <div class="dashboard-card">
+          <span class="section-label">Conquistas concluídas</span>
+          <span class="card-valor card-valor-principal" id="span_porcentagem">0%</span>
+          <progress id="progress_conclusao" max="100" value="0" aria-label="Conquistas concluídas"></progress>
+          <p id="p_rank">—</p>
+        </div>
+        <div class="dashboard-card">
+          <span class="section-label">Desbloqueadas</span>
+          <span class="card-valor"><span id="span_desbloqueadas">0</span><span class="card-unit" id="span_total"> / 0</span></span>
+          <p>conquistas marcadas</p>
+        </div>
+        <div class="dashboard-card">
+          <span class="section-label">Faltam para os 100%</span>
+          <span class="card-valor card-valor-falta" id="span_faltam">0</span>
+          <p id="p_faltam_info"></p>
+        </div>
+        <div class="dashboard-card">
+          <span class="section-label">Tempo de jogo</span>
+          <span class="card-valor card-valor-info" id="span_horas">0h</span>
+          <p id="p_horas_info"></p>
+          <form class="hours-form" id="form_horas" onsubmit="return salvarHoras()" hidden>
+            <label for="input_horas">Horas jogadas</label>
+            <input id="input_horas" type="number" min="0" step="1" placeholder="horas" onkeydown="fecharHorasComEsc(event)">
+            <button class="button button-solid" type="submit">Salvar</button>
+          </form>
+          <button class="button button-outline" id="btn_editar_horas" type="button" onclick="abrirFormularioHoras()">Atualizar horas</button>
+        </div>
+      </div>
+
+      <!-- Gráficos e destaques: a linha do tempo ocupa 2 colunas, os destaques ficam na linha de baixo -->
+      <div class="dashboard-grid">
+
+        <div class="dashboard-panel chart-card">
+          <div class="dashboard-panel-header">
+            <h2>Linha do tempo</h2>
+          </div>
+          <p>Conquistas acumuladas mês a mês, pela data que você registrou em cada uma.</p>
+          <div class="dashboard-chart-container">
+            <canvas id="graficoLinhaTempo" role="img" aria-label="Gráfico de conquistas acumuladas por mês"></canvas>
+          </div>
+          <p class="section-label" id="p_melhor_mes"></p>
+          <details>
+            <summary>Ver como tabela</summary>
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Mês</th>
+                  <th scope="col">Novas</th>
+                  <th scope="col">Total</th>
+                </tr>
+              </thead>
+              <tbody id="tbody_linha_tempo"></tbody>
+            </table>
+          </details>
+        </div>
+
+        <div class="dashboard-panel">
+          <div class="dashboard-panel-header">
+            <h2>Missões</h2>
+            <a href="./missoes.html">atualizar</a>
+          </div>
+          <p id="p_media_missoes"></p>
+          <div class="dashboard-chart-container">
+            <canvas id="graficoCategorias" role="img" aria-label="Gráfico de progresso por categoria de missão"></canvas>
+          </div>
+        </div>
+
+        <div class="dashboard-panel">
+          <div class="dashboard-panel-header">
+            <h2>Mais fáceis que faltam</h2>
+            <a href="./conquistas.html?filtro=faltando">ver todas</a>
+          </div>
+          <p>As que mais jogadores têm.</p>
+          <ul class="achievement-list" id="ul_mais_faceis"></ul>
+        </div>
+
+        <div class="dashboard-panel">
+          <div class="dashboard-panel-header">
+            <h2>Desbloqueadas recentes</h2>
+            <a href="./conquistas.html?filtro=feitas&amp;ordem=recentes">ver todas</a>
+          </div>
+          <p>As últimas que você pegou.</p>
+          <ul class="achievement-list" id="ul_recentes"></ul>
+        </div>
+
+        <div class="dashboard-panel">
+          <div class="dashboard-panel-header">
+            <h2>Suas mais raras</h2>
+            <a href="./conquistas.html?filtro=feitas&amp;ordem=raras">ver todas</a>
+          </div>
+          <p>Menor % de jogadores no mundo.</p>
+          <ul class="achievement-list" id="ul_mais_raras"></ul>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <p>EDGERUNNING &copy; 2026 — projeto individual SPTech</p>
+      <p>Projeto de fã, sem vínculo com a CD PROJEKT RED.</p>
+    </div>
+  </div>
+
+  <script src="./js/dados-mock.js"></script>
+  <script src="./js/sessao.js"></script>
+  <script src="./js/painel.js"></script>
+  <script src="./js/dashboard.js"></script>
+</body>
+</html>
