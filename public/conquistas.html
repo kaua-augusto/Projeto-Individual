@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conquistas | EDGERUNNING</title>
+  <link rel="icon" href="./assets/Logo/favicon.ico" sizes="any">
+  <link rel="icon" href="./assets/Logo/edgerunning-cruz-simples.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./assets/Logo/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&display=swap">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body class="dashboard-page">
+
+  <!-- Menu lateral -->
+  <div class="dashboard-sidebar">
+    <a class="sidebar-brand" href="./index.html">
+      <img src="./assets/Logo/edgerunning-cruz.svg" alt="">EDGERUNNING
+    </a>
+    <div class="sidebar-nav">
+      <a href="./dashboard.html">Visão geral</a>
+      <a href="./conquistas.html" class="active">Conquistas</a>
+      <a href="./missoes.html">Missões</a>
+    </div>
+    <div class="sidebar-account">
+      <div class="sidebar-user">
+        <span class="sidebar-avatar" id="avatar_usuario"></span>
+        <span id="nome_usuario"></span>
+      </div>
+      <a href="./login.html?motivo=saiu" onclick="limparSessao()">Sair</a>
+    </div>
+  </div>
+
+  <!-- Aviso que aparece no canto e some sozinho -->
+  <div class="alert" id="div_alerta" role="status" hidden>
+    <span id="span_mensagem"></span>
+  </div>
+
+  <div class="dashboard">
+
+    <div class="dashboard-header">
+      <div class="dashboard-title">
+        <span class="section-label">Registro // Marque as que você já tem</span>
+        <h1>Suas <span>conquistas</span></h1>
+        <p>As 57 conquistas do jogo. Marque as que você tem, com a data em que pegou cada uma.</p>
+      </div>
+      <p class="banner-counter">
+        <b id="b_contador">— / —</b>
+        <span id="span_contador_info">carregando...</span>
+      </p>
+    </div>
+
+    <p class="status" id="p_carregando" hidden>Carregando suas conquistas...</p>
+    <div class="load-error" id="div_erro_carregamento" hidden></div>
+
+    <div id="div_conteudo" hidden>
+      <!-- Filtros -->
+      <div class="filters">
+        <div class="filter-buttons" role="group" aria-label="Filtrar conquistas">
+          <button class="filter-button" type="button" data-filtro="todas" onclick="mudarFiltro('todas')">Todas <span id="span_qtd_todas">0</span></button>
+          <button class="filter-button" type="button" data-filtro="feitas" onclick="mudarFiltro('feitas')">Feitas <span id="span_qtd_feitas">0</span></button>
+          <button class="filter-button" type="button" data-filtro="faltando" onclick="mudarFiltro('faltando')">Faltando <span id="span_qtd_faltando">0</span></button>
+        </div>
+        <div class="field">
+          <label for="input_busca">Buscar</label>
+          <input id="input_busca" type="search" placeholder="Nome ou descrição" oninput="mostrarConquistas()">
+        </div>
+        <div class="field">
+          <label for="select_ordem">Ordenar</label>
+          <select id="select_ordem" onchange="mostrarConquistas()">
+            <option value="faceis">Mais comuns primeiro</option>
+            <option value="raras">Mais raras primeiro</option>
+            <option value="recentes">Desbloqueio mais recente</option>
+            <option value="nome">Nome (A–Z)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Cards das conquistas, montados pelo conquistas.js -->
+      <div class="achievement-grid" id="div_conquistas"></div>
+    </div>
+
+    <div class="page-footer">
+      <p>EDGERUNNING &copy; 2026 — projeto individual SPTech</p>
+      <p>Projeto de fã, sem vínculo com a CD PROJEKT RED.</p>
+    </div>
+  </div>
+
+  <script src="./js/dados-mock.js"></script>
+  <script src="./js/sessao.js"></script>
+  <script src="./js/painel.js"></script>
+  <script src="./js/conquistas.js"></script>
+</body>
+</html>
