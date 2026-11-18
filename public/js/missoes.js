@@ -1,4 +1,4 @@
-var ESPERA_SALVAR = 500; // milissegundos sem clicar nem digitar antes de salvar
+var ESPERA_SALVAR = 500;
 
 var idUsuario = sessionStorage.ID_USUARIO;
 
@@ -14,7 +14,8 @@ function listarCategorias() {
     })
     .catch(function (erro) {
       console.error(erro);
-      div_categorias.innerHTML = '<p>Não foi possível carregar as categorias.</p>';
+      div_categorias.innerHTML = '';
+      p_erro_categorias.hidden = false;
     });
 }
 
@@ -57,20 +58,16 @@ function descreverFalta(categoria) {
   return `${categoria.descricao} · faltam ${falta}`;
 }
 
-// Botões − e +
 function mudarValor(idCategoria, passo) {
   definirValor(idCategoria, buscarCategoria(idCategoria).concluidas + passo, false);
 }
 
-// Aplica o novo valor, preso entre 0 e o total da categoria, e agenda o salvamento.
-// digitando = true enquanto o usuário ainda está digitando no campo.
 function definirValor(idCategoria, valor, digitando) {
   var categoria = buscarCategoria(idCategoria);
   var digitado = String(valor);
   var preso = Math.max(0, Math.min(categoria.total, Number(valor) || 0));
   categoria.concluidas = preso;
 
-  // Enquanto digita, o campo vazio fica vazio, para o usuário apagar e escrever outro número
   if (!digitando || (digitado !== '' && Number(digitado) != preso)) {
     document.getElementById('input_qtd_' + idCategoria).value = preso;
   }
@@ -98,13 +95,11 @@ function atualizarTotal() {
       completas++;
     }
   }
-  b_total_porcentagem.textContent = porcentagemMissoes(categorias) + '% do jogo';
-  span_total_info.textContent = `${completas} de ${categorias.length} categorias completas`;
+  span_total_porcentagem.textContent = porcentagemMissoes(categorias);
+  span_completas.textContent = completas;
+  span_qtd_categorias.textContent = categorias.length;
 }
 
-// ===== Salvamento automático =====
-
-// Espera o usuário parar de clicar ou digitar: uma sequência de cliques vira uma chamada só
 function agendarSalvamento(idCategoria, valor) {
   salvamentosPendentes[idCategoria] = valor;
   clearTimeout(temporizadoresSalvar[idCategoria]);
@@ -134,8 +129,6 @@ function salvarCategoria(idCategoria, concluidas) {
     });
 }
 
-// Ao esconder ou fechar a página, envia o que ainda estava esperando para salvar.
-// O keepalive deixa a chamada terminar mesmo depois que a página fechou (o chamarApi não faz isso).
 function salvarPendentesAoSair() {
   var ids = Object.keys(salvamentosPendentes);
   for (var i = 0; i < ids.length; i++) {
@@ -173,7 +166,6 @@ document.addEventListener('visibilitychange', function () {
   }
 });
 
-// Primeira carga da tela
 if (validarSessao()) {
   listarCategorias();
 }

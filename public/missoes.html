@@ -14,7 +14,6 @@
 </head>
 <body class="dashboard-page">
 
-  <!-- Menu lateral -->
   <div class="dashboard-sidebar">
     <a class="sidebar-brand" href="./index.html">
       <img src="./assets/Logo/edgerunning-cruz.svg" alt="">EDGERUNNING
@@ -26,36 +25,36 @@
     </div>
     <div class="sidebar-account">
       <div class="sidebar-user">
-        <span class="sidebar-avatar" id="avatar_usuario"></span>
+        <span class="sidebar-avatar"><img src="./assets/Logo/edgerunning-cruz.svg" alt=""></span>
         <span id="nome_usuario"></span>
       </div>
       <a href="./login.html?motivo=saiu" onclick="limparSessao()">Sair</a>
     </div>
   </div>
 
-  <!-- Aviso que aparece no canto e some sozinho -->
   <div class="alert" id="div_alerta" role="status" hidden>
     <span id="span_mensagem"></span>
   </div>
 
   <div class="dashboard">
+    <img class="dashboard-background" src="./assets/imagens%20-%20referencias/nightBorrado.jpg" alt="">
 
     <div class="dashboard-header">
       <div class="dashboard-title">
-        <span class="section-label">Registro // Seu progresso no jogo</span>
+        <span class="section-label">Registro - Seu progresso no jogo</span>
         <h1>Suas <span>missões</span></h1>
         <p>Registre quanto já fez em cada frente: use − e + ou digite o número. Salva sozinho.</p>
       </div>
       <p class="banner-counter">
-        <b id="b_total_porcentagem">—</b>
-        <span id="span_total_info">carregando...</span>
+        <b><span id="span_total_porcentagem">—</span>% do jogo</b>
+        <span><span id="span_completas">—</span> de <span id="span_qtd_categorias">—</span> categorias completas</span>
       </p>
     </div>
 
-    <!-- Linhas das categorias, montadas pelo missoes.js -->
     <div class="category-list" id="div_categorias">
       <p class="status">Carregando dados...</p>
     </div>
+    <p id="p_erro_categorias" hidden>Não foi possível carregar as categorias.</p>
 
     <div class="page-footer">
       <p>EDGERUNNING &copy; 2026 — projeto individual SPTech</p>

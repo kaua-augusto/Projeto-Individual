@@ -15,7 +15,6 @@
 </head>
 <body class="dashboard-page">
 
-  <!-- Menu lateral -->
   <div class="dashboard-sidebar">
     <a class="sidebar-brand" href="./index.html">
       <img src="./assets/Logo/edgerunning-cruz.svg" alt="">EDGERUNNING
@@ -27,23 +26,23 @@
     </div>
     <div class="sidebar-account">
       <div class="sidebar-user">
-        <span class="sidebar-avatar" id="avatar_usuario"></span>
+        <span class="sidebar-avatar"><img src="./assets/Logo/edgerunning-cruz.svg" alt=""></span>
         <span id="nome_usuario"></span>
       </div>
       <a href="./login.html?motivo=saiu" onclick="limparSessao()">Sair</a>
     </div>
   </div>
 
-  <!-- Aviso que aparece no canto e some sozinho -->
   <div class="alert" id="div_alerta" role="status" hidden>
     <span id="span_mensagem"></span>
   </div>
 
   <div class="dashboard">
+    <img class="dashboard-background" src="./assets/imagens%20-%20referencias/nightBorrado.jpg" alt="">
 
     <div class="dashboard-header">
       <div class="dashboard-title">
-        <span class="section-label">Painel // Rumo aos 100%</span>
+        <span class="section-label">Painel - Rumo aos 100%</span>
         <h1>Visão <span>geral</span></h1>
         <p>Quanto você já fez e quanto falta para os 100%, a partir do que você registrou.</p>
       </div>
@@ -61,28 +60,29 @@
         e informe suas horas de jogo no card Tempo de jogo.
       </p>
 
-      <!-- Cards: o principal (% concluída) fica no canto superior esquerdo, onde a leitura começa -->
       <div class="dashboard-cards">
         <div class="dashboard-card">
           <span class="section-label">Conquistas concluídas</span>
-          <span class="card-valor card-valor-principal" id="span_porcentagem">0%</span>
+          <span class="card-valor card-valor-principal"><span id="span_porcentagem">0</span>%</span>
           <progress id="progress_conclusao" max="100" value="0" aria-label="Conquistas concluídas"></progress>
-          <p id="p_rank">—</p>
+          <p>Rank: <span id="span_rank">—</span></p>
         </div>
         <div class="dashboard-card">
-          <span class="section-label">Desbloqueadas</span>
-          <span class="card-valor"><span id="span_desbloqueadas">0</span><span class="card-unit" id="span_total"> / 0</span></span>
+          <span class="section-label">Conquistas desbloqueadas</span>
+          <span class="card-valor"><span id="span_desbloqueadas">0</span><span class="card-unit"> / <span id="span_total">0</span></span></span>
           <p>conquistas marcadas</p>
         </div>
         <div class="dashboard-card">
-          <span class="section-label">Faltam para os 100%</span>
+          <span class="section-label">faltam para os 100%</span>
           <span class="card-valor card-valor-falta" id="span_faltam">0</span>
-          <p id="p_faltam_info"></p>
+          <p id="p_faltam_info">conquista<span id="span_faltam_plural">s</span> · <span id="span_porcentagem_falta">0</span>% do total</p>
+          <p id="p_platinou" hidden>platinou. Lenda.</p>
         </div>
         <div class="dashboard-card">
-          <span class="section-label">Tempo de jogo</span>
-          <span class="card-valor card-valor-info" id="span_horas">0h</span>
-          <p id="p_horas_info"></p>
+          <span class="section-label">Seu tempo de jogo</span>
+          <span class="card-valor card-valor-info"><span id="span_horas">0</span>h</span>
+          <p id="p_horas_vazio">ainda não informado</p>
+          <p id="p_horas_info" hidden>atualizado <span id="span_horas_atualizado"></span><span id="span_horas_media"> · <span id="span_horas_por_conquista"></span>h por conquista</span></p>
           <form class="hours-form" id="form_horas" onsubmit="return salvarHoras()" hidden>
             <label for="input_horas">Horas jogadas</label>
             <input id="input_horas" type="number" min="0" step="1" placeholder="horas" onkeydown="fecharHorasComEsc(event)">
@@ -92,7 +92,6 @@
         </div>
       </div>
 
-      <!-- Gráficos e destaques: a linha do tempo ocupa 2 colunas, os destaques ficam na linha de baixo -->
       <div class="dashboard-grid">
 
         <div class="dashboard-panel chart-card">
@@ -103,7 +102,8 @@
           <div class="dashboard-chart-container">
             <canvas id="graficoLinhaTempo" role="img" aria-label="Gráfico de conquistas acumuladas por mês"></canvas>
           </div>
-          <p class="section-label" id="p_melhor_mes"></p>
+          <p class="section-label" id="p_melhor_mes" hidden>Mês mais produtivo: <span id="span_melhor_mes"></span> (+<span id="span_melhor_mes_novas"></span>)</p>
+          <p class="section-label" id="p_sem_linha">Sem conquistas ainda: a linha começa na primeira.</p>
           <details>
             <summary>Ver como tabela</summary>
             <table>
@@ -124,7 +124,7 @@
             <h2>Missões</h2>
             <a href="./missoes.html">atualizar</a>
           </div>
-          <p id="p_media_missoes"></p>
+          <p>Média das <span id="span_qtd_categorias">8</span> categorias: <span id="span_media_missoes">0</span>%</p>
           <div class="dashboard-chart-container">
             <canvas id="graficoCategorias" role="img" aria-label="Gráfico de progresso por categoria de missão"></canvas>
           </div>
@@ -135,8 +135,9 @@
             <h2>Mais fáceis que faltam</h2>
             <a href="./conquistas.html?filtro=faltando">ver todas</a>
           </div>
-          <p>As que mais jogadores têm.</p>
+          <p>As que os jogadores mais têm.</p>
           <ul class="achievement-list" id="ul_mais_faceis"></ul>
+          <p id="p_faceis_vazio" hidden>Nada faltando. 100%!</p>
         </div>
 
         <div class="dashboard-panel">
@@ -146,6 +147,7 @@
           </div>
           <p>As últimas que você pegou.</p>
           <ul class="achievement-list" id="ul_recentes"></ul>
+          <p id="p_recentes_vazio" hidden>Nenhuma conquista ainda.</p>
         </div>
 
         <div class="dashboard-panel">
@@ -155,6 +157,7 @@
           </div>
           <p>Menor % de jogadores no mundo.</p>
           <ul class="achievement-list" id="ul_mais_raras"></ul>
+          <p id="p_raras_vazio" hidden>Nenhuma conquista ainda.</p>
         </div>
 
       </div>
