@@ -1,21 +1,19 @@
-const loginLink = document.getElementById('nav-login');
-const signupLink = document.getElementById('nav-signup');
-const primaryAction = document.getElementById('primary-action');
-const secondaryAction = document.getElementById('secondary-action');
-const finalAction = document.getElementById('final-action');
+// Visitante já logado: os botões levam ao painel e o link de cadastro vira "Sair"
+function ajustarLinksDaSessao() {
+  if (!estaLogado()) {
+    return;
+  }
 
-if (isLoggedIn()) {
-  loginLink.href = 'dashboard/dashboard.html';
-  loginLink.textContent = 'Meu painel';
-  signupLink.href = '#';
-  signupLink.textContent = 'Sair';
-  signupLink.addEventListener('click', function (event) {
-    event.preventDefault();
-    clearSession();
-  });
-  primaryAction.href = 'dashboard/dashboard.html';
-  primaryAction.textContent = 'Abrir meu painel';
-  finalAction.href = 'dashboard/dashboard.html';
-  finalAction.textContent = 'Ver meu progresso';
-  secondaryAction.hidden = true;
+  a_login.href = './dashboard.html';
+  a_login.textContent = 'Meu painel';
+  a_cadastro.href = './login.html?motivo=saiu';
+  a_cadastro.textContent = 'Sair';
+  a_cadastro.onclick = limparSessao;
+  a_acao_principal.href = './dashboard.html';
+  a_acao_principal.textContent = 'Abrir meu painel';
+  a_acao_final.href = './dashboard.html';
+  a_acao_final.textContent = 'Ver meu progresso';
+  a_acao_secundaria.hidden = true;
 }
+
+ajustarLinksDaSessao();

@@ -1,72 +1,72 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EDGERUNNING | Cadastro</title>
-  <link rel="icon" href="assets/Logo/favicon.ico" sizes="any">
-  <link rel="icon" href="assets/Logo/edgerunning-cruz-simples.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="assets/Logo/apple-touch-icon.png">
+  <title>Cadastro | EDGERUNNING</title>
+  <link rel="icon" href="./assets/Logo/favicon.ico" sizes="any">
+  <link rel="icon" href="./assets/Logo/edgerunning-cruz-simples.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./assets/Logo/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&display=swap">
-  <link rel="stylesheet" href="css/cadastro.css">
-  <script src="js/sessao.js" defer></script>
-  <script src="js/cadastro.js" defer></script>
+  <link rel="stylesheet" href="./style.css">
 </head>
-
 <body>
+
+  <!-- Cabeçalho: em telas estreitas os links ficam atrás do botão Menu -->
   <header class="header">
-    <h1 class="brand"><a href="index.html"><img class="brand-symbol" src="assets/Logo/edgerunning-cruz.svg" alt="">EDGERUNNING</a></h1>
-    <nav aria-label="Navegação principal">
-      <a href="index.html">Inicial</a>
-      <span aria-hidden="true">|</span>
-      <a href="login.html">Login</a>
-      <a href="#" aria-current="page">Cadastro</a>
+    <h1 class="brand"><a href="./index.html"><img class="brand-symbol" src="./assets/Logo/edgerunning-cruz.svg" alt="">EDGERUNNING</a></h1>
+    <button class="menu-button" id="btn_menu" type="button" aria-expanded="false" aria-controls="nav_menu" onclick="alternarMenu()">Menu</button>
+    <nav id="nav_menu" aria-label="Navegação principal" onclick="fecharMenu()">
+      <a href="./index.html">Inicial</a>
+      <span class="nav-divider" aria-hidden="true"></span>
+      <a href="./login.html">Login</a>
+      <a href="./cadastro.html" class="active">Cadastro</a>
     </nav>
   </header>
 
-  <div class="alert" id="alert" role="status" hidden>
-    <span id="alert-message"></span>
+  <!-- Aviso que aparece no canto e some sozinho -->
+  <div class="alert" id="div_alerta" role="status" hidden>
+    <span id="span_mensagem"></span>
   </div>
 
-  <main class="signup">
-    <img class="signup-background" src="assets/imagens%20-%20referencias/vista%20vermelha.jpg" alt="">
-    <section class="signup-copy" aria-labelledby="signup-title">
+  <!-- Mesmo layout do login, com outra foto de fundo -->
+  <main class="login">
+    <img class="login-background" src="./assets/imagens%20-%20referencias/vista%20vermelha.jpg" alt="">
+    <section class="login-copy">
       <p class="section-label">Novo registro</p>
-      <h2 id="signup-title">Crie seu <span>perfil</span> na rede.</h2>
+      <h2>Crie seu <span>perfil</span> na rede.</h2>
       <p>
         Depois do cadastro você entra direto no painel. Marque as conquistas que já tem,
         informe suas horas e registre gigs, tarô e o resto do caminho até os 100%.
       </p>
     </section>
 
-    <section class="signup-card" aria-labelledby="form-title">
-      <h3 id="form-title">Bem-vindo, choom!</h3>
-      <form class="form" id="signup-form" novalidate>
+    <section class="login-card">
+      <h3>Bem-vindo, choom!</h3>
+      <form class="form" onsubmit="return cadastrar()" novalidate>
         <div class="field">
-          <label for="name">Nome / apelido:</label>
-          <input id="name" type="text" placeholder="V" autocomplete="nickname">
+          <label for="input_nome">Nome / apelido:</label>
+          <input id="input_nome" type="text" placeholder="V" autocomplete="nickname">
         </div>
         <div class="field">
-          <label for="email">E-mail:</label>
-          <input id="email" type="email" placeholder="meuemail@provedor.com" autocomplete="email">
+          <label for="input_email">E-mail:</label>
+          <input id="input_email" type="email" placeholder="meuemail@provedor.com" autocomplete="email">
         </div>
         <div class="field">
-          <label for="password">Senha:</label>
-          <input id="password" type="password" placeholder="******" autocomplete="new-password">
+          <label for="input_senha">Senha:</label>
+          <input id="input_senha" type="password" placeholder="******" autocomplete="new-password">
         </div>
         <div class="field">
-          <label for="password-confirmation">Confirmação da senha:</label>
-          <input id="password-confirmation" type="password" placeholder="******" autocomplete="new-password">
+          <label for="input_confirmacao">Confirmação da senha:</label>
+          <input id="input_confirmacao" type="password" placeholder="******" autocomplete="new-password">
         </div>
-        <button class="button button-solid" id="signup-button" type="submit">Cadastrar e entrar</button>
+        <button class="button button-solid" id="btn_cadastrar" type="submit">Cadastrar e entrar</button>
       </form>
-      <div id="loading" hidden>REGISTRANDO NA REDE...</div>
-      <div id="form-error" hidden></div>
-      <p>Já tem conta? <a href="login.html">Fazer login</a></p>
+      <div id="div_aguardar" hidden>REGISTRANDO NA REDE...</div>
+      <div id="div_erros_login" hidden></div>
+      <p>Já tem conta? <a href="./login.html">Fazer login</a></p>
     </section>
   </main>
 
@@ -74,6 +74,9 @@
     <p>EDGERUNNING &copy; 2026 — projeto individual SPTech</p>
     <p>Projeto de fã, sem vínculo com a CD PROJEKT RED.</p>
   </footer>
-</body>
 
+  <script src="./js/dados-mock.js"></script>
+  <script src="./js/sessao.js"></script>
+  <script src="./js/cadastro.js"></script>
+</body>
 </html>

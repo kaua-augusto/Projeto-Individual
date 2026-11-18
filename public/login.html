@@ -1,61 +1,61 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EDGERUNNING | Login</title>
-  <link rel="icon" href="assets/Logo/favicon.ico" sizes="any">
-  <link rel="icon" href="assets/Logo/edgerunning-cruz-simples.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="assets/Logo/apple-touch-icon.png">
+  <title>Login | EDGERUNNING</title>
+  <link rel="icon" href="./assets/Logo/favicon.ico" sizes="any">
+  <link rel="icon" href="./assets/Logo/edgerunning-cruz-simples.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./assets/Logo/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&display=swap">
-  <link rel="stylesheet" href="css/login.css">
-  <script src="js/sessao.js" defer></script>
-  <script src="js/login.js" defer></script>
+  <link rel="stylesheet" href="./style.css">
 </head>
-
 <body>
+
+  <!-- Cabeçalho: em telas estreitas os links ficam atrás do botão Menu -->
   <header class="header">
-    <h1 class="brand"><a href="index.html"><img class="brand-symbol" src="assets/Logo/edgerunning-cruz.svg" alt="">EDGERUNNING</a></h1>
-    <nav aria-label="Navegação principal">
-      <a href="index.html">Inicial</a>
-      <span aria-hidden="true">|</span>
-      <a href="#" aria-current="page">Login</a>
-      <a href="cadastro.html">Cadastro</a>
+    <h1 class="brand"><a href="./index.html"><img class="brand-symbol" src="./assets/Logo/edgerunning-cruz.svg" alt="">EDGERUNNING</a></h1>
+    <button class="menu-button" id="btn_menu" type="button" aria-expanded="false" aria-controls="nav_menu" onclick="alternarMenu()">Menu</button>
+    <nav id="nav_menu" aria-label="Navegação principal" onclick="fecharMenu()">
+      <a href="./index.html">Inicial</a>
+      <span class="nav-divider" aria-hidden="true"></span>
+      <a href="./login.html" class="active">Login</a>
+      <a href="./cadastro.html">Cadastro</a>
     </nav>
   </header>
 
-  <div class="alert" id="alert" role="status" hidden>
-    <span id="alert-message"></span>
+  <!-- Aviso que aparece no canto e some sozinho -->
+  <div class="alert" id="div_alerta" role="status" hidden>
+    <span id="span_mensagem"></span>
   </div>
 
   <main class="login">
-    <section class="login-copy" aria-labelledby="login-title">
-      <p class="section-label">Acesso à rede // NetWatch online</p>
-      <h2 id="login-title">Bem-vindo de volta, <span>merc.</span></h2>
+    <img class="login-background" src="./assets/imagens%20-%20referencias/v%20front%20towns.jpg" alt="">
+    <section class="login-copy">
+      <p class="section-label">Acesso à rede</p>
+      <h2>Bem-vindo de volta, <span>merc.</span></h2>
       <p>Entre para ver quanto falta para os 100% e continuar registrando seu progresso.</p>
     </section>
 
-    <section class="login-card" aria-labelledby="form-title">
-      <h3 id="form-title">Jack in</h3>
-      <form class="form" id="login-form" novalidate>
+    <section class="login-card">
+      <h3>Jack in</h3>
+      <form class="form" onsubmit="return entrar()" novalidate>
         <div class="field">
-          <label for="email">E-mail:</label>
-          <input id="email" type="email" placeholder="v@nightcity.net" autocomplete="email">
+          <label for="input_email">E-mail:</label>
+          <input id="input_email" type="email" placeholder="v@nightcity.net" autocomplete="email">
         </div>
         <div class="field">
-          <label for="password">Senha:</label>
-          <input id="password" type="password" placeholder="******" autocomplete="current-password">
+          <label for="input_senha">Senha:</label>
+          <input id="input_senha" type="password" placeholder="******" autocomplete="current-password">
         </div>
-        <button class="button button-solid" id="login-button" type="submit">Entrar</button>
+        <button class="button button-solid" id="btn_entrar" type="submit">Entrar</button>
       </form>
-      <div id="loading" hidden>CONECTANDO À REDE...</div>
-      <div id="form-error" hidden></div>
-      <p>Ainda não tem conta? <a href="cadastro.html">Cadastre-se</a></p>
-      <p id="demo-hint"></p>
+      <div id="div_aguardar" hidden>CONECTANDO À REDE...</div>
+      <div id="div_erros_login" hidden></div>
+      <p>Ainda não tem conta? <a href="./cadastro.html">Cadastre-se</a></p>
+      <p id="p_dica_demo"></p>
     </section>
   </main>
 
@@ -63,6 +63,9 @@
     <p>EDGERUNNING &copy; 2026 — projeto individual SPTech</p>
     <p>Projeto de fã, sem vínculo com a CD PROJEKT RED.</p>
   </footer>
-</body>
 
+  <script src="./js/dados-mock.js"></script>
+  <script src="./js/sessao.js"></script>
+  <script src="./js/login.js"></script>
+</body>
 </html>

@@ -1,0 +1,1165 @@
+/* ===== Cores e valores usados no site todo ===== */
+/* Significado fixo das cores no painel: amarelo = principal/concluído, ciano = informação, magenta = o que falta/alerta */
+:root {
+  --base: #0b0816;
+  --surface: #150f26;
+  --border: #3b2b63;
+  --text: #e8e6f0;
+  --muted: #a9a6ba;
+  --yellow: #fcee0a;
+  --cyan: #02d7f2;
+  --magenta: #ff2a6d;
+  --purple: #a35cff;
+  --purple-deep: #2a1552;
+  --glow: 0 0 18px #a35cff66;
+  --chromatic-shadow: 2px 0 var(--magenta), -2px 0 var(--cyan);
+  --cut-corners: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+  --font-mono: Consolas, "Courier New", monospace;
+  --font-display: "Chakra Petch", sans-serif;
+  --header-height: 80px;
+  --footer-height: 56px;
+  --sidebar-width: 220px;
+  --gutter: 10%;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-padding-top: var(--header-height);
+}
+
+body {
+  margin: 0;
+  color: var(--text);
+  background: var(--base);
+  font: 16px/1.5 var(--font-mono);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  color: var(--yellow);
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-size: 44px;
+}
+
+h1 span,
+h2 span {
+  color: var(--magenta);
+}
+
+h3 {
+  font-size: 30px;
+}
+
+h4 {
+  font-size: 20px;
+}
+
+p {
+  margin: 0;
+  color: var(--muted);
+}
+
+a {
+  color: var(--cyan);
+}
+
+a:hover {
+  color: var(--yellow);
+}
+
+:focus-visible {
+  outline: 2px solid var(--purple);
+  outline-offset: 3px;
+}
+
+input,
+select {
+  padding: 10px;
+  border: 2px solid var(--cyan);
+  border-radius: 10px;
+  color: var(--text);
+  background: var(--base);
+  font: inherit;
+}
+
+input:focus,
+select:focus {
+  outline: 2px solid var(--yellow);
+}
+
+progress {
+  width: 100%;
+  height: 8px;
+  accent-color: var(--cyan);
+}
+
+details {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+summary {
+  color: var(--cyan);
+  cursor: pointer;
+}
+
+table {
+  width: 100%;
+  margin-top: 8px;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+
+th {
+  color: var(--text);
+}
+
+/* ===== Cabeçalho das páginas públicas (inicial, login e cadastro) ===== */
+.header {
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 24px;
+  width: 100%;
+  min-height: var(--header-height);
+  padding: 12px var(--gutter);
+  pointer-events: none;
+}
+
+/* Só a logo, o botão e o painel de links recebem cliques; a faixa vazia deixa o clique chegar na página */
+.header > * {
+  pointer-events: auto;
+}
+
+.header a {
+  text-decoration: none;
+}
+
+.brand,
+.brand a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand {
+  font: 700 28px/1.2 var(--font-display);
+  letter-spacing: 0.08em;
+  text-shadow: var(--chromatic-shadow);
+}
+
+.brand a {
+  color: inherit;
+}
+
+.header .brand {
+  filter: drop-shadow(0 2px 6px var(--base));
+}
+
+.brand-symbol {
+  width: auto;
+  height: 48px;
+}
+
+.header nav,
+.menu-button {
+  border: 1px solid color-mix(in srgb, var(--purple) 60%, transparent);
+  background: color-mix(in srgb, var(--base) 70%, transparent);
+  backdrop-filter: blur(8px);
+  clip-path: var(--cut-corners);
+}
+
+.header nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 14px;
+}
+
+.header nav a,
+.menu-button {
+  color: var(--yellow);
+  font: 500 15px var(--font-display);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-shadow: 1px 0 var(--magenta), -1px 0 var(--cyan);
+}
+
+.header nav a {
+  padding: 10px 6px;
+}
+
+.header nav a:hover,
+.header nav a:focus-visible,
+.menu-button:hover,
+.menu-button:focus-visible {
+  text-shadow: var(--chromatic-shadow);
+  animation: glitch 0.3s;
+}
+
+/* O clip-path do painel cortaria o contorno desenhado por fora do link, então ele fica por dentro */
+.header nav a:focus-visible,
+.menu-button:focus-visible {
+  outline-offset: -2px;
+}
+
+.header nav a.active {
+  font-weight: 700;
+}
+
+@keyframes glitch {
+  33% {
+    text-shadow: -2px 1px var(--magenta), 2px -1px var(--cyan);
+  }
+  66% {
+    text-shadow: 2px -1px var(--magenta), -2px 1px var(--cyan);
+  }
+}
+
+.nav-divider {
+  align-self: stretch;
+  border: 1px solid color-mix(in srgb, var(--yellow) 30%, transparent);
+}
+
+.menu-button {
+  display: none;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+/* ===== Botões, rótulos e avisos ===== */
+.section-label {
+  color: var(--cyan);
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.button {
+  padding: 8px 20px;
+  border: 2px solid var(--yellow);
+  border-radius: 5px;
+  font: inherit;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button-solid {
+  color: var(--base);
+  background: var(--yellow);
+}
+
+.button-outline {
+  color: var(--yellow);
+  background: transparent;
+}
+
+.button:hover {
+  border-color: var(--cyan);
+  color: var(--base);
+  background: var(--cyan);
+  box-shadow: var(--glow);
+}
+
+/* Fica acima do conteúdo, que é desenhado depois e cobriria a mensagem durante a rolagem */
+.alert {
+  position: fixed;
+  top: calc(var(--header-height) + 50px);
+  right: var(--gutter);
+  z-index: 10;
+  width: 260px;
+  padding: 10px;
+  border: 3px solid var(--magenta);
+  border-radius: 4px;
+  background: var(--surface);
+}
+
+.status {
+  color: var(--cyan);
+}
+
+.notice {
+  margin-bottom: 24px;
+  padding: 12px 16px;
+  border: 1px solid var(--cyan);
+  border-radius: 10px;
+  color: var(--text);
+}
+
+/* ===== Fotos de fundo (inicial, login e cadastro) ===== */
+/* A foto fica atrás do texto e apagada, para o texto continuar legível */
+.hero-background,
+.overview-background,
+.call-background,
+.login-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.4;
+}
+
+.hero-background,
+.login-background {
+  opacity: 0.5;
+}
+
+/* Faixa roxa do lado do texto, que liga a foto à paleta do site */
+.hero::after,
+.call-to-action::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--purple-deep), transparent 75%);
+  opacity: 0.8;
+}
+
+/* ===== Página inicial ===== */
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: calc(var(--header-height) + 48px) var(--gutter) 48px;
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 60%;
+  text-align: center;
+}
+
+.hero h2 span {
+  color: var(--purple);
+}
+
+.hero-brand {
+  color: var(--yellow);
+  font-size: 56px;
+}
+
+.hero-brand-symbol {
+  height: 96px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 64px var(--gutter);
+  border-top: 1px solid var(--border);
+}
+
+.overview {
+  position: relative;
+  gap: 64px;
+  border-top: 0;
+  background: var(--surface);
+}
+
+/* Igual às outras fotos, com a faixa roxa do lado direito */
+.overview::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    linear-gradient(var(--base), transparent 15%, transparent 85%, var(--base)),
+    linear-gradient(270deg, color-mix(in srgb, var(--purple-deep) 80%, transparent), color-mix(in srgb, var(--base) 50%, transparent));
+}
+
+.steps,
+.about {
+  position: relative;
+  z-index: 1;
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.step-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.step-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--base);
+  text-align: center;
+}
+
+.step-card .section-label {
+  color: var(--purple);
+}
+
+/* A linha e o espaço extra marcam onde começa o segundo assunto da seção */
+.about {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  align-items: center;
+  gap: 48px;
+  padding-top: 64px;
+  border-top: 1px solid var(--border);
+}
+
+.about-quote {
+  margin: 0;
+  padding-left: 16px;
+  border-left: 3px solid var(--magenta);
+  font-size: 24px;
+}
+
+.about-copy,
+.call-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.call-to-action {
+  position: relative;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+}
+
+.call-copy {
+  width: 60%;
+}
+
+.call-copy,
+.call-to-action .button {
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== Login e cadastro ===== */
+.login {
+  position: relative;
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  align-items: center;
+  gap: 48px;
+  min-height: calc(100vh - var(--footer-height));
+  padding: calc(var(--header-height) + 48px) var(--gutter) 48px;
+  background: radial-gradient(circle at 75% 50%, var(--purple-deep), transparent 60%);
+}
+
+.login-copy {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.login-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  box-shadow: var(--glow);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.form .field {
+  padding: 5px 0;
+}
+
+.field label {
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.form .button {
+  align-self: center;
+  margin-top: 12px;
+}
+
+#div_aguardar {
+  color: var(--cyan);
+}
+
+#div_erros_login {
+  color: var(--magenta);
+}
+
+/* ===== Rodapé ===== */
+.page-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px 24px;
+  min-height: var(--footer-height);
+  padding: 12px var(--gutter);
+  border-top: 1px solid var(--border);
+  font-size: 13px;
+}
+
+/* ===== Painel: menu lateral (visão geral, conquistas e missões) ===== */
+.dashboard-sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  width: var(--sidebar-width);
+  padding: 28px 20px 24px;
+  border-right: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--yellow);
+  font: 700 16px/1.2 var(--font-display);
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-shadow: var(--chromatic-shadow);
+}
+
+.sidebar-brand img {
+  height: 36px;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 35px;
+}
+
+.sidebar-nav a {
+  padding: 12px 16px;
+  color: var(--yellow);
+  font: 500 15px var(--font-display);
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+  clip-path: var(--cut-corners);
+}
+
+.sidebar-nav a:hover {
+  background: var(--purple-deep);
+  text-shadow: var(--chromatic-shadow);
+  animation: glitch 0.3s;
+}
+
+.sidebar-nav a.active {
+  color: var(--base);
+  background: var(--yellow);
+  font-weight: 700;
+}
+
+.sidebar-account {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  font-size: 14px;
+}
+
+.sidebar-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  font-weight: 700;
+}
+
+.sidebar-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: var(--base);
+  background: var(--yellow);
+  font: 700 14px/36px var(--font-display);
+  text-align: center;
+}
+
+/* ===== Painel: cabeçalho, cards e gráficos ===== */
+/* Cabeçalho em cima, conteúdo no meio e rodapé embaixo, mesmo com pouco conteúdo */
+.dashboard {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 24px;
+  min-height: 100vh;
+  margin-left: var(--sidebar-width);
+  padding: 32px 40px 0;
+}
+
+.dashboard-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.dashboard-title {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 640px;
+}
+
+/* Glitch só nos títulos, nunca nos números */
+.dashboard-title h1 {
+  font-size: 40px;
+  text-shadow: var(--chromatic-shadow);
+}
+
+.banner-counter {
+  display: flex;
+  flex-direction: column;
+}
+
+.banner-counter b {
+  color: var(--yellow);
+  font: 700 36px/1.1 var(--font-display);
+}
+
+.dashboard .button {
+  padding: 6px 14px;
+  font-size: 14px;
+}
+
+.dashboard .page-footer {
+  padding: 12px 0;
+}
+
+.load-error h3 {
+  margin: 12px 0;
+  font-size: 24px;
+}
+
+.load-error ol {
+  margin: 12px 0 20px;
+  color: var(--muted);
+}
+
+/* Cards de indicadores: o primeiro (% concluída) é o principal, por isso é mais largo */
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.dashboard-card,
+.dashboard-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  clip-path: var(--cut-corners);
+}
+
+.dashboard-card .button {
+  align-self: flex-start;
+}
+
+.dashboard-card progress {
+  accent-color: var(--yellow);
+}
+
+.card-valor {
+  color: var(--text);
+  font: 700 40px/1.1 var(--font-display);
+}
+
+.card-unit {
+  color: var(--muted);
+  font-size: 18px;
+}
+
+.card-valor-principal {
+  color: var(--yellow);
+  font-size: 56px;
+}
+
+.card-valor-falta {
+  color: var(--magenta);
+}
+
+.card-valor-info {
+  color: var(--cyan);
+}
+
+.hours-form label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+.hours-form input {
+  width: 96px;
+  margin-right: 8px;
+}
+
+/* Painéis em 3 colunas: a linha do tempo ocupa 2, então os destaques descem para a linha de baixo */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.chart-card {
+  grid-column: span 2;
+}
+
+.dashboard-panel-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.dashboard-panel-header h2 {
+  font-size: 20px;
+  text-shadow: 1px 0 var(--magenta), -1px 0 var(--cyan);
+}
+
+.dashboard-panel-header a {
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+/* O Chart.js ocupa a altura toda desta caixa */
+.dashboard-chart-container {
+  position: relative;
+  height: 280px;
+}
+
+/* ===== Conquistas: ícone, listas de destaque e cards ===== */
+.achievement-icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  color: var(--cyan);
+  font: 700 16px var(--font-display);
+}
+
+/* Conquista que o usuário ainda não tem: ícone sem cor e apagado */
+.achievement-icon-locked {
+  filter: grayscale(1) opacity(0.5);
+}
+
+.achievement-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.achievement-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--muted);
+  background: var(--base);
+}
+
+.achievement-item .achievement-icon {
+  width: 40px;
+  height: 40px;
+  font-size: 14px;
+}
+
+.achievement-info {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  font-size: 14px;
+}
+
+.achievement-info strong,
+.achievement-side {
+  color: var(--text);
+}
+
+.achievement-info h3 {
+  font-size: 17px;
+}
+
+.achievement-side {
+  white-space: nowrap;
+}
+
+.rarity-legendary {
+  color: var(--yellow);
+}
+
+.rarity-epic {
+  color: var(--purple);
+}
+
+.rarity-rare {
+  color: var(--cyan);
+}
+
+.rarity-uncommon {
+  color: var(--text);
+}
+
+.rarity-common {
+  color: var(--muted);
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filter-button {
+  padding: 10px 16px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  color: var(--text);
+  background: var(--surface);
+  font: inherit;
+  cursor: pointer;
+}
+
+.filter-button span {
+  margin-left: 6px;
+  color: var(--muted);
+}
+
+.filter-button[aria-pressed="true"] {
+  border-color: var(--cyan);
+  color: var(--cyan);
+}
+
+.achievement-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.achievement-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+}
+
+.achievement-unlocked {
+  border-color: var(--cyan);
+}
+
+.achievement-summary {
+  display: flex;
+  flex: 1;
+  gap: 12px;
+}
+
+.achievement-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  color: var(--cyan);
+  font-size: 14px;
+}
+
+.achievement-actions input {
+  padding: 4px 8px;
+}
+
+.achievement-actions .button {
+  margin-left: auto;
+}
+
+.achievement-locked {
+  color: var(--muted);
+}
+
+.achievement-card progress {
+  height: 6px;
+}
+
+.achievement-global {
+  font-size: 13px;
+}
+
+/* ===== Missões ===== */
+.category-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.category-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+  padding: 16px 20px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+}
+
+.category-info {
+  display: flex;
+  flex: 1 1 240px;
+  flex-direction: column;
+}
+
+.category-info label {
+  font-weight: 700;
+}
+
+.category-info p {
+  font-size: 14px;
+}
+
+.category-row progress {
+  flex: 1 1 200px;
+}
+
+.category-percentage {
+  width: 48px;
+  color: var(--cyan);
+  text-align: right;
+}
+
+.counter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.counter input {
+  width: 80px;
+  padding: 6px 8px;
+  text-align: center;
+}
+
+.counter span {
+  color: var(--muted);
+}
+
+.counter-button {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  color: var(--yellow);
+  background: var(--base);
+  font: inherit;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.counter-button:hover {
+  border-color: var(--cyan);
+  color: var(--cyan);
+}
+
+/* ===== Telas estreitas: tudo em uma coluna ===== */
+@media (max-width: 800px) {
+  :root {
+    --gutter: 5%;
+  }
+
+  h2 {
+    font-size: 32px;
+  }
+
+  h3 {
+    font-size: 24px;
+  }
+
+  .menu-button {
+    display: block;
+  }
+
+  .header nav {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    padding: 12px 20px;
+  }
+
+  .header .nav-open {
+    display: flex;
+  }
+
+  .hero-brand {
+    font-size: 36px;
+  }
+
+  .hero-brand-symbol {
+    height: 64px;
+  }
+
+  .hero-copy,
+  .call-copy {
+    width: 100%;
+  }
+
+  .call-to-action {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .step-grid,
+  .about,
+  .login,
+  .dashboard-cards,
+  .dashboard-grid,
+  .achievement-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-card {
+    grid-column: auto;
+  }
+
+  /* O menu lateral vira uma barra no topo da página */
+  .dashboard-sidebar {
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 24px;
+    width: auto;
+    padding: 16px var(--gutter);
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sidebar-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 0;
+  }
+
+  .sidebar-account {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  .sidebar-user {
+    margin-bottom: 0;
+  }
+
+  .dashboard {
+    margin-left: 0;
+    padding: 24px var(--gutter) 0;
+  }
+
+  .dashboard-title h1 {
+    font-size: 32px;
+  }
+}

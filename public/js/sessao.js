@@ -1,143 +1,186 @@
-const DEMO_MODE = false;
+// Modo demonstração: true faz as chamadas da API serem respondidas pelo dados-mock.js, sem servidor nem banco
+var MODO_DEMO = false;
 
-const ROOT = location.pathname.indexOf('/dashboard/') != -1 ? '../' : './';
+var MILISSEGUNDOS_POR_DIA = 86400000;
+var TEMPO_MENSAGEM = 5000;
 
-function isLoggedIn() {
+var temporizadorMensagem = null;
+
+// ===== Sessão =====
+
+function estaLogado() {
   try {
     return sessionStorage.ID_USUARIO != null && sessionStorage.NOME_USUARIO != null;
-  } catch (error) {
+  } catch (erro) {
     return false;
   }
 }
 
-function validateSession() {
-  if (!isLoggedIn()) {
-    try { sessionStorage.DESTINO = location.pathname.split('/').pop(); } catch (error) { }
-    window.location.replace(ROOT + 'login.html?motivo=sessao');
+// Páginas do painel: sem sessão, guarda a página pedida e vai para o login; com sessão, mostra o usuário no menu
+function validarSessao() {
+  if (!estaLogado()) {
+    try {
+      sessionStorage.DESTINO = location.pathname.split('/').pop();
+    } catch (erro) {
+    }
+    window.location.replace('./login.html?motivo=sessao');
     return false;
   }
 
-  const name = sessionStorage.NOME_USUARIO;
-  const userName = document.getElementById('user-name');
-  if (userName) userName.innerHTML = name;
+  var nome = sessionStorage.NOME_USUARIO;
+  var partes = nome.trim().split(/\s+/);
+  var iniciais = nome.slice(0, 2);
+  if (partes.length >= 2) {
+    iniciais = partes[0][0] + partes[1][0]; // ['JOHNNY', 'SILVERHAND'] = 'JS'
+  }
 
-  const userInitial = document.getElementById('user-initial');
-  if (userInitial) userInitial.innerHTML = name.charAt(0).toUpperCase();
-
+  nome_usuario.textContent = nome;
+  avatar_usuario.textContent = iniciais.toUpperCase();
   return true;
 }
 
-function redirectIfLoggedIn() {
-  if (isLoggedIn()) {
-    window.location.replace(ROOT + 'dashboard/dashboard.html');
+// Login e cadastro: quem já está logado vai direto para o painel
+function redirecionarSeLogado() {
+  if (estaLogado()) {
+    window.location.replace('./dashboard.html');
   }
 }
 
-function startSession(json) {
+// Guarda o usuário e abre a página que ele tentou acessar antes do login (ou a visão geral)
+function iniciarSessao(json) {
   sessionStorage.ID_USUARIO = json.id;
   sessionStorage.NOME_USUARIO = json.nome;
   sessionStorage.EMAIL_USUARIO = json.email;
 
-  const destination = sessionStorage.DESTINO || 'dashboard.html';
+  var destino = sessionStorage.DESTINO || 'dashboard.html';
   sessionStorage.removeItem('DESTINO');
 
   setTimeout(function () {
-    window.location.replace(ROOT + 'dashboard/' + destination);
-  }, 900);
+    window.location.replace('./' + destino);
+  }, 900); // tempo para o usuário ler a mensagem de sucesso
 }
 
-function clearSession() {
+// Chamada no onclick do link "Sair", que leva para o login
+function limparSessao() {
   sessionStorage.clear();
-  window.location.replace(ROOT + 'login.html?motivo=saiu');
 }
 
-function showLoading() {
-  const loading = document.getElementById('loading');
-  loading.hidden = false;
+// ===== Carregamento e mensagens =====
+
+function aguardar() {
+  div_aguardar.hidden = false;
 }
 
-function hideLoading(text) {
-  const loading = document.getElementById('loading');
-  loading.hidden = true;
+function finalizarAguardar(texto) {
+  div_aguardar.hidden = true;
 
-  const formError = document.getElementById('form-error');
-  if (text) {
-    formError.hidden = false;
-    formError.innerHTML = text;
+  if (texto) {
+    div_erros_login.hidden = false;
+    div_erros_login.textContent = texto;
   }
 }
 
-function showMessage(text, success) {
-  const alertBox = document.getElementById('alert');
-  const alertMessage = document.getElementById('alert-message');
+// Aviso no canto da tela que some sozinho
+function mostrarMensagem(texto) {
+  span_mensagem.textContent = texto;
+  div_alerta.hidden = false;
 
-  alertMessage.innerHTML = text;
-  alertBox.hidden = false;
-
-  clearTimeout(window.messageTimer);
-  window.messageTimer = setTimeout(hideMessage, 5000);
+  clearTimeout(temporizadorMensagem);
+  temporizadorMensagem = setTimeout(esconderMensagem, TEMPO_MENSAGEM);
 }
 
-function hideMessage() {
-  document.getElementById('alert').hidden = true;
+function esconderMensagem() {
+  div_alerta.hidden = true;
 }
 
-function fetchApi(url, options) {
-  if (DEMO_MODE) {
-    return respostaMock(url, options);
+// ===== Menu das páginas públicas (telas estreitas) =====
+
+function alternarMenu() {
+  var aberto = nav_menu.classList.toggle('nav-open');
+  btn_menu.setAttribute('aria-expanded', aberto);
+}
+
+function fecharMenu() {
+  nav_menu.classList.remove('nav-open');
+  btn_menu.setAttribute('aria-expanded', false);
+}
+
+// ===== API =====
+
+// Toda chamada da API passa por aqui: no modo demo quem responde é o dados-mock.js.
+// Com servidor, devolve o JSON da resposta ou lança { status, codigo, mensagem } para o .catch de quem chamou.
+function chamarApi(url, opcoes) {
+  if (MODO_DEMO) {
+    return respostaMock(url, opcoes);
   }
 
-  return fetch(url, options)
+  return fetch(url, opcoes)
     .catch(function () {
       throw { status: 0, codigo: 'SEM_CONEXAO', mensagem: 'Não foi possível conectar ao servidor.' };
     })
-    .then(function (response) {
-      if (response.ok) {
-        return response.json();
+    .then(function (resposta) {
+      if (resposta.ok) {
+        return resposta.json();
       }
-      return response.text().then(function (text) {
-        let error;
-        try { error = JSON.parse(text); } catch (parseError) { error = { mensagem: text }; }
-        error.status = response.status;
-        throw error;
+
+      return resposta.text().then(function (texto) {
+        var erro;
+        try {
+          erro = JSON.parse(texto);
+        } catch (erroLeitura) {
+          erro = texto;
+        }
+        // O servidor responde com texto puro (400) ou com a mensagem do MySQL em JSON (500)
+        if (typeof erro != 'object' || erro == null) {
+          erro = { mensagem: erro };
+        }
+        erro.status = resposta.status;
+        throw erro;
       });
     });
 }
 
-function formatHours(minutes) {
-  const hours = Math.floor(minutes / 60);
-  return hours.toLocaleString('pt-BR');
+// ===== Formatação =====
+
+// Data no formato aaaa-mm-dd, no fuso de quem está usando o site (o mesmo do campo <input type="date">)
+function formatarData(milissegundos) {
+  var data = new Date(milissegundos);
+  return data.getFullYear() + '-' + String(data.getMonth() + 1).padStart(2, '0') + '-' + String(data.getDate()).padStart(2, '0');
 }
 
-function formatDate(milliseconds) {
-  return new Date(milliseconds).toLocaleDateString('pt-BR');
+// 3 dias atrás -> "há 3 dias"
+function tempoRelativo(milissegundos) {
+  var dias = Math.floor((Date.now() - milissegundos) / MILISSEGUNDOS_POR_DIA);
+  if (dias <= 0) return 'hoje';
+  if (dias == 1) return 'ontem';
+  if (dias < 30) return 'há ' + dias + ' dias';
+
+  var meses = Math.floor(dias / 30);
+  if (meses < 12) return 'há ' + meses + (meses == 1 ? ' mês' : ' meses');
+
+  var anos = Math.floor(meses / 12);
+  return 'há ' + anos + (anos == 1 ? ' ano' : ' anos');
 }
 
-function relativeTime(milliseconds) {
-  const days = Math.floor((Date.now() - milliseconds) / 86400000);
-  if (days <= 0) return 'hoje';
-  if (days == 1) return 'ontem';
-  if (days < 30) return 'há ' + days + ' dias';
-  const months = Math.floor(days / 30);
-  if (months < 12) return 'há ' + months + (months == 1 ? ' mês' : ' meses');
-  const years = Math.floor(months / 12);
-  return 'há ' + years + (years == 1 ? ' ano' : ' anos');
+// Texto digitado pelo usuário vira texto comum antes de entrar no HTML (evita que vire tag)
+function escaparHtml(texto) {
+  var elemento = document.createElement('div');
+  elemento.textContent = texto == null ? '' : texto;
+  return elemento.innerHTML;
 }
 
-function escapeHtml(text) {
-  const element = document.createElement('div');
-  element.textContent = text == null ? '' : text;
-  return element.innerHTML;
-}
+// ===== Voltar para a página =====
 
-window.addEventListener('pageshow', function (event) {
-  if (event.persisted && location.pathname.indexOf('/dashboard/') != -1) {
+// O botão Voltar pode mostrar uma cópia guardada da página do painel; recarrega para não exibir dados velhos
+window.addEventListener('pageshow', function (evento) {
+  if (evento.persisted && document.body.classList.contains('dashboard-page')) {
     location.reload();
   }
 });
 
+// Ao voltar para a aba, a página recarrega os dados sem mostrar o carregando (atualizarAoVoltar fica no js de cada página)
 document.addEventListener('visibilitychange', function () {
-  if (document.visibilityState == 'visible' && typeof window.refreshOnReturn == 'function') {
-    window.refreshOnReturn();
+  if (document.visibilityState == 'visible' && typeof atualizarAoVoltar == 'function') {
+    atualizarAoVoltar();
   }
 });

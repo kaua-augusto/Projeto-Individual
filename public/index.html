@@ -1,106 +1,107 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EDGERUNNING | Suas conquistas de Cyberpunk 2077</title>
-  <link rel="icon" href="assets/Logo/favicon.ico" sizes="any">
-  <link rel="icon" href="assets/Logo/edgerunning-cruz-simples.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="assets/Logo/apple-touch-icon.png">
+  <link rel="icon" href="./assets/Logo/favicon.ico" sizes="any">
+  <link rel="icon" href="./assets/Logo/edgerunning-cruz-simples.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./assets/Logo/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&display=swap">
-  <link rel="stylesheet" href="css/index.css">
-  <script src="js/sessao.js" defer></script>
-  <script src="js/index.js" defer></script>
+  <link rel="stylesheet" href="./style.css">
 </head>
-
 <body>
+
+  <!-- Cabeçalho: em telas estreitas os links ficam atrás do botão Menu -->
   <header class="header">
-    <h1 class="brand"><img class="brand-symbol" src="assets/Logo/edgerunning-cruz.svg" alt="">EDGERUNNING</h1>
-    <nav aria-label="Navegação principal">
-      <a href="#" aria-current="page">Inicial</a>
+    <h1 class="brand"><a href="./index.html"><img class="brand-symbol" src="./assets/Logo/edgerunning-cruz.svg" alt="">EDGERUNNING</a></h1>
+    <button class="menu-button" id="btn_menu" type="button" aria-expanded="false" aria-controls="nav_menu" onclick="alternarMenu()">Menu</button>
+    <nav id="nav_menu" aria-label="Navegação principal" onclick="fecharMenu()">
+      <a href="#" class="active">Inicial</a>
       <a href="#como-funciona">Como funciona</a>
-      <a href="#sobre">Sobre</a> 
-      <span aria-hidden="true">|</span>
-      <a id="nav-login" href="login.html">Login</a>
-      <a id="nav-signup" href="cadastro.html">Cadastro</a>
+      <a href="#sobre">Sobre</a>
+      <span class="nav-divider" aria-hidden="true"></span>
+      <a id="a_login" href="./login.html">Login</a>
+      <a id="a_cadastro" href="./cadastro.html">Cadastro</a>
     </nav>
   </header>
 
   <main>
-    <section class="hero" aria-labelledby="hero-title">
-      <img class="hero-background" src="assets/index/paisagem%20noturna%201.jpg" alt="">
+    <section class="hero">
+      <img class="hero-background" src="./assets/index/paisagem%20noturna%201.jpg" alt="">
       <div class="hero-copy">
+        <p class="brand hero-brand"><img class="brand-symbol hero-brand-symbol" src="./assets/Logo/edgerunning-cruz.svg" alt="">EDGERUNNING</p>
         <p class="section-label">Visualizador de progresso de Cyberpunk 2077</p>
-        <h2 id="hero-title">Wake up, <span>choom.</span></h2>
+        <h2>Wake up, <span>choom.</span></h2>
         <p>
-            Site feito de fã para fã, buscando auxiliar jogadores e complecionistas de Cyberpunk 2077
-             a monitorar seu progresso,
-            saber o quanto conhecem do mundo vasto e vivo do jogo.
+          Site feito de fã para fã, buscando auxiliar jogadores e complecionistas de Cyberpunk 2077
+          a monitorar seu progresso, saber o quanto conhecem do mundo vasto e vivo do jogo.
         </p>
         <p>
           Aqui você consegue registrar suas conquistas, gigs, cartas de tarô e horas de jogo. E ver
           quanto falta para os 100% de Cyberpunk 2077, tudo num painel só.
         </p>
         <div class="hero-actions">
-          <a class="button button-solid" id="primary-action" href="cadastro.html">Criar minha conta</a>
-          <a class="button button-outline" id="secondary-action" href="login.html">Já tenho conta</a>
+          <a class="button button-solid" id="a_acao_principal" href="./cadastro.html">Criar minha conta</a>
+          <a class="button button-outline" id="a_acao_secundaria" href="./login.html">Já tenho conta</a>
         </div>
       </div>
     </section>
 
-    <section class="section steps" id="como-funciona" aria-labelledby="steps-title">
-      <p class="section-label">Como funciona</p>
-      <h3 id="steps-title">Tudo aqui em três passos.</h3>
-      <p>
-        Você marca o que já fez, o painel faz as contas: porcentagem, o que falta,
-        ritmo e previsão de quando chegam os 100%.
-      </p>
-      <div class="step-grid">
-        <article class="step-card">
-          <p class="section-label">Passo 01</p>
-          <h4>Crie sua conta</h4>
-          <p>Nome, e-mail e senha. Depois do cadastro você já cai direto no seu painel.</p>
-        </article>
-        <article class="step-card">
-          <p class="section-label">Passo 02</p>
-          <h4>Registre seu progresso</h4>
-          <p>Marque as conquistas que você tem, informe suas horas e conte gigs, NCPD e tarô na aba Missões.</p>
-        </article>
-        <article class="step-card">
-          <p class="section-label">Passo 03</p>
-          <h4>Acompanhe o painel</h4>
-          <p>Porcentagem, horas jogadas, o que falta e a previsão de quando chegam os 100%.</p>
-        </article>
+    <section class="section overview">
+      <img class="overview-background" src="./assets/imagens%20-%20referencias/v%20vista.jpg" alt="">
+      <div class="steps" id="como-funciona">
+        <p class="section-label">Como funciona</p>
+        <h3>Tudo aqui em três passos.</h3>
+        <p>
+          Você marca o que já fez, o painel faz as contas: porcentagem, o que falta
+          e como o seu progresso andou mês a mês.
+        </p>
+        <div class="step-grid">
+          <div class="step-card">
+            <p class="section-label">Passo 01</p>
+            <h4>Crie sua conta</h4>
+            <p>Nome, e-mail e senha. Depois do cadastro você já cai direto no seu painel.</p>
+          </div>
+          <div class="step-card">
+            <p class="section-label">Passo 02</p>
+            <h4>Registre seu progresso</h4>
+            <p>Marque as conquistas que você tem, informe suas horas e conte gigs, NCPD e tarô na aba Missões.</p>
+          </div>
+          <div class="step-card">
+            <p class="section-label">Passo 03</p>
+            <h4>Acompanhe o painel</h4>
+            <p>Porcentagem, horas jogadas, o que falta e a sua linha do tempo mês a mês.</p>
+          </div>
+        </div>
+      </div>
+      <div class="about" id="sobre">
+        <blockquote class="about-quote">
+          “Night City não é só cenário. É estética, som e um jeito de enxergar o futuro.”
+        </blockquote>
+        <div class="about-copy">
+          <p class="section-label">Por que este projeto</p>
+          <p>
+            Este é um projeto individual sobre um interesse pessoal do autor: Cyberpunk 2077 e a estética
+            cyberpunk como um todo: neon, chuva, megacorporações e o sistema, implantes e muito rock.
+          </p>
+          <p>
+            A ideia é juntar o que eu gosto com o que estou aprendendo: um site com cadastro, login,
+            banco de dados, uma API e uma dashboard que mostra o caminho até os 100%.
+          </p>
+        </div>
       </div>
     </section>
 
-    <section class="section about" id="sobre" aria-label="Por que este projeto">
-      <blockquote class="about-quote">
-        “Night City não é só cenário. É estética, som e um jeito de enxergar o futuro.”
-      </blockquote>
-      <div class="about-copy">
-        <p class="section-label">Por que este projeto</p>
-        <p>
-          Este é um projeto individual sobre um interesse pessoal do autor: Cyberpunk 2077 e a estética
-          cyberpunk como um todo: neon, chuva, megacorporações e o sistema, implantes e muito rock.
-        </p>
-        <p>
-          A ideia é juntar o que eu gosto com o que estou aprendendo: um site com cadastro, login,
-          banco de dados, uma API e uma dashboard que mostra o caminho até os 100%.
-        </p>
-      </div>
-    </section>
-
-    <section class="section call-to-action" aria-labelledby="call-title">
+    <section class="section call-to-action">
+      <img class="call-background" src="./assets/imagens%20-%20referencias/v%20in%20the%20night.jpg" alt="">
       <div class="call-copy">
         <p class="section-label">Pronto, mercenário?</p>
-        <h3 id="call-title">Quanto falta para os seus 100%?</h3>
+        <h3>Quanto falta para os seus 100%?</h3>
       </div>
-      <a class="button button-solid" id="final-action" href="cadastro.html">Descobrir agora</a>
+      <a class="button button-solid" id="a_acao_final" href="./cadastro.html">Descobrir agora</a>
     </section>
   </main>
 
@@ -108,6 +109,8 @@
     <p>EDGERUNNING &copy; 2026 — projeto individual SPTech</p>
     <p>Projeto de fã, sem vínculo com a CD PROJEKT RED.</p>
   </footer>
-</body>
 
+  <script src="./js/sessao.js"></script>
+  <script src="./js/index.js"></script>
+</body>
 </html>

@@ -1,63 +1,51 @@
-const loginForm = document.getElementById('login-form');
-const emailInput = document.getElementById('email');
-const passwordInput = document.getElementById('password');
-const loginButton = document.getElementById('login-button');
-const formError = document.getElementById('form-error');
-const demoHint = document.getElementById('demo-hint');
+redirecionarSeLogado();
 
-redirectIfLoggedIn();
-
-if (DEMO_MODE) {
-  demoHint.textContent = 'MODO DEMO — teste com v@nightcity.net / samurai';
+if (MODO_DEMO) {
+  p_dica_demo.textContent = 'MODO DEMO — teste com v@nightcity.net / samurai';
 }
 
-const reason = new URLSearchParams(location.search).get('motivo');
-if (reason == 'sessao') {
-  showMessage('Faça login para abrir o painel.');
-} else if (reason == 'saiu') {
-  showMessage('Você saiu da rede. Até a próxima, choom.', true);
+// Explica por que o usuário caiu no login: tentou abrir o painel sem sessão ou acabou de sair
+var motivo = new URLSearchParams(location.search).get('motivo');
+if (motivo == 'sessao') {
+  mostrarMensagem('Faça login para abrir o painel.');
+} else if (motivo == 'saiu') {
+  mostrarMensagem('Você saiu da rede. Até a próxima, choom.');
 }
 
-loginForm.addEventListener('submit', function (event) {
-  event.preventDefault();
-  logIn();
-});
+// Chamada no onsubmit do formulário: o return false evita que a página recarregue
+function entrar() {
+  aguardar();
+  div_erros_login.hidden = true;
 
-function logIn() {
-  showLoading();
-  formError.hidden = true;
+  var emailVar = input_email.value.trim();
+  var senhaVar = input_senha.value;
 
-  const email = emailInput.value.trim();
-  const password = passwordInput.value;
-
-  if (email == '' || password == '') {
-    showMessage('Preencha e-mail e senha para entrar.');
-    hideLoading();
+  if (emailVar == '' || senhaVar == '') {
+    mostrarMensagem('Preencha e-mail e senha para entrar.');
+    finalizarAguardar();
     return false;
   }
 
-  console.log('FORM LOGIN: ', email);
-  loginButton.disabled = true;
+  btn_entrar.disabled = true;
 
-  fetchApi('/usuarios/autenticar', {
+  chamarApi('/usuarios/autenticar', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      emailServer: email,
-      senhaServer: password
+      emailServer: emailVar,
+      senhaServer: senhaVar
     })
   })
     .then(function (json) {
-      console.log(json);
-      showMessage('Acesso liberado. Carregando seu painel...', true);
-      startSession(json);
+      mostrarMensagem('Acesso liberado. Carregando seu painel...');
+      iniciarSessao(json);
     })
-    .catch(function (error) {
-      console.error(error);
-      loginButton.disabled = false;
-      hideLoading(error.mensagem || 'Houve um erro ao tentar realizar o login!');
+    .catch(function (erro) {
+      console.error(erro);
+      btn_entrar.disabled = false;
+      finalizarAguardar(erro.mensagem || 'Houve um erro ao tentar realizar o login!');
     });
 
   return false;
