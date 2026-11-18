@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Missões | EDGERUNNING</title>
+  <link rel="icon" href="./assets/Logo/favicon.ico" sizes="any">
+  <link rel="icon" href="./assets/Logo/edgerunning-cruz-simples.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./assets/Logo/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&display=swap">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body class="dashboard-page">
+
+  <!-- Menu lateral -->
+  <div class="dashboard-sidebar">
+    <a class="sidebar-brand" href="./index.html">
+      <img src="./assets/Logo/edgerunning-cruz.svg" alt="">EDGERUNNING
+    </a>
+    <div class="sidebar-nav">
+      <a href="./dashboard.html">Visão geral</a>
+      <a href="./conquistas.html">Conquistas</a>
+      <a href="./missoes.html" class="active">Missões</a>
+    </div>
+    <div class="sidebar-account">
+      <div class="sidebar-user">
+        <span class="sidebar-avatar" id="avatar_usuario"></span>
+        <span id="nome_usuario"></span>
+      </div>
+      <a href="./login.html?motivo=saiu" onclick="limparSessao()">Sair</a>
+    </div>
+  </div>
+
+  <!-- Aviso que aparece no canto e some sozinho -->
+  <div class="alert" id="div_alerta" role="status" hidden>
+    <span id="span_mensagem"></span>
+  </div>
+
+  <div class="dashboard">
+
+    <div class="dashboard-header">
+      <div class="dashboard-title">
+        <span class="section-label">Registro // Seu progresso no jogo</span>
+        <h1>Suas <span>missões</span></h1>
+        <p>Registre quanto já fez em cada frente: use − e + ou digite o número. Salva sozinho.</p>
+      </div>
+      <p class="banner-counter">
+        <b id="b_total_porcentagem">—</b>
+        <span id="span_total_info">carregando...</span>
+      </p>
+    </div>
+
+    <!-- Linhas das categorias, montadas pelo missoes.js -->
+    <div class="category-list" id="div_categorias">
+      <p class="status">Carregando dados...</p>
+    </div>
+
+    <div class="page-footer">
+      <p>EDGERUNNING &copy; 2026 — projeto individual SPTech</p>
+      <p>Projeto de fã, sem vínculo com a CD PROJEKT RED.</p>
+    </div>
+  </div>
+
+  <script src="./js/dados-mock.js"></script>
+  <script src="./js/sessao.js"></script>
+  <script src="./js/painel.js"></script>
+  <script src="./js/missoes.js"></script>
+</body>
+</html>
