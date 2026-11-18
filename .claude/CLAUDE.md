@@ -12,6 +12,8 @@ The database is modeled and implemented in **MySQL** (8.0 or later).
 
 The application lives in the repository root (`app.js`, `src/`, `public/`), built on SPTech's legacy web-data-viz template. Run it with `npm install` and `npm start` in the root. The original template is kept for reference in `web-dat-aviz/web-data-viz-main/`.
 
+Code style and organization follow the user's group project Blue Cheese (temperature and humidity monitoring of cheese maturation chambers, also built on web-data-viz): front-end, routes, controllers, models and the SQL script. Compare with it before writing new code; where it differs from the rules in this file (SQL concatenation, `let`), these rules win.
+
 - Do not change or create APIs (`src/`, `app.js`) without asking the user first.
 - Ask before changing or deleting existing front-end pages and scripts.
 - There are no automated tests or lint setup yet.
@@ -19,28 +21,31 @@ The application lives in the repository root (`app.js`, `src/`, `public/`), buil
 ## Features
 
 - **Account:** sign up (name, email, password) and log in. Sign-up logs the user in right away.
-- **Achievements:** the game's 57 achievements. The user marks the ones they have, with the date they got each one, and can unmark them or change the date.
+- **Achievements:** the game's 57 achievements, each with its official icon. The user marks the ones they have, with the date they got each one, and can unmark them or change the date.
 - **Hours played:** the user types their total hours; the date of the last update is stored.
 - **Missions:** progress counters for 8 categories (main jobs, side jobs, gigs, NCPD scanner hustles, cyberpsychos, tarot cards, vehicles, iconic weapons), saved automatically.
-- **Overview dashboard:** completion percentage, what is left to reach 100%, hours played, a monthly timeline, a completion forecast and highlight lists (easiest missing, most recent, rarest owned).
+- **Overview dashboard:** completion percentage, achievements unlocked, what is left to reach 100% and hours played in the first row; the monthly timeline and the progress of the 8 mission categories in the second; highlight lists (easiest missing, most recent, rarest owned) in the third.
 
 ## Business Rules
 
 - Completion % = marked achievements ÷ total achievements × 100, with one decimal place. Remaining % = 100 − completion %.
-- Timeline: achievements accumulated per month, by the date the user recorded.
-- Forecast: achievements marked in the last 180 days give a daily pace; missing achievements ÷ pace = days left. No forecast when nothing was marked in that period.
-- Hours per achievement = hours played ÷ marked achievements.
+- Timeline: achievements accumulated per month, by the date the user recorded, grouped by the `yyyy-mm` text of the date (never through `new Date()`, so the timezone cannot move a date to another month). It starts at 0 in the month before the first achievement and runs to the current month; months with no achievement count as 0. The Y axis goes from 0 to the total of achievements.
+- Hours per achievement = hours played ÷ marked achievements, shown in the hours card.
 - Rank by completion: Choom < 25%, Street kid < 50%, Mercenary < 75%, Elite solo < 100%, Night City Legend at 100%.
 - Rarity by the reference global percentage stored per achievement: Legendary < 5, Epic < 10, Rare < 20, Uncommon < 50, otherwise Common.
 - An achievement with an empty description is secret; the UI shows a placeholder instead of the description.
+- Achievement icons are local files in `public/assets/img/conquistas/`, named in the `imagem` column. A locked icon is shown in grayscale; a secret achievement that is still locked shows `?` instead of the icon, to avoid spoilers; an icon that fails to load falls back to the initials of the name.
+- Dashboard colors have a fixed meaning: yellow = main or completed, cyan = information, magenta = what is missing or an alert.
 - A missing or future unlock date is saved as today. Mission counters are clamped between 0 and the category total.
 - Missions overall % = average of the category percentages, so every category weighs the same.
 - Category totals in the seed are placeholder values until checked against the game.
 
 ## Data and API Conventions
 
-- Tables: `usuario`, `conquista`, `conquistaUsuario` (user × achievement, with unlock date), `categoria`, `progresso` (user × category counter).- Primary keys are `idTable`, foreign keys `fkTable`, constraints `fk<ChildTable><Reference>`. No `TINYINT`.
-- Seed inserts must stay idempotent (`INSERT IGNORE` + `UNIQUE(nome)`), so running the script again never duplicates rows. `src/database/corrigir-duplicadas.sql` repairs databases created before that.
+- Tables: `usuario`, `conquista`, `conquistaUsuario` (user × achievement, with unlock date), `categoria`, `progresso` (user × category counter).
+- Views: `vwConquistaUsuario` (every achievement for every user, with the unlock date as `yyyy-mm-dd` text) and `vwProgressoUsuario` (every category for every user, 0 where nothing was recorded). A SELECT that joins tables reads from a view created in `src/database/script-tabelas.sql`; a SELECT on a single table is written in the model, one clause per line.
+- `script-tabelas.sql` follows the Blue Cheese modeling file: lowercase keywords, columns at the margin and constraints indented with a tab, primary keys `idTable`, foreign keys `fkTable`, constraints `fk<ChildTable>_<reference>` and `chk<Column>`. No `TINYINT`. It starts with `set names utf8mb4` so the Windows `mysql` client does not garble accents.
+- The script must stay safe to run again: `create ... if not exists`, `insert ignore` over `unique(nome)`, `on duplicate key update` when existing rows need a new column filled, and a guarded `alter table` (checked against `information_schema`) for columns added after the first version.
 - Every query is parameterized with `?` through `database.executar(sql, [values])`. Never concatenate user input into SQL.
 - Request body fields use the `Server` suffix (`emailServer`), as in the web-data-viz template.
 - Errors reply with `res.status(4xx).send(message)` or `res.status(500).json(erro.sqlMessage)`.
@@ -63,7 +68,8 @@ Do not commit on your own. Commit only when the user asks, using the `commit` sk
 
 ## Language convention
 
-- Code, identifiers, comments, commit messages, documentation: **English**.
+- Code identifiers, ids and code comments (JS, CSS, HTML, SQL): **Portuguese**, as in web-data-viz and Blue Cheese. CSS class names and `:root` tokens keep their existing names.
+- Commit messages and documentation (`README.md`, this file): **English**.
 - UI copy (labels, buttons, messages shown to the user) and mock/fixture
   *content* (achievement names, category names, user names, etc.): **Portuguese**,
   since the product is for Portuguese speakers.
@@ -123,9 +129,9 @@ The user prefers simple code that is easy to understand over clever or compact c
 
 Follow Clean Code (Robert C. Martin) for naming and documentation.
 
-* Names reveal intent: functions are verbs that say what they do (`loadAchievements`, `renderTimeline`), variables and constants are nouns that say what they hold (`achievements`, `MIN_PASSWORD_LENGTH`). No abbreviations or one-letter names, except loop indexes.
+* Names reveal intent: functions are verbs that say what they do (`listarConquistas`, `atualizarLinhaTempo`), variables and constants are nouns that say what they hold (`conquistas`, `TAMANHO_MINIMO_SENHA`). No abbreviations or one-letter names, except loop indexes.
 * Code explains *what*; comments explain *why*. Do not write comments that repeat the code, and prefer a better name over a comment.
-* Every function shared across files (for example in `js/sessao.js`) and every non-obvious function gets a short doc comment above it: one sentence on what it does, plus `@param` and `@returns` when they are not obvious from the names.
+* Every function shared across files (`js/sessao.js`, `js/painel.js`) and every non-obvious function gets a short `//` comment above it, in Portuguese, saying what it does or why, as in Blue Cheese.
 * Use named constants instead of magic numbers and strings.
 * Keep related code together, in reading order: constants first, then functions from the highest level to the lowest, then the code that starts the page.
 
@@ -133,24 +139,28 @@ Follow Clean Code (Robert C. Martin) for naming and documentation.
 
 # Front-End Code Style
 
-Always write the front-end in this style. The version before it was adopted is kept in `web-dat-aviz/edgerunning 2.0/` for reference only.
+Always write the front-end in the Blue Cheese style.
 
-* HTML: `<!doctype html>`, 2-space indentation, and semantic tags (`header`, `nav`, `main`, `section`, `article`, `footer`) instead of generic wrapper `div`s.
-* Classes and ids are English kebab-case, named after the section or component they belong to (`hero`, `hero-copy`, `step-card`, `rarest-list`, `button button-solid`). Variants are a second class with a suffix (`button-outline`). Section anchors shown in the URL may stay in Portuguese (`#como-funciona`).
-* Mark the current navigation link with `aria-current="page"`, label sections with `aria-labelledby`, and use `<label for>` on every form field.
-* No inline scripts and no `onclick` attributes. Each page loads `js/sessao.js` and its own `js/<page>.js` with `defer`.
-* JavaScript: `const`/`let`, single quotes, 2-space indentation, elements fetched with `document.getElementById` at the top of the file, events bound with `addEventListener`, and English function and variable names (`isLoggedIn`, `showMessage`, `fetchApi`).
-* API request fields (`emailServer`), `sessionStorage` keys (`ID_USUARIO`) and file names (`cadastro.html`, `sessao.js`) keep their Portuguese names.
+* Pages sit directly in `public/` (`index.html`, `login.html`, `cadastro.html`, `dashboard.html`, `conquistas.html`, `missoes.html`) and link `./style.css`.
+* HTML: `<!DOCTYPE html>`, 2-space indentation, `<!-- Comentário -->` above each block. Public pages use `header`, `nav`, `main`, `section` and `footer`; dashboard pages use the Blue Cheese shell: `body.dashboard-page` > `div.dashboard-sidebar` (`sidebar-brand`, `sidebar-nav`, `sidebar-account`) + `div.dashboard` (`dashboard-header`, `dashboard-cards` of `dashboard-card`, `dashboard-grid` of `dashboard-panel` with `dashboard-panel-header` and `dashboard-chart-container`).
+* Ids are Portuguese, with a prefix for the element type (`span_horas`, `input_email`, `btn_entrar`, `div_alerta`, `ul_recentes`, `tbody_linha_tempo`); chart canvases are camelCase (`graficoLinhaTempo`). Scripts use the ids directly as variables (`span_horas.textContent`) and `document.getElementById` only for ids built at runtime (`'input_qtd_' + id`).
+* The current menu link gets `class="active"`. Every form field has a `<label for>`.
+* Events are inline attributes: `onclick="limparSessao()"`, `onsubmit="return entrar()"` (the function returns `false`), `onchange`, `oninput`, `onerror`. `addEventListener` only for `window`/`document` events.
+* Scripts load at the end of `<body>`, without `defer`, in this order: `dados-mock.js`, `sessao.js`, `painel.js` (dashboard pages), the page's own `js/<page>.js`. Chart.js comes from the CDN in `<head>`.
+* JavaScript: `var` and `function`, single quotes, 2-space indentation, Portuguese names (`validarSessao`, `chamarApi`, `mostrarMensagem`), `// ===== Seção =====` comments in long files, and a `// Primeira carga da tela` block at the end that calls the page's loader.
+* Charts are created once with `new Chart(canvas, {...})`; when the data changes the script replaces `chart.data` and calls `chart.update()`.
+* API request fields (`emailServer`), `sessionStorage` keys (`ID_USUARIO`) and file names (`cadastro.html`, `sessao.js`) keep their names.
 
 ---
 
 # CSS Rules
 
-* One stylesheet per page, in `public/css/` and named after the page (`index.css`, `login.css`, `cadastro.css`). Each page links only its own file; there is no general stylesheet. A rule needed by two pages (tokens, header, footer, buttons) is repeated in both files, so a change to it is made in every file.
-* Order inside a file: `*` reset, `:root` tokens, element base styles, components in page order, media queries at the end. Indent with 2 spaces, with no blank lines between rules and no section banner comments.
-* Use the `:root` variables for colors and fonts (`--base`, `--surface`, `--muted`, `--yellow`…), and reuse the page's existing classes (`.button`, `.section-label`, `.form`, `.field`…) before creating new ones. Do not redeclare values that are inherited.
+* One stylesheet for the whole site, `public/style.css`, as in Blue Cheese. A rule shared by several pages is written once; never duplicate a rule, and delete rules that no page uses any more.
+* Order: `:root` tokens, `*` reset, element base styles, then one `/* ===== Seção ===== */` block per component or page (public header, buttons, background photos, landing page, login and sign-up, footer, dashboard sidebar, dashboard cards and charts, achievements, missions), and the single media query (`max-width: 800px`) at the end. 2-space indentation and a blank line between rules.
+* Use the `:root` variables for colors and fonts (`--base`, `--surface`, `--muted`, `--yellow`, `--cut-corners`…), and reuse existing classes (`.button`, `.section-label`, `.field`, plain `<p>` for muted text…) before creating new ones. Do not redeclare values that are inherited.
 * Keep it as simple as possible: short, low-specificity selectors, only the declarations that change something, and no `!important`.
-* Lay out with flexbox (`display: flex`), not CSS grid, including multi-column sections.
+* Lay out pages and multi-column sections with CSS Grid; use flexbox inside components. Under 800px every grid becomes one column.
+* Cyberpunk identity: dark background, cut corners (`clip-path: var(--cut-corners)`) on dashboard cards and panels, RGB-split shadow (glitch) on titles only, never on numbers.
 
 ---
 
