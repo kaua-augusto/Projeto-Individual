@@ -25,7 +25,7 @@ function cadastrar(nome, email, senha) {
 function buscarPerfil(idUsuario) {
     var instrucaoSql = `
         SELECT nome, horasJogadas, dtHoras
-            FROM usuario
+            FROM vwPerfilUsuario
             WHERE idUsuario = ?;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -34,10 +34,11 @@ function buscarPerfil(idUsuario) {
 
 function atualizarHoras(idUsuario, horas) {
     var instrucaoSql = `
-        UPDATE usuario SET horasJogadas = ?, dtHoras = NOW() WHERE idUsuario = ?;
+        INSERT INTO tempoJogo (fkUsuario, horasJogadas, dtHoras) VALUES (?, ?, NOW())
+            ON DUPLICATE KEY UPDATE horasJogadas = VALUES(horasJogadas), dtHoras = VALUES(dtHoras);
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql, [horas, idUsuario]);
+    return database.executar(instrucaoSql, [idUsuario, horas]);
 }
 
 module.exports = {

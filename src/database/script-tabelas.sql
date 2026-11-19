@@ -10,10 +10,28 @@ nome varchar(45) not null,
 email varchar(100) not null unique,
 	constraint chkEmail check (email like '%@%'),
 senha varchar(255) not null,
-horasJogadas int default 0,
-dtHoras datetime,
 dtCadastro datetime default current_timestamp
 );
+
+create table if not exists tempoJogo (
+fkUsuario int primary key,
+horasJogadas int default 0,
+dtHoras datetime,
+	constraint fkTempoJogo_usuario foreign key (fkUsuario) references usuario(idUsuario)
+);
+
+set @temColunaHoras = (
+	select count(*) from information_schema.columns
+		where table_schema = database() and table_name = 'usuario' and column_name = 'horasJogadas'
+);
+set @comandoCopiarHoras = if(@temColunaHoras = 0, 'do 0', 'insert ignore into tempoJogo (fkUsuario, horasJogadas, dtHoras) select idUsuario, horasJogadas, dtHoras from usuario where dtHoras is not null');
+prepare copiarHoras from @comandoCopiarHoras;
+execute copiarHoras;
+deallocate prepare copiarHoras;
+set @comandoRemoverHoras = if(@temColunaHoras = 0, 'do 0', 'alter table usuario drop column horasJogadas, drop column dtHoras');
+prepare removerHoras from @comandoRemoverHoras;
+execute removerHoras;
+deallocate prepare removerHoras;
 
 create table if not exists conquista (
 idConquista int primary key auto_increment,
@@ -152,7 +170,17 @@ from usuario as u
 	left join progresso as p
 		on p.fkCategoria = c.idCategoria and p.fkUsuario = u.idUsuario;
 
+create or replace view vwPerfilUsuario as
+select u.idUsuario,
+	u.nome,
+	t.horasJogadas,
+	t.dtHoras
+from usuario as u
+	left join tempoJogo as t
+		on t.fkUsuario = u.idUsuario;
+
 select * from usuario;
+select * from vwPerfilUsuario;
 select * from conquista;
 select * from vwConquistaUsuario where dtDesbloqueio is not null;
 select * from vwProgressoUsuario;
