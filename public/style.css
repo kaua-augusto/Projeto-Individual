@@ -448,7 +448,7 @@ th {
 .about-quote {
   margin: 0;
   padding-left: 16px;
-  border-left: 3px solid var(--magenta);
+  border-left: 1px solid color-mix(in srgb, var(--magenta) 50%, transparent);
   font-size: 24px;
 }
 
