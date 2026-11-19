@@ -42,8 +42,8 @@ Code style and organization follow the user's group project Blue Cheese (tempera
 
 ## Data and API Conventions
 
-- Tables: `usuario`, `conquista`, `conquistaUsuario` (user × achievement, with unlock date), `categoria`, `progresso` (user × category counter).
-- Views: `vwConquistaUsuario` (every achievement for every user, with the unlock date as `yyyy-mm-dd` text) and `vwProgressoUsuario` (every category for every user, 0 where nothing was recorded). A SELECT that joins tables reads from a view created in `src/database/script-tabelas.sql`; a SELECT on a single table is written in the model, one clause per line.
+- Tables: `usuario`, `tempoJogo` (1:1 with user: hours played and last update, primary key `fkUsuario`), `conquista`, `conquistaUsuario` (user × achievement, with unlock date), `categoria`, `progresso` (user × category counter).
+- Views: `vwConquistaUsuario` (every achievement for every user, with the unlock date as `yyyy-mm-dd` text), `vwProgressoUsuario` (every category for every user, 0 where nothing was recorded) and `vwPerfilUsuario` (every user with hours and last update, `null` until saved). A SELECT that joins tables reads from a view created in `src/database/script-tabelas.sql`; a SELECT on a single table is written in the model, one clause per line.
 - `script-tabelas.sql` follows the Blue Cheese modeling file: lowercase keywords, columns at the margin and constraints indented with a tab, primary keys `idTable`, foreign keys `fkTable`, constraints `fk<ChildTable>_<reference>` and `chk<Column>`. No `TINYINT`. It starts with `set names utf8mb4` so the Windows `mysql` client does not garble accents.
 - The script must stay safe to run again: `create ... if not exists`, `insert ignore` over `unique(nome)`, `on duplicate key update` when existing rows need a new column filled, and a guarded `alter table` (checked against `information_schema`) for columns added after the first version.
 - Every query is parameterized with `?` through `database.executar(sql, [values])`. Never concatenate user input into SQL.

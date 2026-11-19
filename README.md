@@ -196,7 +196,8 @@ Defined in `src/database/script-tabelas.sql` (MySQL 8):
 
 | Table | Content |
 | --- | --- |
-| `usuario` | Account (name, unique email, password) plus `horasJogadas` and `dtHoras`, the date hours were last updated |
+| `usuario` | Account (name, unique email, password) |
+| `tempoJogo` | Each user's `horasJogadas` and `dtHoras`, the date hours were last updated; its primary key is `fkUsuario`, so a user has at most one row (1:1) |
 | `conquista` | The game's 57 achievements, with description, reference global rarity and icon file name (`imagem`) |
 | `conquistaUsuario` | Which achievements each user marked, and the unlock date |
 | `categoria` | The 8 mission categories and their totals (example values, to be checked against the game) |
@@ -206,6 +207,9 @@ Defined in `src/database/script-tabelas.sql` (MySQL 8):
 | --- | --- | --- |
 | `vwConquistaUsuario` | Every achievement for every user, with the unlock date as `yyyy-mm-dd` text (`null` while locked) | `GET /conquistas/listar/:idUsuario` |
 | `vwProgressoUsuario` | Every category for every user, with 0 where nothing was recorded | `GET /progresso/categorias/:idUsuario` |
+| `vwPerfilUsuario` | Every user's name with their hours and last update (`null` until hours are saved) | `GET /usuarios/perfil/:idUsuario` |
+
+Relationships: `usuario`–`tempoJogo` is 1:1; `usuario`–`conquista` (through `conquistaUsuario`) and `usuario`–`categoria` (through `progresso`) are N:N, each split into two 1:N relationships. The physical model is `src/database/modelagem-fisica-edgerunning.mwb`, made in MySQL Workbench from the script.
 
 Passwords are stored as plain text, as in the course template. Every query uses `?` parameters, so user input is never concatenated into SQL.
 
