@@ -50,6 +50,18 @@ function limparSessao() {
   sessionStorage.clear();
 }
 
+function ajustarMenuDaSessao() {
+  if (!estaLogado()) {
+    return;
+  }
+
+  a_login.href = './dashboard.html';
+  a_login.textContent = 'Meu painel';
+  a_cadastro.href = './login.html?motivo=saiu';
+  a_cadastro.textContent = 'Sair';
+  a_cadastro.onclick = limparSessao;
+}
+
 function aguardar() {
   div_aguardar.hidden = false;
 }
