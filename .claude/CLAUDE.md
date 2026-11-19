@@ -25,6 +25,7 @@ Code style and organization follow the user's group project Blue Cheese (tempera
 - **Hours played:** the user types their total hours; the date of the last update is stored.
 - **Missions:** progress counters for 8 categories (main jobs, side jobs, gigs, NCPD scanner hustles, cyberpsychos, tarot cards, vehicles, iconic weapons), saved automatically.
 - **Overview dashboard:** completion percentage, achievements unlocked, what is left to reach 100% and hours played in the first row; the monthly timeline and the progress of the 8 mission categories in the second; highlight lists (easiest missing, most recent, rarest owned) in the third.
+- **Universe:** a public reading page (story, cyberpunk aesthetic, Night City), one dark card per section, lit by a purple gradient, with a large image and three thumbnails that swap it. Official art and screenshots of the game are allowed: they are local files in `public/assets/imagens - referencias/`, each with a descriptive `alt`.
 
 ## Business Rules
 
@@ -140,7 +141,7 @@ Follow Clean Code (Robert C. Martin) for naming and documentation.
 
 Always write the front-end in the Blue Cheese style.
 
-* Pages sit directly in `public/` (`index.html`, `login.html`, `cadastro.html`, `dashboard.html`, `conquistas.html`, `missoes.html`) and link `./style.css`.
+* Pages sit directly in `public/` (`index.html`, `login.html`, `cadastro.html`, `dashboard.html`, `conquistas.html`, `missoes.html`, `universo.html`) and link `./style.css`.
 * HTML: `<!DOCTYPE html>` and 2-space indentation. Public pages use `header`, `nav`, `main`, `section` and `footer`; dashboard pages use the Blue Cheese shell: `body.dashboard-page` > `div.dashboard-sidebar` (`sidebar-brand`, `sidebar-nav`, `sidebar-account`) + `div.dashboard` (`img.dashboard-background`, a photo fixed to the screen behind the content and beside the sidebar; `dashboard-header`, `dashboard-cards` of `dashboard-card`, `dashboard-grid` of `dashboard-panel` with `dashboard-panel-header` and `dashboard-chart-container`).
 * Ids are Portuguese, with a prefix for the element type (`span_horas`, `input_email`, `btn_entrar`, `div_alerta`, `ul_recentes`, `tbody_linha_tempo`); chart canvases are camelCase (`graficoLinhaTempo`). Scripts use the ids directly as variables (`span_horas.textContent`) and `document.getElementById` only for ids built at runtime (`'input_qtd_' + id`).
 * The current menu link gets `class="active"`. Every form field has a `<label for>`.
