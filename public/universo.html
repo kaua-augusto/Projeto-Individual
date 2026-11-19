@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Universo | EDGERUNNING</title>
+  <link rel="icon" href="./assets/Logo/favicon.ico" sizes="any">
+  <link rel="icon" href="./assets/Logo/edgerunning-cruz-simples.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./assets/Logo/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&display=swap">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+  <header class="header">
+    <h1 class="brand"><a href="./index.html"><img class="brand-symbol" src="./assets/Logo/edgerunning-cruz.svg" alt="">EDGERUNNING</a></h1>
+    <button class="menu-button" id="btn_menu" type="button" aria-expanded="false" aria-controls="nav_menu" onclick="alternarMenu()">Menu</button>
+    <nav id="nav_menu" aria-label="Navegação principal" onclick="fecharMenu()">
+      <a href="./index.html">Inicial</a>
+      <a href="./index.html#como-funciona">Como funciona</a>
+      <a href="./index.html#sobre">Sobre</a>
+      <span class="nav-divider" aria-hidden="true"></span>
+      <a href="./universo.html" class="active">Universo</a>
+      <span class="nav-divider" aria-hidden="true"></span>
+      <a id="a_login" href="./login.html">Login</a>
+      <a id="a_cadastro" href="./cadastro.html">Cadastro</a>
+    </nav>
+  </header>
+
+  <main class="universe">
+    <section class="universe-section" id="historia">
+      <div class="universe-window">
+        <img class="universe-media" id="img_historia" src="./assets/imagens%20-%20referencias/v%20e%20jhonny.jpg" alt="V e Johnny Silverhand lado a lado em um terraço iluminado por neon e fogos de artifício">
+        <div class="universe-copy">
+          <h2>História</h2>
+          <p>
+            Night City, 2077. V é um mercenário em busca de ser uma lenda na cidade e aceita o trabalho que
+            promete mudar tudo: roubar da Arasaka o Relic, um biochip experimental capaz de guardar uma
+            mente humana. O roubo sai do controle e, para salvar o chip, V o coloca na própria cabeça.
+          </p>
+          <p>
+            Dentro do Relic está Johnny Silverhand, roqueiro lendário, contra o sistema e inimigo declarado da Arasaka,
+            que agora fala, discute e lembra dentro da mente de V. O chip está tomando o lugar de V, e o
+            tempo para encontrar uma saída é curto.
+          </p>
+          <div class="universe-thumbnails">
+            <button class="active" type="button" onclick="trocarMidia(img_historia, this)"><img src="./assets/imagens%20-%20referencias/v%20e%20jhonny.jpg" alt="V e Johnny Silverhand lado a lado em um terraço iluminado por neon e fogos de artifício"></button>
+            <button type="button" onclick="trocarMidia(img_historia, this)"><img src="./assets/imagens%20-%20referencias/jhonny%20arasaka.jpg" alt="Johnny Silverhand de costas, com uma guitarra, diante de um prédio em chamas sob o logo da Arasaka"></button>
+            <button type="button" onclick="trocarMidia(img_historia, this)"><img src="./assets/imagens%20-%20referencias/v%20car%20in%20night.jpg" alt="V de costas ao lado de um carro esportivo preto, diante de prédios iluminados por neon rosa e azul"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="universe-section" id="estetica">
+      <div class="universe-window">
+        <img class="universe-media" id="img_estetica" src="./assets/imagens%20-%20referencias/neon%20e%20chuva.jpg" alt="Viela estreita sob a chuva, iluminada por letreiros de neon rosa e azul refletidos no chão molhado">
+        <div class="universe-copy">
+          <h2>A estética cyberpunk</h2>
+          <p>
+            O gênero nasceu nos anos 80: o romance Neuromancer, de William Gibson, o filme Blade Runner,
+            de Ridley Scott, e o RPG de mesa Cyberpunk, de Mike Pondsmith, que deu origem ao universo do
+            jogo. A ideia que une todos eles cabe em quatro palavras: high tech, low life.
+          </p>
+          <p>
+            É um futuro de tecnologia incrível, acessível e vida difícil. Ruas molhadas de chuva refletem o neon,
+            megacorporações mandam mais que governos, as pessoas trocam partes do corpo por implantes e
+            tudo isso toca ao som de música eletrônica e rock pesado.
+          </p>
+          <div class="universe-thumbnails">
+            <button class="active" type="button" onclick="trocarMidia(img_estetica, this)"><img src="./assets/imagens%20-%20referencias/neon%20e%20chuva.jpg" alt="Viela estreita sob a chuva, iluminada por letreiros de neon rosa e azul refletidos no chão molhado"></button>
+            <button type="button" onclick="trocarMidia(img_estetica, this)"><img src="./assets/imagens%20-%20referencias/poluicao2.jpg" alt="Torres corporativas e chaminés de fumaça sob um céu alaranjado de poluição"></button>
+            <button type="button" onclick="trocarMidia(img_estetica, this)"><img src="./assets/imagens%20-%20referencias/transplante.jpg" alt="Pessoa deitada numa cadeira de clínica clandestina, sob luz vermelha, ao lado de telas de diagnóstico"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="universe-section" id="night-city">
+      <div class="universe-window">
+        <img class="universe-media" id="img_night_city" src="./assets/imagens%20-%20referencias/japantown.jpg" alt="Avenida de Japantown à noite, com o letreiro gigante em neon rosa e carros na pista molhada">
+        <div class="universe-copy">
+          <h2>Night City</h2>
+          <p>
+            Em Night City, a vida vale o que alguém está disposto a pagar por ela. As corporações moram
+            no alto das torres, as gangues dividem o asfalto lá embaixo e a polícia só aparece para quem
+            tem plano de saúde. Quem não consegue acompanhar o ritmo vira estatística, e ninguém para
+            para olhar.
+          </p>
+          <p>
+            À noite, com milhões de pessoas ao redor, a cidade consegue ser o lugar mais solitário do
+            mundo. Mesmo assim, todo mundo fica, porque aqui qualquer um pode virar lenda: basta um bom
+            trabalho, o implante certo e a coragem de arriscar. Só que a cidade sempre cobra a conta, e
+            ela costuma vir em sangue, cromo ou nos amigos que ficaram pelo caminho.
+          </p>
+          <div class="universe-thumbnails">
+            <button class="active" type="button" onclick="trocarMidia(img_night_city, this)"><img src="./assets/imagens%20-%20referencias/japantown.jpg" alt="Avenida de Japantown à noite, com o letreiro gigante em neon rosa e carros na pista molhada"></button>
+            <button type="button" onclick="trocarMidia(img_night_city, this)"><img src="./assets/imagens%20-%20referencias/nightcity%20moteljpg.jpg" alt="Carro parado em frente a um motel com letreiro em neon, numa rua vazia e molhada de Night City"></button>
+            <button type="button" onclick="trocarMidia(img_night_city, this)"><img src="./assets/imagens%20-%20referencias/dogtown.jpg" alt="Estádio de Dogtown coberto de anúncios em neon, envolto em neblina"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="page-footer">
+    <p>EDGERUNNING &copy; 2026 — projeto individual SPTech</p>
+    <p>Projeto de fã, sem vínculo com a CD PROJEKT RED.</p>
+  </footer>
+
+  <script src="./js/sessao.js"></script>
+  <script src="./js/universo.js"></script>
+</body>
+</html>
