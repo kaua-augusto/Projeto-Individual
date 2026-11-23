@@ -569,6 +569,10 @@ th {
   transition: opacity 0.6s, transform 0.6s;
 }
 
+.universe-section:has(.universe-next) {
+  padding-bottom: 0;
+}
+
 .universe-section.visible {
   opacity: 1;
   transform: none;
@@ -622,6 +626,34 @@ th {
 .universe-thumbnails button:hover,
 .universe-thumbnails .active {
   border-color: var(--cyan);
+}
+
+.universe-next {
+  display: block;
+  width: 36px;
+  margin: 32px auto -32px;
+  color: var(--cyan);
+  filter: drop-shadow(0 0 6px var(--cyan));
+  animation: nudge-down 1.6s ease-in-out infinite;
+}
+
+.universe-next:hover,
+.universe-next:focus-visible {
+  color: var(--yellow);
+  filter: drop-shadow(0 0 6px var(--yellow));
+}
+
+.universe-next svg {
+  display: block;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3;
+}
+
+@keyframes nudge-down {
+  50% {
+    transform: translateY(10px);
+  }
 }
 
 .dashboard-sidebar {
