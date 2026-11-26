@@ -1,5 +1,3 @@
-var MODO_DEMO = false;
-
 var MILISSEGUNDOS_POR_DIA = 86400000;
 var TEMPO_MENSAGEM = 5000;
 
@@ -98,10 +96,6 @@ function fecharMenu() {
 }
 
 function chamarApi(url, opcoes) {
-  if (MODO_DEMO) {
-    return respostaMock(url, opcoes);
-  }
-
   return fetch(url, opcoes)
     .catch(function () {
       throw { status: 0, codigo: 'SEM_CONEXAO', mensagem: 'Não foi possível conectar ao servidor.' };

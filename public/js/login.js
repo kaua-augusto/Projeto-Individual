@@ -1,9 +1,5 @@
 redirecionarSeLogado();
 
-if (MODO_DEMO) {
-  p_dica_demo.textContent = 'MODO DEMO — teste com v@nightcity.net / samurai';
-}
-
 var motivo = new URLSearchParams(location.search).get('motivo');
 if (motivo == 'sessao') {
   mostrarMensagem('Faça login para abrir o painel.');

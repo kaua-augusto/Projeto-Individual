@@ -133,10 +133,6 @@ function salvarPendentesAoSair() {
   var ids = Object.keys(salvamentosPendentes);
   for (var i = 0; i < ids.length; i++) {
     clearTimeout(temporizadoresSalvar[ids[i]]);
-    if (MODO_DEMO) {
-      salvarCategoria(ids[i], salvamentosPendentes[ids[i]]);
-      continue;
-    }
     fetch('/progresso/atualizar', {
       method: 'PUT',
       keepalive: true,
