@@ -1204,6 +1204,10 @@ th {
   color: var(--magenta);
 }
 
+.card-valor-falta .card-unit {
+  color: inherit;
+}
+
 .card-valor-info {
   color: var(--cyan);
 }
