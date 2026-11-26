@@ -224,7 +224,6 @@ Passwords are stored as plain text, as in the course template. Every query uses 
 
 Planned work, tracked on the [Trello board](https://trello.com/b/2Ld9keMx/edgerunning):
 
-- A forecast of when the player reaches 100%, calculated from the monthly timeline and shown on the dashboard.
 - The 8 mission category totals checked against the game, replacing the example values in the seed.
 - MySQL running on a Linux VM, with the API connected to it.
 
