@@ -610,6 +610,26 @@ th {
   border: 2px solid var(--yellow);
 }
 
+.universe-interesse {
+  font-size: inherit;
+}
+
+.universe-interesse:not([open]) {
+  height: 0;
+}
+
+.universe-interesse summary {
+  padding: 3px 8px;
+  border: 2px solid var(--yellow);
+  border-top: 0;
+  color: var(--yellow);
+  list-style: none;
+}
+
+.universe-interesse p {
+  padding: 8px 8px 0;
+}
+
 .universe-thumbnails {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
