@@ -40,7 +40,7 @@ Code style and organization follow the user's group project Blue Cheese (tempera
 - Dashboard colors have a fixed meaning: yellow = main or completed, green = information, magenta = what is missing or an alert.
 - A missing or future unlock date is saved as today. Mission counters are clamped between 0 and the category total.
 - Missions overall % = average of the category percentages, so every category weighs the same.
-- Category totals in the seed are placeholder values until checked against the game.
+- Category totals in the seed are the game's totals for the base game plus Phantom Liberty, counting every mission that exists (alternative endings and branches included): main jobs 63, side jobs 104, gigs 81, NCPD scanner hustles 156, cyberpsychos 17, tarot cards 26, vehicles 88 (every ownable car and bike, bought or rewarded), iconic weapons 113. Running the script again updates the totals and lowers saved counters that are above the new total.
 
 ## Data and API Conventions
 

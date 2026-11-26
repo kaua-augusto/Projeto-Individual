@@ -126,7 +126,7 @@ The code is organized and written like the Blue Cheese group project, also built
    mysql -u root -p < src/database/script-tabelas.sql
    ```
 
-   The script creates the `edgerunning` database, its tables, the 57 achievements with their icons, the 8 mission categories and the views the API reads from. It can be run again at any time, also on a database created by an older version: it uses `create ... if not exists`, `insert ignore` and `on duplicate key update` over unique names, adds missing columns only when they do not exist, and keeps every player's progress.
+   The script creates the `edgerunning` database, its tables, the 57 achievements with their icons, the 8 mission categories and the views the API reads from. It can be run again at any time, also on a database created by an older version: it uses `create ... if not exists`, `insert ignore` and `on duplicate key update` over unique names, adds missing columns only when they do not exist, and keeps every player's progress. Running it again also updates the category totals and lowers any saved mission counter that is above its category's new total.
 
 4. Copy `.env.dev.exemplo` to `.env.dev` in the project root and fill in your MySQL settings:
 
@@ -207,7 +207,7 @@ Defined in `src/database/script-tabelas.sql` (MySQL 8):
 | `tempoJogo` | Each user's `horasJogadas` and `dtHoras`, the date hours were last updated; its primary key is `fkUsuario`, so a user has at most one row (1:1) |
 | `conquista` | The game's 57 achievements, with description, reference global rarity and icon file name (`imagem`) |
 | `conquistaUsuario` | Which achievements each user marked, and the unlock date |
-| `categoria` | The 8 mission categories and their totals (example values, to be checked against the game) |
+| `categoria` | The 8 mission categories and their totals in the game, base game plus Phantom Liberty, counting every mission that exists |
 | `progresso` | Each user's counter per category |
 
 | View | Content | Used by |
@@ -224,7 +224,6 @@ Passwords are stored as plain text, as in the course template. Every query uses 
 
 Planned work, tracked on the [Trello board](https://trello.com/b/2Ld9keMx/edgerunning):
 
-- The 8 mission category totals checked against the game, replacing the example values in the seed.
 - MySQL running on a Linux VM, with the API connected to it.
 
 ## Links
