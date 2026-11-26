@@ -73,7 +73,13 @@ function finalizarAguardar(texto) {
   }
 }
 
+function mostrarSucesso(texto) {
+  mostrarMensagem(texto);
+  div_alerta.classList.add('alert-success');
+}
+
 function mostrarMensagem(texto) {
+  div_alerta.classList.remove('alert-success');
   span_mensagem.textContent = texto;
   div_alerta.hidden = false;
 

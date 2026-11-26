@@ -37,7 +37,7 @@ Code style and organization follow the user's group project Blue Cheese (tempera
 - Rarity by the reference global percentage stored per achievement: Legendary < 5, Epic < 10, Rare < 20, Uncommon < 50, otherwise Common.
 - An achievement with an empty description is secret; the UI shows a placeholder instead of the description.
 - Achievement icons are local files in `public/assets/img/conquistas/`, named in the `imagem` column. A locked icon is shown in grayscale; a secret achievement that is still locked shows `?` instead of the icon, to avoid spoilers; an icon that fails to load falls back to the initials of the name.
-- Dashboard colors have a fixed meaning: yellow = main or completed, green = information, magenta = what is missing or an alert.
+- Dashboard colors have a fixed meaning: yellow = main or completed, green = information or a saved change, magenta = what is missing or an alert. On the dashboard pages, a message that confirms a save (`mostrarSucesso`) has a green border; errors and warnings (`mostrarMensagem`) keep the magenta one.
 - A missing or future unlock date is saved as today. Mission counters are clamped between 0 and the category total.
 - Missions overall % = average of the category percentages, so every category weighs the same.
 - Category totals in the seed are the game's totals for the base game plus Phantom Liberty, counting every mission that exists (alternative endings and branches included): main jobs 63, side jobs 104, gigs 81, NCPD scanner hustles 156, cyberpsychos 17, tarot cards 26, vehicles 88 (every ownable car and bike, bought or rewarded), iconic weapons 113. Running the script again updates the totals and lowers saved counters that are above the new total.

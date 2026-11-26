@@ -121,7 +121,7 @@ function salvarCategoria(idCategoria, concluidas) {
     })
   })
     .then(function () {
-      mostrarMensagem('Progresso salvo.');
+      mostrarSucesso('Progresso salvo.');
     })
     .catch(function (erro) {
       console.error(erro);

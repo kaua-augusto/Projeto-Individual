@@ -358,7 +358,7 @@ function salvarHoras() {
       perfil.dtHoras = json.dtHoras;
       fecharFormularioHoras();
       atualizarPainel();
-      mostrarMensagem('Horas atualizadas.');
+      mostrarSucesso('Horas atualizadas.');
     })
     .catch(function (erro) {
       console.error(erro);

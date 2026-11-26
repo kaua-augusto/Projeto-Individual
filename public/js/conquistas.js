@@ -159,7 +159,7 @@ function marcarConquista(idConquista, desbloqueada, data) {
       conquista.desbloqueadaEm = json.desbloqueada ? new Date(json.data + MEIO_DIA).getTime() : null;
       atualizarContadores();
       mostrarConquistas();
-      mostrarMensagem(conquista.nome + (json.desbloqueada ? ' registrada.' : ' desmarcada.'));
+      mostrarSucesso(conquista.nome + (json.desbloqueada ? ' registrada.' : ' desmarcada.'));
     })
     .catch(function (erro) {
       console.error(erro);

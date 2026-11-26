@@ -294,6 +294,10 @@ th {
   background: var(--surface);
 }
 
+.alert-success {
+  border-color: var(--cyan);
+}
+
 .status {
   color: var(--cyan);
 }
