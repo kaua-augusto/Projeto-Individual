@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agradecimentos | EDGERUNNING</title>
+  <link rel="icon" href="./assets/Logo/favicon.ico" sizes="any">
+  <link rel="icon" href="./assets/Logo/edgerunning-cruz-simples.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./assets/Logo/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&display=swap">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+  <header class="header">
+    <h1 class="brand"><a href="./index.html"><img class="brand-symbol" src="./assets/Logo/edgerunning-cruz.svg" alt="">EDGERUNNING</a></h1>
+    <button class="menu-button" id="btn_menu" type="button" aria-expanded="false" aria-controls="nav_menu" onclick="alternarMenu()">Menu</button>
+    <nav id="nav_menu" aria-label="Navegação principal" onclick="fecharMenu()">
+      <a href="./index.html">Inicial</a>
+      <a href="./index.html#como-funciona">Como funciona</a>
+      <a href="./index.html#sobre">Sobre</a>
+      <span class="nav-divider" aria-hidden="true"></span>
+      <a href="./universo.html">Universo</a>
+      <span class="nav-divider" aria-hidden="true"></span>
+      <a href="./agradecimentos.html" class="active">Agradecimentos</a>
+      <span class="nav-divider" aria-hidden="true"></span>
+      <a id="a_login" href="./login.html">Login</a>
+      <a id="a_cadastro" href="./cadastro.html">Cadastro</a>
+    </nav>
+  </header>
+
+  <main class="agradecimentos">
+    <div class="agradecimento-palco">
+      <section class="agradecimento-painel" id="section_painel" aria-labelledby="h2_obrigado">
+        <span class="agradecimento-lateral" aria-hidden="true">NC-2077 // SUPORTE ATIVO</span>
+        <span class="agradecimento-lateral agradecimento-lateral-direita" aria-hidden="true">LINK NEURAL // ESTÁVEL</span>
+
+        <div class="agradecimento-barra">
+          <p class="agradecimento-abas"><span id="span_categoria"></span><span id="span_papel"></span></p>
+          <h2 class="agradecimento-aba-ativa" id="h2_obrigado"><span aria-hidden="true">◂</span>Obrigado<span aria-hidden="true">▸</span></h2>
+          <p class="brand">EDGERUNNING</p>
+        </div>
+
+        <p class="agradecimento-apelido" id="p_apelido"></p>
+
+        <div class="agradecimento-corpo">
+          <div class="agradecimento-coluna">
+            <h3>Marca registrada</h3>
+            <div class="agradecimento-marca">
+              <span id="span_marca_icone" aria-hidden="true"></span>
+              <p id="p_marca_legenda"></p>
+            </div>
+
+            <h3>Cyberware</h3>
+            <ul class="agradecimento-qualidades" id="ul_qualidades"></ul>
+
+            <h3>Hacks</h3>
+            <ul class="agradecimento-hacks" id="ul_hacks"></ul>
+          </div>
+
+          <div class="agradecimento-foto">
+            <img id="img_foto" src="./assets/img/agradecimentos/exemplo.svg" alt="Foto de exemplo">
+          </div>
+
+          <div class="agradecimento-coluna">
+            <p class="agradecimento-atributo agradecimento-atributo-principal"><span aria-hidden="true">◆</span>Anos de apoio <b id="b_anos"></b></p>
+            <p class="agradecimento-atributo"><span aria-hidden="true">◇</span>Inspiração <b id="b_inspiracao"></b></p>
+
+            <div class="agradecimento-perks">
+              <div class="agradecimento-arvore" aria-hidden="true">
+                <span class="agradecimento-octogono">3/3</span>
+                <span class="agradecimento-octogono">2/2</span>
+                <span class="agradecimento-octogono">1/1</span>
+              </div>
+              <div class="agradecimento-porque" id="div_porque">
+                <h3>Por que</h3>
+                <p id="p_porque"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="agradecimento-indicadores" id="div_indicadores"></div>
+
+      </section>
+
+      <button class="agradecimento-seta" type="button" aria-label="Pessoa anterior" onclick="mostrarAnterior()">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 4l-8 8 8 8"/></svg>
+      </button>
+      <button class="agradecimento-seta agradecimento-seta-proxima" type="button" aria-label="Próxima pessoa" onclick="mostrarProxima()">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4l8 8-8 8"/></svg>
+      </button>
+    </div>
+  </main>
+
+  <footer class="page-footer">
+    <p>EDGERUNNING &copy; 2026 — projeto individual SPTech</p>
+    <p>Projeto de fã, sem vínculo com a CD PROJEKT RED.</p>
+  </footer>
+
+  <script src="./js/sessao.js"></script>
+  <script src="./js/agradecimentos.js"></script>
+</body>
+</html>
