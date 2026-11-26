@@ -36,7 +36,7 @@ Code style and organization follow the user's group project Blue Cheese (tempera
 - Rarity by the reference global percentage stored per achievement: Legendary < 5, Epic < 10, Rare < 20, Uncommon < 50, otherwise Common.
 - An achievement with an empty description is secret; the UI shows a placeholder instead of the description.
 - Achievement icons are local files in `public/assets/img/conquistas/`, named in the `imagem` column. A locked icon is shown in grayscale; a secret achievement that is still locked shows `?` instead of the icon, to avoid spoilers; an icon that fails to load falls back to the initials of the name.
-- Dashboard colors have a fixed meaning: yellow = main or completed, cyan = information, magenta = what is missing or an alert.
+- Dashboard colors have a fixed meaning: yellow = main or completed, green = information, magenta = what is missing or an alert.
 - A missing or future unlock date is saved as today. Mission counters are clamped between 0 and the category total.
 - Missions overall % = average of the category percentages, so every category weighs the same.
 - Category totals in the seed are placeholder values until checked against the game.
