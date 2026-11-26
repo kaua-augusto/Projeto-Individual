@@ -135,15 +135,21 @@ concluidas int default 0,
 primary key (fkUsuario, fkCategoria)
 );
 
-insert ignore into categoria (nome, descricao, total) values
-('Missões principais', 'história e finais', 26),
-('Trabalhos secundários', 'side jobs', 60),
-('Gigs', 'fixers de todos os distritos', 75),
-('Ocorrências NCPD', 'scanner hustles', 160),
+insert into categoria (nome, descricao, total) values
+('Missões principais', 'história e finais', 63),
+('Trabalhos secundários', 'side jobs', 104),
+('Gigs', 'fixers de todos os distritos', 81),
+('Ocorrências NCPD', 'scanner hustles', 156),
 ('Ciberpsicóticos', 'avistamentos', 17),
-('Cartas de tarô', 'grafites pela cidade', 23),
-('Veículos', 'garagem', 90),
-('Armas icônicas', 'arsenal', 70);
+('Cartas de tarô', 'grafites pela cidade', 26),
+('Veículos', 'garagem', 88),
+('Armas icônicas', 'arsenal', 113)
+on duplicate key update total = values(total), descricao = values(descricao);
+
+update progresso as p
+	join categoria as c on c.idCategoria = p.fkCategoria
+set p.concluidas = c.total
+where p.concluidas > c.total;
 
 create or replace view vwConquistaUsuario as
 select u.idUsuario,
