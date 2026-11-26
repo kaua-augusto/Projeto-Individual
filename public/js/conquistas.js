@@ -45,6 +45,7 @@ function atualizarContadores() {
   var faltando = conquistas.length - feitas;
   var porcentagem = porcentagemConclusao(feitas, conquistas.length);
 
+  span_qtd_conquistas.textContent = conquistas.length;
   span_contador_feitas.textContent = feitas;
   span_contador_total.textContent = conquistas.length;
   span_contador_porcentagem.textContent = porcentagem.toLocaleString('pt-BR');
