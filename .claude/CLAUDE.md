@@ -72,7 +72,7 @@ Do not commit on your own. Commit only when the user asks, using the `commit` sk
 
 - Code identifiers and ids (JS, CSS, HTML, SQL): **Portuguese**, as in web-data-viz and Blue Cheese. CSS class names and `:root` tokens keep their existing names.
 - Commit messages and documentation (`README.md`, this file): **English**.
-- UI copy (labels, buttons, messages shown to the user) and mock/fixture
+- UI copy (labels, buttons, messages shown to the user) and seed
   *content* (achievement names, category names, user names, etc.): **Portuguese**,
   since the product is for Portuguese speakers.
 
@@ -147,7 +147,7 @@ Always write the front-end in the Blue Cheese style.
 * Ids are Portuguese, with a prefix for the element type (`span_horas`, `input_email`, `btn_entrar`, `div_alerta`, `ul_recentes`, `tbody_linha_tempo`); chart canvases are camelCase (`graficoLinhaTempo`). Scripts use the ids directly as variables (`span_horas.textContent`) and `document.getElementById` only for ids built at runtime (`'input_qtd_' + id`).
 * The current menu link gets `class="active"`. Every form field has a `<label for>`.
 * Events are inline attributes: `onclick="limparSessao()"`, `onsubmit="return entrar()"` (the function returns `false`), `onchange`, `oninput`, `onerror`. `addEventListener` only for `window`/`document` events.
-* Scripts load at the end of `<body>`, without `defer`, in this order: `dados-mock.js`, `sessao.js`, `painel.js` (dashboard pages), the page's own `js/<page>.js`. Chart.js comes from the CDN in `<head>`.
+* Scripts load at the end of `<body>`, without `defer`, in this order: `sessao.js`, `painel.js` (dashboard pages), the page's own `js/<page>.js`. Chart.js comes from the CDN in `<head>`.
 * JavaScript: `var` and `function`, single quotes, 2-space indentation, Portuguese names (`validarSessao`, `chamarApi`, `mostrarMensagem`), and a block at the end of the file that calls the page's loader.
 * Charts are created once with `new Chart(canvas, {...})`; when the data changes the script replaces `chart.data` and calls `chart.update()`.
 * Message text lives in the HTML, so a sentence can be changed without touching the JS: each value inside a sentence is a `<span id>` that the JS fills (`Média das <span id="span_qtd_categorias"></span> categorias: <span id="span_media_missoes"></span>%`), and each alternative message (empty state, singular/plural ending, "ainda não informado") is its own element that the JS shows or hides with `hidden`. Only text repeated per item of a list (cards, rows, chart tooltips) stays in the JS template.

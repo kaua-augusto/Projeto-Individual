@@ -81,8 +81,7 @@ How the numbers are calculated:
 │   │   └── img/agradecimentos/  # Photos for the Thanks page
 │   └── js/                 # One script per page, plus the shared ones below
 │       ├── sessao.js       # Session, API calls, messages and formatting, used by every page
-│       ├── painel.js       # Rules and loading states shared by the dashboard pages
-│       └── dados-mock.js   # Fake API answers for demo mode
+│       └── painel.js       # Rules and loading states shared by the dashboard pages
 ├── src/
 │   ├── routes/             # API routes
 │   ├── controllers/        # Request validation and responses
@@ -152,10 +151,6 @@ The code is organized and written like the Blue Cheese group project, also built
 6. Open `http://<APP_HOST>:<APP_PORT>` in the browser.
 
 Use `npm run dev` to restart the server automatically when a file changes.
-
-### Demo mode
-
-To see the pages without the server or the database, set `var MODO_DEMO = true;` in `public/js/sessao.js` and open the pages from any static server. API calls are then answered by `public/js/dados-mock.js` and saved in `sessionStorage`. Log in with **v@nightcity.net / samurai** to see a sample account with data, or sign up to start from zero. Set it back to `false` before running with the real server.
 
 ## Pages
 
