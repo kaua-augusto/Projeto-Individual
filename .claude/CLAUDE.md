@@ -26,6 +26,7 @@ Code style and organization follow the user's group project Blue Cheese (tempera
 - **Missions:** progress counters for 8 categories (main jobs, side jobs, gigs, NCPD scanner hustles, cyberpsychos, tarot cards, vehicles, iconic weapons), saved automatically.
 - **Overview dashboard:** completion percentage, achievements unlocked, what is left to reach 100% and hours played in the first row; the monthly timeline and the progress of the 8 mission categories in the second; highlight lists (easiest missing, most recent, rarest owned) in the third.
 - **Universe:** a public reading page (story, cyberpunk aesthetic, Night City), one dark card per section, lit by a purple gradient, with a large image and three thumbnails that swap it. Official art and screenshots of the game are allowed: they are local files in `public/assets/imagens - referencias/`, each with a descriptive `alt`. Below each large image, a "Por que isso me interessa" `<details>` opens a short personal text, written in `universo.html`; closed, it takes no height, so the section keeps its size.
+- **Thanks:** a public, static page (`agradecimentos.html`) that shows each person who helped the author as a Cyberpunk 2077 "build" card in a dark wine panel with red borders. The people are a `pessoas` array in `public/js/agradecimentos.js`, and their photos are in `public/assets/img/agradecimentos/`. Arrows, arrow keys and dots switch person in a loop. No game art: icons are Unicode or emoji.
 
 ## Business Rules
 
@@ -141,7 +142,7 @@ Follow Clean Code (Robert C. Martin) for naming and documentation.
 
 Always write the front-end in the Blue Cheese style.
 
-* Pages sit directly in `public/` (`index.html`, `login.html`, `cadastro.html`, `dashboard.html`, `conquistas.html`, `missoes.html`, `universo.html`) and link `./style.css`.
+* Pages sit directly in `public/` (`index.html`, `login.html`, `cadastro.html`, `dashboard.html`, `conquistas.html`, `missoes.html`, `universo.html`, `agradecimentos.html`) and link `./style.css`.
 * HTML: `<!DOCTYPE html>` and 2-space indentation. Public pages use `header`, `nav`, `main`, `section` and `footer`; dashboard pages use the Blue Cheese shell: `body.dashboard-page` > `div.dashboard-sidebar` (`sidebar-brand`, `sidebar-nav`, `sidebar-account`) + `div.dashboard` (`img.dashboard-background`, a photo fixed to the screen behind the content and beside the sidebar; `dashboard-header`, `dashboard-cards` of `dashboard-card`, `dashboard-grid` of `dashboard-panel` with `dashboard-panel-header` and `dashboard-chart-container`).
 * Ids are Portuguese, with a prefix for the element type (`span_horas`, `input_email`, `btn_entrar`, `div_alerta`, `ul_recentes`, `tbody_linha_tempo`); chart canvases are camelCase (`graficoLinhaTempo`). Scripts use the ids directly as variables (`span_horas.textContent`) and `document.getElementById` only for ids built at runtime (`'input_qtd_' + id`).
 * The current menu link gets `class="active"`. Every form field has a `<label for>`.
@@ -157,7 +158,7 @@ Always write the front-end in the Blue Cheese style.
 # CSS Rules
 
 * One stylesheet for the whole site, `public/style.css`, as in Blue Cheese. A rule shared by several pages is written once; never duplicate a rule, and delete rules that no page uses any more.
-* Order: `:root` tokens, `*` reset, element base styles, then the rules grouped by component or page, with no banner comments (public header, buttons, background photos, landing page, login and sign-up, footer, dashboard sidebar, dashboard cards and charts, achievements, missions), and the single media query (`max-width: 800px`) at the end. 2-space indentation and a blank line between rules.
+* Order: `:root` tokens, `*` reset, element base styles, then the rules grouped by component or page, with no banner comments (public header, buttons, background photos, landing page, login and sign-up, footer, dashboard sidebar, dashboard cards and charts, achievements, missions, thanks), and the single media query (`max-width: 800px`) at the end. 2-space indentation and a blank line between rules.
 * Use the `:root` variables for colors and fonts (`--base`, `--surface`, `--muted`, `--yellow`, `--cut-corners`…), and reuse existing classes (`.button`, `.section-label`, `.field`, plain `<p>` for muted text…) before creating new ones. Do not redeclare values that are inherited.
 * Keep it as simple as possible: short, low-specificity selectors, only the declarations that change something, and no `!important`.
 * Lay out pages and multi-column sections with CSS Grid; use flexbox inside components. Under 800px every grid becomes one column.

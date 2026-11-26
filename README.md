@@ -71,12 +71,14 @@ How the numbers are calculated:
 │   ├── conquistas.html     # Achievements
 │   ├── missoes.html        # Missions
 │   ├── universo.html       # Story, aesthetic and Night City
+│   ├── agradecimentos.html # Thanks, one "build" card per person
 │   ├── style.css           # The site's only stylesheet
 │   ├── assets/
 │   │   ├── Logo/           # Logo and favicons
 │   │   ├── index/          # Landing page photo
 │   │   ├── imagens - referencias/  # Background photos and Universe page images
-│   │   └── img/conquistas/ # The 57 achievement icons
+│   │   ├── img/conquistas/ # The 57 achievement icons
+│   │   └── img/agradecimentos/  # Photos for the Thanks page
 │   └── js/                 # One script per page, plus the shared ones below
 │       ├── sessao.js       # Session, API calls, messages and formatting, used by every page
 │       ├── painel.js       # Rules and loading states shared by the dashboard pages
@@ -166,6 +168,7 @@ To see the pages without the server or the database, set `var MODO_DEMO = true;`
 | `conquistas.html` | The 57 achievements with their icons: mark, unmark and change the unlock date; filter, search and sort |
 | `missoes.html` | − / + counters per category, saved automatically |
 | `universo.html` | Public page with three sections (story, the cyberpunk aesthetic, Night City); each has three thumbnails that swap the large image, and fades in when scrolled into view; an animated arrow below the first two links to the next section. Below each large image, a "Por que isso me interessa" button (`<details>`/`<summary>`, no JavaScript) opens a short personal text; the texts are written directly in `universo.html`, inside each `details.universe-interesse` |
+| `agradecimentos.html` | Public, static thanks page: each person is shown as a Cyberpunk 2077 "build" (category, role, photo, trademark, qualities, things they taught and why I am thankful). The arrows beside the panel, the left and right arrow keys and the dots switch person, wrapping around. The people live in the `pessoas` array of `public/js/agradecimentos.js` |
 
 Navigation rules:
 
@@ -239,4 +242,4 @@ Planned work, tracked on the [Trello board](https://trello.com/b/2Ld9keMx/edgeru
 
 ## Disclaimer
 
-Edgerunning is a fan project made for study and personal satisfaction purposes. It is not affiliated with or endorsed by CD PROJEKT RED. Cyberpunk 2077 and its related names are trademarks of their owners. The achievement icons in `public/assets/img/conquistas/` are the game's official artwork, downloaded once from the game's public Steam achievements page and served from the project's own files. The images on the Universe page, in `public/assets/imagens - referencias/`, are official art and screenshots of the game, also served from the project's own files.
+Edgerunning is a fan project made for study and personal satisfaction purposes. It is not affiliated with or endorsed by CD PROJEKT RED. Cyberpunk 2077 and its related names are trademarks of their owners. The achievement icons in `public/assets/img/conquistas/` are the game's official artwork, downloaded once from the game's public Steam achievements page and served from the project's own files. The Thanks page uses no game art: its icons are Unicode characters and emoji. The images on the Universe page, in `public/assets/imagens - referencias/`, are official art and screenshots of the game, also served from the project's own files.
