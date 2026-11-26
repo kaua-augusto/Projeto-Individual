@@ -165,7 +165,7 @@ To see the pages without the server or the database, set `var MODO_DEMO = true;`
 | `dashboard.html` | Completion %, unlocked, what is left, editable hours, monthly timeline, mission categories and highlight lists |
 | `conquistas.html` | The 57 achievements with their icons: mark, unmark and change the unlock date; filter, search and sort |
 | `missoes.html` | − / + counters per category, saved automatically |
-| `universo.html` | Public page with three sections (story, the cyberpunk aesthetic, Night City); each has three thumbnails that swap the large image, and fades in when scrolled into view; an animated arrow below the first two links to the next section |
+| `universo.html` | Public page with three sections (story, the cyberpunk aesthetic, Night City); each has three thumbnails that swap the large image, and fades in when scrolled into view; an animated arrow below the first two links to the next section. Below each large image, a "Por que isso me interessa" button (`<details>`/`<summary>`, no JavaScript) opens a short personal text; the texts are written directly in `universo.html`, inside each `details.universe-interesse` |
 
 Navigation rules:
 

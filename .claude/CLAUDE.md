@@ -25,7 +25,7 @@ Code style and organization follow the user's group project Blue Cheese (tempera
 - **Hours played:** the user types their total hours; the date of the last update is stored.
 - **Missions:** progress counters for 8 categories (main jobs, side jobs, gigs, NCPD scanner hustles, cyberpsychos, tarot cards, vehicles, iconic weapons), saved automatically.
 - **Overview dashboard:** completion percentage, achievements unlocked, what is left to reach 100% and hours played in the first row; the monthly timeline and the progress of the 8 mission categories in the second; highlight lists (easiest missing, most recent, rarest owned) in the third.
-- **Universe:** a public reading page (story, cyberpunk aesthetic, Night City), one dark card per section, lit by a purple gradient, with a large image and three thumbnails that swap it. Official art and screenshots of the game are allowed: they are local files in `public/assets/imagens - referencias/`, each with a descriptive `alt`.
+- **Universe:** a public reading page (story, cyberpunk aesthetic, Night City), one dark card per section, lit by a purple gradient, with a large image and three thumbnails that swap it. Official art and screenshots of the game are allowed: they are local files in `public/assets/imagens - referencias/`, each with a descriptive `alt`. Below each large image, a "Por que isso me interessa" `<details>` opens a short personal text, written in `universo.html`; closed, it takes no height, so the section keeps its size.
 
 ## Business Rules
 
