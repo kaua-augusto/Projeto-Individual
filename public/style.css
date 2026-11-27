@@ -692,6 +692,9 @@ th {
 
 .agradecimentos {
   padding: calc(var(--header-height) + 24px) var(--gutter) 48px;
+  background:
+    linear-gradient(to bottom right, color-mix(in srgb, var(--red) 14%, transparent), transparent 50%),
+    linear-gradient(to top left, color-mix(in srgb, var(--red) 14%, transparent), transparent 50%);
 }
 
 .agradecimento-painel {
