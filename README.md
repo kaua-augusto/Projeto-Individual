@@ -227,7 +227,7 @@ Planned work, tracked on the [Trello board](https://trello.com/b/2Ld9keMx/edgeru
 | --- | --- |
 | LinkedIn | [LinkedIn](https://www.linkedin.com/in/kaua-augusto-05186343a/) |
 | Trello board | [Trello](https://trello.com/b/2Ld9keMx/edgerunning) |
-| Documentation | [Documentation](https://bandteccom-my.sharepoint.com/:w:/g/personal/kaua_aguas_sptech_school/cQrIS3I8SY_oQbUd7l5SYRrDEgUBgqj2jMcxSxF-SgTp2J-BMg) |
+| Documentation | [Documentation](https://bandteccom-my.sharepoint.com/:w:/g/personal/kaua_aguas_sptech_school/cQrq-X3qtpzwR4eWTUQSzip9EgUBzV65Jz-KgzhVYb--d1LWHw) |
 
 ## Author
 
