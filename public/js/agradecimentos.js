@@ -150,11 +150,13 @@ function listarHacks(hacks) {
 }
 
 function criarIndicadores() {
-  var botoes = '';
   for (var indice = 0; indice < pessoas.length; indice++) {
-    botoes += '<button type="button" aria-label="Mostrar ' + escaparHtml(pessoas[indice].nome) + '" onclick="mostrarPessoa(' + indice + ')"></button>';
+    var botao = document.createElement('button');
+    botao.type = 'button';
+    botao.setAttribute('aria-label', 'Mostrar ' + pessoas[indice].nome);
+    botao.setAttribute('onclick', 'mostrarPessoa(' + indice + ')');
+    div_indicadores.appendChild(botao);
   }
-  div_indicadores.innerHTML = botoes;
 }
 
 function marcarIndicador() {
