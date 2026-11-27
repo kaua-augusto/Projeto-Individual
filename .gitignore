@@ -1,4 +1,5 @@
 node_modules/
+apresentacao/
 .env
 .env.dev
-apresentacao/
+.env.dev.exemplo
