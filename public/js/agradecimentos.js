@@ -1,88 +1,103 @@
 var TECLA_ANTERIOR = 'ArrowLeft';
 var TECLA_PROXIMA = 'ArrowRight';
 var CLASSE_TROCA = 'agradecimento-trocando';
-var FOTO_EXEMPLO = './assets/img/agradecimentos/exemplo.svg';
 
 var pessoas = [
   {
-    nome: 'Mãe',
-    categoria: 'Família/Mãe',
-    papel: 'Mentora',
-    apelido: 'M',
-    foto: FOTO_EXEMPLO,
-    marca: { icone: '☕', legenda: 'Café pronto antes de qualquer conversa difícil' },
+    nome: 'Andre "Zidane" Luis',
+    categoria: 'Família/Padrasto',
+    papel: 'Solo',
+    apelido: 'Zidane',
+    foto: './assets/img/agradecimentos/andre.png',
+    marca: { icone: '🛡️', legenda: 'Pai é quem cria' },
     qualidades: [
-      { icone: '⏳', nome: 'Paciência' },
-      { icone: '😄', nome: 'Humor' },
-      { icone: '🛡️', nome: 'Proteção' },
       { icone: '💪', nome: 'Força' },
+      { icone: '🛡️', nome: 'Proteção' },
       { icone: '🧭', nome: 'Direção' },
+      { icone: '📚', nome: 'Educação' },
+      { icone: '🤝', nome: 'Presença' },
       { icone: '❤️', nome: 'Carinho' }
     ],
     hacks: [
-      { icone: '⚙', texto: 'Resolver um problema de cada vez' },
-      { icone: '⌛', texto: 'Esperar a hora certa' },
-      { icone: '✎', texto: 'Anotar tudo para não esquecer' },
-      { icone: '☂', texto: 'Estar sempre preparado' },
-      { icone: '⚖', texto: 'Pensar antes de decidir' },
-      { icone: '☀', texto: 'Começar o dia cedo' },
-      { icone: '♫', texto: 'Cantar para aliviar o peso' },
+      { icone: '⚙', texto: 'Ser forte nas dificuldades' },
+      { icone: '✦', texto: 'Buscar sempre o melhor' },
+      { icone: '⚖', texto: 'Pensar no futuro' }
+    ],
+    anos: 18,
+    inspiracao: '9+',
+    porque: 'Meu padrasto me ensinou que pai é quem cria. Sempre buscou o melhor para minha educação e futuro, me criou para ser forte e lidar com as dificuldades. Muito obrigado!'
+  },
+  {
+    nome: 'Meire "mamãe" Ellen',
+    categoria: 'Família/Mãe',
+    papel: 'Mentora',
+    apelido: 'Mamãe',
+    foto: './assets/img/agradecimentos/meire.png',
+    marca: { icone: '❤️', legenda: 'Se sacrificou por mim e pela minha irmã' },
+    qualidades: [
+      { icone: '❤️', nome: 'Carinho' },
+      { icone: '🤗', nome: 'Amor' },
+      { icone: '🛡️', nome: 'Sacrifício' },
+      { icone: '🕊️', nome: 'Liberdade' },
+      { icone: '🧠', nome: 'Consciência' },
+      { icone: '✨', nome: 'Bondade' }
+    ],
+    hacks: [
+      { icone: '☀', texto: 'Ser bom com as pessoas' },
+      { icone: '🧭', texto: 'Trilhar o próprio caminho' },
       { icone: '✦', texto: 'Nunca desistir' }
     ],
-    anos: 20,
-    inspiracao: '9+',
-    porque: 'Texto de exemplo. Troque pelo motivo do agradecimento: o que ela fez, quando apareceu na sua vida e como ajudou você a chegar até aqui. Se o texto for longo, o painel ganha uma barra de rolagem.'
+    anos: 19,
+    inspiracao: '10',
+    porque: 'Minha mãe sempre se sacrificou por mim e minha irmã, me deu carinho, amor e condição para trilhar meu próprio caminho com consciência e liberdade. Me ensinou a ser bom. Muito obrigado!'
   },
   {
-    nome: 'Professor da SPTech',
-    categoria: 'SPTech/Professor',
+    nome: 'Tia Sandra',
+    categoria: 'Família/Tia',
+    papel: 'Fixer',
+    apelido: 'Tia',
+    foto: './assets/img/agradecimentos/sandra.png',
+    marca: { icone: '🎓', legenda: 'O sonho dela era me ver numa faculdade' },
+    qualidades: [
+      { icone: '❤️', nome: 'Amor' },
+      { icone: '📚', nome: 'Educação' },
+      { icone: '🤝', nome: 'Apoio' },
+      { icone: '🏠', nome: 'Segunda mãe' },
+      { icone: '🎯', nome: 'Carreira' },
+      { icone: '⏳', nome: 'Paciência' }
+    ],
+    hacks: [
+      { icone: '🎓', texto: 'Estudar para realizar sonhos' },
+      { icone: '🤝', texto: 'Apoiar com o que for possível' },
+      { icone: '✦', texto: 'Acreditar no futuro' }
+    ],
+    anos: 19,
+    inspiracao: '9+',
+    porque: 'Minha tia foi uma segunda mãe para mim, me educa, me ama e me apoia com tudo que lhe é possível para meu futuro e carreira, seu sonho era me ver numa faculdade, estou fazendo isso por ela também. Muito obrigado pelo apoio!'
+  },
+  {
+    nome: 'Professora Roberta',
+    categoria: 'ETEC/Professora',
     papel: 'Netrunner',
-    apelido: 'P',
-    foto: FOTO_EXEMPLO,
-    marca: { icone: '⌨', legenda: 'Sempre com um exemplo de código na manga' },
+    apelido: 'Prof',
+    foto: './assets/img/agradecimentos/roberta.png',
+    marca: { icone: '📖', legenda: 'Educação transforma a vida de alguém' },
     qualidades: [
       { icone: '🧠', nome: 'Didática' },
-      { icone: '⏳', nome: 'Paciência' },
-      { icone: '🔍', nome: 'Atenção' },
-      { icone: '💡', nome: 'Ideias' },
-      { icone: '🤝', nome: 'Apoio' },
-      { icone: '🎯', nome: 'Foco' }
+      { icone: '💡', nome: 'Inspiração' },
+      { icone: '🎯', nome: 'Incentivo' },
+      { icone: '🤝', nome: 'Confiança' },
+      { icone: '🔍', nome: 'Visão' },
+      { icone: '⏳', nome: 'Paciência' }
     ],
     hacks: [
-      { icone: '⚙', texto: 'Ler a mensagem de erro com calma' },
-      { icone: '⌕', texto: 'Pesquisar antes de perguntar' },
-      { icone: '✎', texto: 'Dar nomes que explicam o código' },
-      { icone: '⚑', texto: 'Fazer commits pequenos' },
-      { icone: '⚖', texto: 'Escolher a solução mais simples' },
-      { icone: '☰', texto: 'Organizar o projeto em camadas' }
-    ],
-    anos: 1,
-    inspiracao: '8+',
-    porque: 'Texto de exemplo. Conte aqui como esta pessoa ajudou no curso e no projeto.'
-  },
-  {
-    nome: 'Amigo da turma',
-    categoria: 'Amigos/Turma',
-    papel: 'Solo',
-    apelido: 'A',
-    foto: FOTO_EXEMPLO,
-    marca: { icone: '🎮', legenda: 'Parceiro de jogatina e de madrugada estudando' },
-    qualidades: [
-      { icone: '😄', nome: 'Humor' },
-      { icone: '🤝', nome: 'Lealdade' },
-      { icone: '⚡', nome: 'Energia' },
-      { icone: '🎧', nome: 'Escuta' },
-      { icone: '🧩', nome: 'Criatividade' },
-      { icone: '🔥', nome: 'Coragem' }
-    ],
-    hacks: [
-      { icone: '♫', texto: 'Estudar com uma boa playlist' },
-      { icone: '☕', texto: 'Fazer pausas na hora certa' },
-      { icone: '✦', texto: 'Comemorar cada entrega' }
+      { icone: '📖', texto: 'Aprender na prática' },
+      { icone: '🚀', texto: 'Ir atrás da oportunidade' },
+      { icone: '✦', texto: 'Acreditar na educação' }
     ],
     anos: 5,
     inspiracao: '9+',
-    porque: 'Texto de exemplo. Escreva aqui o motivo do agradecimento.'
+    porque: 'Foi minha professora e a do meu padrasto em tempos diferentes na ETEC, ela nos ensinou na prática o poder de transformação que a educação pode ter na vida de alguém. Me incentivou a entrar na SPTech por acreditar na metodologia de ensino de vocês. Não poderia ser mais grato, muito obrigado, professora!'
   }
 ];
 
