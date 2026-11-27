@@ -1,10 +1,10 @@
 set names utf8mb4;
 
-create database if not exists edgerunning;
+create database edgerunning;
 
 use edgerunning;
 
-create table if not exists usuario (
+create table usuario (
 idUsuario int primary key auto_increment,
 nome varchar(45) not null,
 email varchar(100) not null unique,
@@ -13,7 +13,7 @@ senha varchar(255) not null,
 dtCadastro datetime default current_timestamp
 );
 
-create table if not exists tempoJogo (
+create table tempoJogo (
 fkUsuario int primary key,
 horasJogadas int default 0,
 dtHoras datetime,
@@ -33,7 +33,7 @@ prepare removerHoras from @comandoRemoverHoras;
 execute removerHoras;
 deallocate prepare removerHoras;
 
-create table if not exists conquista (
+create table conquista (
 idConquista int primary key auto_increment,
 nome varchar(60) not null unique,
 descricao varchar(150),
@@ -50,7 +50,7 @@ prepare adicionarImagem from @comandoImagem;
 execute adicionarImagem;
 deallocate prepare adicionarImagem;
 
-create table if not exists conquistaUsuario (
+create table conquistaUsuario (
 fkUsuario int,
 fkConquista int,
 dtDesbloqueio date not null,
@@ -119,14 +119,14 @@ insert into conquista (nome, descricao, raridadeGlobal, imagem) values
 ('King of Cups', '', 4.2, 'king-of-cups.jpg')
 on duplicate key update imagem = values(imagem);
 
-create table if not exists categoria (
+create table categoria (
 idCategoria int primary key auto_increment,
 nome varchar(45) not null unique,
 descricao varchar(60),
 total int not null
 );
 
-create table if not exists progresso (
+create table progresso (
 fkUsuario int,
 fkCategoria int,
 concluidas int default 0,
@@ -151,7 +151,7 @@ update progresso as p
 set p.concluidas = c.total
 where p.concluidas > c.total;
 
-create or replace view vwConquistaUsuario as
+create vwConquistaUsuario as
 select u.idUsuario,
 	c.idConquista,
 	c.nome,
@@ -164,7 +164,7 @@ from usuario as u
 	left join conquistaUsuario as cu
 		on cu.fkUsuario = u.idUsuario and cu.fkConquista = c.idConquista;
 
-create or replace view vwProgressoUsuario as
+create vwProgressoUsuario as
 select u.idUsuario,
 	c.idCategoria,
 	c.nome,
@@ -176,7 +176,7 @@ from usuario as u
 	left join progresso as p
 		on p.fkCategoria = c.idCategoria and p.fkUsuario = u.idUsuario;
 
-create or replace view vwPerfilUsuario as
+create vwPerfilUsuario as
 select u.idUsuario,
 	u.nome,
 	t.horasJogadas,
